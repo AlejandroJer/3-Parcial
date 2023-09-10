@@ -4,7 +4,7 @@
     /* DEGRADADOS DE LOS COLORES PRINCIPALES */
     --main-color-deg-1: #dbb20e;
     --main-color-deg-2: #e9d37d;
-    --main-color-deg-3: #f1e8c5;
+    --main-color-deg-3: #fdf7e0;
 
     /* COLORES DE OPCIONES */
         /* ROJO */
@@ -49,6 +49,10 @@ section{
     display: flex;
 }
 
+main{
+    display: flex;
+}
+
 div{
     display: flex;
 }
@@ -56,10 +60,12 @@ div{
 a{
     text-decoration: none;
 }
+
+h1, h2, h3, h4{
+    margin: .5rem;
+}
 /* --------------------------------------------------- INDEX --------------------------------------------------- */
 .index_nav{
-    color: var(--main-color-deg-2);
-
     height: 100vh;
     width: 15rem;
 
@@ -81,6 +87,9 @@ a{
 
     padding: 0.5rem;
     margin: 10px;
+
+    user-select: none;
+    cursor: pointer;
 }
 
 .index_ul li:hover{
@@ -88,14 +97,52 @@ a{
 }
 
 .index_ul li.active{
-    background-color: var(--main-color-deg-3);
+    background-color: var(--main-color-deg-2);
+    color: black;
 }
 
 .index_container div{
+    flex-direction: column;
+    align-items: center;
+
     width: 10rem;
-    height: 5rem;
+    height: 8rem;
 
     margin: 2rem;
+
+    border: var(--main-color-deg-2) solid 1px;
+}
+
+.index_container div, .index_container div > *{
+    user-select: none;
+    cursor: pointer;
+}
+
+.index_container div h3{
+    width: 100%;
+    text-align: center;
+}
+
+.index_container div > *{
+    color: var(--main-color-deg-1);
+}
+
+.index_container div:hover{
+    border: black solid 1px;
+}
+
+.index_container div:hover > *{
+    color: black;
+}
+
+.index_container div h3::after{
+    content: "";
+
+    display: flex;
+
+    height: 1px;
+
+    border-bottom: var(--main-color-deg-2) solid 1px;
 }
 
 .search_bar{

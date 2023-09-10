@@ -126,6 +126,6 @@ const inCon = document.querySelector('.index_container')
 //     })
 // });
 
-for(let i=0; i < inCon.children.length; i++){
-    colorear(inCon.children[i])
-}
+// for(let i=0; i < inCon.children.length; i++){
+//     colorear(inCon.children[i])
+// }
