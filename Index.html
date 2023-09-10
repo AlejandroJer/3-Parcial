@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEMAS</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JEwelry MAnagement System</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="mostrarDashboard()">Dashboard</a></li>
+                <li><a href="#" onclick="mostrarFormulario('productos')">Productos</a></li>
+                <li><a href="#" onclick="mostrarFormulario('proveedores')">Proveedores</a></li>
+                <li><a href="#" onclick="mostrarFormulario('usuarios')">Usuarios</a></li>
+                <li><a href="#" onclick="mostrarFormulario('administrar')">Administrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Dashboard para gestionar o poder agregar alguna otra cosa mas (falta la abse de datos aun) -->
+    <section id="dashboard" class="hidden">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="#" onclick="mostrarFormulario('productos')">Gestionar Productos</a></li>
+            <li><a href="#" onclick="mostrarFormulario('proveedores')">Gestionar Proveedores</a></li>
+            <li><a href="#" onclick="mostrarFormulario('usuarios')">Gestionar Usuarios</a></li>
+        </ul>
+    </section>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar...">
+        <button type="button">Buscar</button>
+    </div>
+
+    <section id="formulario-container">
+        <!-- Form Produc -->
+        <form id="productos-formulario" class="formulario hidden">
+            <!-- ... (contenido del formulario de Productos) ... -->
+        </form>
+
+        <!-- Form Proveedores -->
+        <form id="proveedores-formulario" class="formulario hidden">
+            <!-- ... (contenido del formulario de Proveedores) ... -->
+        </form>
+
+        <!-- Form Usuarios -->
+        <form id="usuarios-formulario" class="formulario hidden">
+            <!-- ... (contenido del formulario de Usuarios) ... -->
+        </form>
+
+        <!-- Form Admin -->
+        <form id="administrar-formulario" class="formulario hidden">
+            <!-- ... (contenido del formulario de Administrar) ... -->
+        </form>
+    </section>
+
+    <script>
+        function mostrarDashboard() {
+            // Oculta todos los formularios
+            var formularios = document.querySelectorAll('.formulario');
+            for (var i = 0; i < formularios.length; i++) {
+                formularios[i].classList.add('hidden');
+            }
+
+            // Muestra el dashboard
+            document.getElementById('dashboard').classList.remove('hidden');
+        }
+
+        function mostrarFormulario(opcion) {
+            // Oculta todos los formularios
+            var formularios = document.querySelectorAll('.formulario');
+            for (var i = 0; i < formularios.length; i++) {
+                formularios[i].classList.add('hidden');
+            }
+
+            // Oculta el dashboard
+            document.getElementById('dashboard').classList.add('hidden');
+
+            // Muestra el formulario de la opción seleccionada
+            var formulario = document.getElementById(opcion + '-formulario');
+            formulario.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
