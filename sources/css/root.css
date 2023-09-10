@@ -1,0 +1,57 @@
+:root{
+    --main-color: #EBBB00;
+    
+    /* DEGRADADOS DE LOS COLORES PRINCIPALES */
+    --main-color-deg-1: #dbb20e;
+    --main-color-deg-2: #e9d37d;
+    --main-color-deg-3: #fdf7e0;
+}
+
+body{
+    margin: 0;
+}
+
+header{
+    color: var(--main-color);
+
+    display: flex;
+    align-items: center;
+
+    user-select: none;
+
+    height: 60px;
+
+    padding: 0 2rem;
+
+    border-bottom: var(--main-color) solid 1px;
+}
+
+section{
+    display: flex;
+}
+
+main{
+    display: flex;
+}
+
+div{
+    display: flex;
+}
+
+a{
+    text-decoration: none;
+
+    display: contents;
+}
+
+h1, h2, h3, h4{
+    margin: .5rem;
+}
+
+ul, ol{
+    list-style: none;
+}
+
+.hidden{
+    display: none;
+}

@@ -1,0 +1,49 @@
+
+/* --------------------------------------------------- INDEX --------------------------------------------------- */
+.dashboard_container div{
+    flex-direction: column;
+    align-items: center;
+
+    width: 10rem;
+    height: 8rem;
+
+    margin: 2rem;
+
+    border: var(--main-color-deg-2) solid 1px;
+}
+
+.dashboard_container div, .dashboard_container div > *{
+    user-select: none;
+    cursor: pointer;
+}
+
+.dashboard_container div h3{
+    width: 100%;
+    text-align: center;
+}
+
+.dashboard_container div > *{
+    color: var(--main-color-deg-1);
+}
+
+.dashboard_container div:hover{
+    border: black solid 1px;
+}
+
+.dashboard_container div:hover > *{
+    color: black;
+}
+
+.dashboard_container div h3::after{
+    content: "";
+
+    display: flex;
+
+    height: 1px;
+
+    border-bottom: var(--main-color-deg-2) solid 1px;
+}
+
+.search_bar{
+    margin: 2rem;
+}
