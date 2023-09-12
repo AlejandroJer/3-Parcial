@@ -1,0 +1,37 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Arial, Helvetica, sans-serif
+}
+
+body{
+
+    background-color: cornsilk;
+
+
+}
+
+.container{
+
+    display: flex;
+    height: 700px;
+    width: 1000px;
+    box-shadow: 0 0 20px, rgb(rgb(0, 0, 0));
+    margin: auto;
+    margin-top: 150px;
+}
+
+.info{
+
+    background-color: darkgoldenrod;
+    background-position: center center;
+    padding: 150px 50px;
+    width: 50%;
+}
+
+.text1{
+
+    color: aliceblue;
+}
