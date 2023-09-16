@@ -8,7 +8,7 @@ Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra 
 ## INTEGRANTES DEL PROYECTO
 
 <p align="center">
-    <a href="https://github.com/krahets/hello-algo/graphs/contributors">
+    <a href="https://github.com/AlejandroJer/3-Parcial/graphs/contributors">
         <img width="75" src="./contributors/CitlalyEstefania.jpeg" />
         <img width="75" src="./contributors/JDAA4.png" />
         <img width="75" src="./contributors/Jetza13.jpeg" />
