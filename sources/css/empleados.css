@@ -1,0 +1,44 @@
+.employeeAdd_container {
+    height: fit-content;
+    float: right;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 30px;
+    margin-top: 50px; 
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.btn {
+  background-color: #2980b9;
+  color: #ffffff;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #beaa5b;
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: #0b0b0b;
+}
+
+main{
+  display: flex;
+}
+
+
+
+
+    
