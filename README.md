@@ -7,6 +7,6 @@ Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra 
 
 <p align="center">
     <a href="https://github.com/AlejandroJer/3-Parcial/graphs/contributors" class="aMD">
-        <img width="550" src="./contributors/imgs/contributors.png" />
+        <img width="550" src="./sources/imgs/contributors.png" />
     </a>
 </p>
