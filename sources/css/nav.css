@@ -1,56 +1,101 @@
-.navHome{
-    height: calc(100vh - 65px);
-    width: 15rem;
+.dashboard_header{
+    background-color: var(--secondary-color);
 
-    border-right: var(--main-color-deg-2) solid 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    user-select: none;
+
+    min-height: 30vh;
+
+    border-bottom: var(--main-color) solid 1px;
+    border-right: var(--main-color) solid 1px;
+}
+
+.navHome{
+    height: 100vh;
+    width: 20rem;
+
+    background-color: var(--main-color);
 }
 
 .navHome_ol{
     display: flex;
     flex-direction: column;
 
-    margin: 0 1rem 0 0.5rem;
-    padding: 0%;
+    border-top: var(--secondary-color) solid 1px;
 }
 
-.navHome_ol li{
-    color: var(--main-color-deg-1);
-
-    padding: 0.5rem;
-    margin: 10px;
-
+.navHome_ol div{
+    color: var(--secondary-color);
     user-select: none;
     cursor: pointer;
+}
+
+.option{
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.option_container{
+    padding: .5rem;
+    margin: 0.2rem;
+
+    align-items: center;
+    justify-content: space-between;
+
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+.option_container div h3,
+.option_container div .iconify{
+    transition: color 0.2s ease-in-out;
+}
+
+.option_container > div{
+    align-items: center;
+}
+
+.option_container:hover{
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0%, transparent 100%);
+}
+
+.option.target{
+    border-left: var(--secondary-color) solid 5px;
+}
+
+.option.target .option_container{
+    background-color: var(--secondary-color);
+}
+
+.option.target .option_container div h3,
+.option.target .option_container div .iconify,
+.option.target .option_container .arrow{
+    color: var(--main-color);
 }
 
 .navHome_ul{
     flex-direction: column;
 
-    margin: 0 1rem 0 0.5rem;
-    padding: 0%;
+    margin: 0 0 0 2rem;
 }
 
-.navHome_ol li:hover:not(.active){
-    background-color: var(--main-color-deg-3);
+.navHome_ul li{
+    color: var(--secondary-color);
+
+    margin: 5px 0;
+    padding: .5rem;
 }
 
-.navHome_ol li.active{
-    color: black;
+.option.target .arrow{
+    transform: rotate(180deg);
 }
 
-.navHome_ol > li.active::before{
-    content: "";
-
-    display: flex;
-
-    width: 2px;
-    height: 20px;
-
-    transform: translateX(-5px) translateY(21px);
-
-    background-color: var(--main-color-deg-2);
-}
-
-.navHome_ol li.active:first-child{
-    background-color: var(--main-color-deg-2);
+.arrow{
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--secondary-color); /* You can change the color to your preference */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }

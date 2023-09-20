@@ -14,3 +14,9 @@ Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra 
         <img width="550" src="./sources/imgs/contributors.png" />
     </a>
 </p>
+
+## Recursos utilizados
+https://icon-sets.iconify.design/ic/baseline-inventory/
+https://icon-sets.iconify.design/fa-solid/users/
+https://icon-sets.iconify.design/clarity/employee-solid/
+

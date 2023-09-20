@@ -1,6 +1,15 @@
 
-/* --------------------------------------------------- INDEX --------------------------------------------------- */
-.dashboard_container div{
+.dashboard_container{
+    flex-direction: column;
+}
+
+.dashboard_container section:first-child{
+    min-height: 10vh;
+
+    flex-direction: column;
+}
+
+.dashboard_options div{
     flex-direction: column;
     align-items: center;
 
@@ -9,39 +18,39 @@
 
     margin: 2rem;
 
-    border: var(--main-color-deg-2) solid 1px;
+    border: var(--main-color) solid 1px;
 }
 
-.dashboard_container div, .dashboard_container div > *{
+.dashboard_options div, .dashboard_options div > *{
     user-select: none;
     cursor: pointer;
 }
 
-.dashboard_container div h3{
+.dashboard_options div h3{
     width: 100%;
     text-align: center;
 }
 
-.dashboard_container div > *{
-    color: var(--main-color-deg-1);
+.dashboard_options div > *{
+    color: var(--main-color);
 }
 
-.dashboard_container div:hover{
+.dashboard_options div:hover{
     border: black solid 1px;
 }
 
-.dashboard_container div:hover > *{
+.dashboard_options div:hover > *{
     color: black;
 }
 
-.dashboard_container div h3::after{
+.dashboard_options div h3::after{
     content: "";
 
     display: flex;
 
     height: 1px;
 
-    border-bottom: var(--main-color-deg-2) solid 1px;
+    border-bottom: var(--main-color) solid 1px;
 }
 
 .search_bar{

@@ -1,20 +1,17 @@
-const index = document.querySelector('.navHome_ol')
+const index = document.querySelectorAll('.option')
 
-for(let i=1; i < index.children.length; i++){
-    index.children[i].addEventListener('click', () => {
-        if(index.children[i].classList.contains('active')){
-            for(let j=1; j < index.children.length; j++){
-                index.children[j].classList.remove('active')
-                index.children[j].children[0]?.classList.add('hidden')
-            }
+index.forEach((item) => {
+    item.children[0].addEventListener('click', () => {
+        if(item.classList.contains('target')){
+            item.classList.remove('target')
+            item.children[1].classList.add('hidden')
         }else{
-            for(let j=1; j < index.children.length; j++){
-                index.children[j].classList.remove('active')
-                index.children[j].children[0]?.classList.add('hidden')
+            for(let i = 0; i < index.length; i++){
+                index[i].classList.remove('target')
+                index[i].children[1].classList.add('hidden')
             }
-
-            index.children[i].classList.add('active')
-            index.children[i].children[0].classList.remove('hidden')
+            item.classList.add('target')
+            item.children[1].classList.remove('hidden')
         }
     })
-}
+})
