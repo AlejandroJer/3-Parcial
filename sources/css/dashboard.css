@@ -2,6 +2,8 @@
 .dashboard_container{
     flex-direction: column;
 
+    width: 100%;
+
     background-color: var(--background-color);
 }
 
@@ -15,9 +17,6 @@
     align-items: center;
 
     height: 60px;
-    width: 100%;
-
-    /* border-bottom: var(--main-color) solid 1px; */
 
     background-color: var(--main-color);
 }

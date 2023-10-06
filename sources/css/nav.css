@@ -8,7 +8,7 @@
 
     user-select: none;
 
-    min-height: 30vh;
+    height: 20vh;
 
     border-bottom: var(--main-color) solid 1px;
     border-right: var(--main-color) solid 1px;
@@ -65,7 +65,7 @@
     background: var(--select-gradiant);
 }
 
-.target{
+.option.target, .active.target{
     border-left: var(--secondary-color) solid 5px;
 }
 
@@ -102,14 +102,30 @@
     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-#NavArrow{
-    border-top: 10px solid var(--main-color); 
-    transform: translateY(-3rem) translateX(7rem) rotate(90deg);
+.arrow:hover {
+    transform: scale(1.5);
+}
+
+#NavArrow.target{
+    border-top: 10px solid var(--secondary-color); 
+    transform: translateY(1rem) translateX(0) rotate(270deg);
+}
+
+#NavArrow.target:hover {
+    transform: translateY(1rem) translateX(0) rotate(270deg) scale(1.5);
 }
 
 #NavArrow{
+    position: absolute;
+
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid var(--main-color); 
+    border-top: 10px solid var(--main-color);
+
+    transform: translateY(1rem) translateX(-2rem) rotate(90deg);
     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#NavArrow:hover {
+    transform: translateY(1rem) translateX(-2rem) rotate(90deg) scale(1.5);
 }
