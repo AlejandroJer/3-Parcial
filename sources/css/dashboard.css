@@ -1,6 +1,25 @@
 
 .dashboard_container{
     flex-direction: column;
+
+    background-color: var(--background-color);
+}
+
+.dashboard_main{
+    flex-direction: column;
+
+    margin: 3rem 0 0 3rem;
+}
+
+.dashboard_container_header {
+    align-items: center;
+
+    height: 60px;
+    width: 100%;
+
+    /* border-bottom: var(--main-color) solid 1px; */
+
+    background-color: var(--main-color);
 }
 
 .dashboard_container section:first-child{
