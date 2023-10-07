@@ -6,6 +6,7 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
+    <link rel="stylesheet" href="../sources/css/inventario.css">
 </head>
 <body>
     <section class="index_section">
@@ -64,10 +65,84 @@
                 </div>
             </div>
         </nav>
-
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
+                <main class="dashboard_container">
+                    <form action="/add-inventario" method="post">
+                        <div class="form-row">
+                        <input type="hidden" name="id_inv" value="null">
+                        <div class="form-group">
+                            <label for="producto-nombre">Nombre del producto:</label>
+                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto">
+                        </div>
+                        <div class="form-group">
+                            <label for="producto-proveedor">ID del Proveedor:</label>
+                            <input type="number" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor">
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="precio-venta">Precio de venta:</label>
+                            <input type="number" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $">
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="precio-compra">Precio de compra:</label>
+                            <input type="number" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="producto-categoria">Categoría:</label>
+                            <select name="categoria">
+                                <option value="Anillo">Anillos</option>
+                                <option value="Collar">Collares y Colgantes</option>
+                                <option value="Pulsera">Pulseras</option>
+                                <option value="Pulsera">Pendientes</option>
+                                <option value="Pulsera">Relojes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_material">Material:</label>
+                            <select name="tipo_material">
+                                <option value="Oro">Oro</option>
+                                <option value="Plata">Plata</option>
+                                <option value="Platino">Platino</option>
+                                <option value="Cobre">Cobre</option>
+                            </select>  
+                        </div>
+                    </div> 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="peso">Peso:</label>
+                            <input type="number" class="form-control" name="peso" id="peso" placeholder="Peso">
+                        </div>
+                        <div class="form-group">
+                            <label for="producto-cantidad-disponible">Cantidad disponible:</label>
+                            <input type="number" class="form-control" name="cantidad_disponible" id="cantidad_disponible" placeholder="Disponible">
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
+                            <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="producto-descripcion">Descripción:</label>
+                                <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required></textarea>
+                            </div>  
+                            <div class="form-group">
+                                <label for="imagen">Imagen del Producto:</label>
+                                <input type="file" accept=".jpeg, .png, .jpg "  name="image">
+                                </div>
+                            </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    
+                    </form>
+                </main>
             </header>
         </section>
     </section>

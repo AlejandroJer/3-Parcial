@@ -1,22 +1,23 @@
-.employeeAdd_container {
+.dashboard_container {
   height: fit-content;
-  float: right;
-  width: 500px;
-  background-color: #ffffff;
+  float: center;
+  width: 650px;
+  background-color: #bdb2c3;
   border-radius: 4px;
-  padding: 30px;
-  margin-top: 50px; 
+  padding: 80px;
+  margin-top: 80px; 
   margin-left: auto;
   margin-right: auto;
   
 }
 
 .form-group {
-margin-bottom: 16px;
+margin-bottom: 15px;
 }
 
 .form-control {
 border: 1px solid #ccc;
+border-radius: 10px;
 padding: 10px;
 font-size: 16px;
 }
@@ -29,11 +30,10 @@ font-size: 16px;
   border: 1px solid #beaa5b;
   border-radius: 5px;
 }
-
 .btn-primary {
-background-color: #000000;
+  background-color: #4b3755;
 }
+.btn-danger {
+    background-color: #000000;
+  }
 
-main{
-display: flex;
-}
