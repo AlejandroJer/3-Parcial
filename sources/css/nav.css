@@ -1,4 +1,4 @@
-.dashboard_header{
+.navHome_header{
     background-color: var(--secondary-color);
 
     display: flex;
@@ -17,6 +17,22 @@
 .navHome{
     height: 100vh;
     width: 20rem;
+
+    background-color: var(--main-color);
+}
+
+.main_container{
+    flex-direction: column;
+
+    width: 100%;
+
+    background-color: var(--background-color);
+}
+
+.main_header {
+    align-items: center;
+
+    height: 60px;
 
     background-color: var(--main-color);
 }
@@ -65,7 +81,7 @@
     background: var(--select-gradiant);
 }
 
-.option.target, .active.target{
+.option.target, .active.target, .option .target{
     border-left: var(--secondary-color) solid 5px;
 }
 

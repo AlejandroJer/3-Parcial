@@ -1,27 +1,10 @@
-
-.dashboard_container{
-    flex-direction: column;
-
-    width: 100%;
-
-    background-color: var(--background-color);
-}
-
 .dashboard_main{
     flex-direction: column;
 
     margin: 3rem 0 0 3rem;
 }
 
-.dashboard_container_header {
-    align-items: center;
-
-    height: 60px;
-
-    background-color: var(--main-color);
-}
-
-.dashboard_container section:first-child{
+.main_container section:first-child{
     min-height: 10vh;
 
     flex-direction: column;
