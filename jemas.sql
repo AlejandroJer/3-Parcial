@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-09-2023 a las 19:53:28
+-- Tiempo de generación: 07-10-2023 a las 08:11:06
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `jemas`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `movimientos`
+--
+
+CREATE TABLE `movimientos` (
+  `id_movimiento` int(11) NOT NULL,
+  `fecha_movimiento` datetime NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `nombre_producto` varchar(50) NOT NULL,
+  `cantidad_disponible` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -42,15 +57,16 @@ CREATE TABLE `perfiles` (
 CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL,
   `nombre_producto` varchar(50) NOT NULL,
-  `Descripcion_producto` text DEFAULT NULL,
-  `imagen` varchar(60) NOT NULL,
-  `precio_compra` decimal(10,0) UNSIGNED NOT NULL,
+  `Descripcion_producto` text NOT NULL,
+  `imagen` varchar(60) DEFAULT NULL,
+  `precio_compra` decimal(10,2) UNSIGNED NOT NULL,
+  `precio_venta` decimal(10,2) UNSIGNED NOT NULL,
   `categoria` varchar(50) NOT NULL,
   `peso` int(4) UNSIGNED NOT NULL,
   `tipo_material` varchar(50) NOT NULL,
   `cantidad_disponible` int(4) UNSIGNED NOT NULL,
   `ubicacion_almacen` varchar(50) NOT NULL,
-  `id_proveedor` int(11) NOT NULL
+  `id_proveedor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -88,6 +104,12 @@ CREATE TABLE `usuarios` (
 --
 
 --
+-- Indices de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  ADD PRIMARY KEY (`id_movimiento`);
+
+--
 -- Indices de la tabla `perfiles`
 --
 ALTER TABLE `perfiles`
@@ -97,8 +119,7 @@ ALTER TABLE `perfiles`
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `FK_id_proveedor` (`id_proveedor`);
+  ADD PRIMARY KEY (`id_producto`);
 
 --
 -- Indices de la tabla `proveedores`
@@ -110,12 +131,17 @@ ALTER TABLE `proveedores`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usr`),
-  ADD KEY `FK_id_perfil` (`id_perfil`);
+  ADD PRIMARY KEY (`id_usr`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  MODIFY `id_movimiento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `perfiles`
@@ -144,6 +170,13 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  ADD CONSTRAINT `fk_id_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
+  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usr`);
 
 --
 -- Filtros para la tabla `productos`
