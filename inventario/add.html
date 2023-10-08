@@ -6,7 +6,7 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/inventario.css">
+    <link rel="stylesheet" href="../sources/css/addforms.css">
 </head>
 <body>
     <section class="index_section">
@@ -14,7 +14,6 @@
             <header class="navHome_header">
                 <h1>JEMAS</h1>
             </header>
-
             <div class="navHome_ol">
                 <a href="../dashboard.html">
                     <div  class="option_container">
@@ -68,9 +67,15 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <main class="dashboard_container">
-                    <form action="/add-inventario" method="post">
-                        <div class="form-row">
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.html">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
+            </header>
+            <main class="dashboard_container">
+                <form action="/add-inventario" method="post">
+                    <div class="form-row">
                         <input type="hidden" name="id_inv" value="null">
                         <div class="form-group">
                             <label for="producto-nombre">Nombre del producto:</label>
@@ -79,7 +84,6 @@
                         <div class="form-group">
                             <label for="producto-proveedor">ID del Proveedor:</label>
                             <input type="number" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor">
-
                         </div>
                     </div>
                     <div class="form-row">
@@ -87,7 +91,6 @@
                             <label for="precio-venta">Precio de venta:</label>
                             <input type="number" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $">
                         </div>
-                    
                         <div class="form-group">
                             <label for="precio-compra">Precio de compra:</label>
                             <input type="number" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $">
@@ -124,26 +127,23 @@
                             <input type="number" class="form-control" name="cantidad_disponible" id="cantidad_disponible" placeholder="Disponible">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
+                        <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén">
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
-                            <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén">
+                            <label for="producto-descripcion">Descripción:</label>
+                            <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required></textarea>
+                        </div>  
+                        <div class="form-group">
+                            <label for="imagen">Imagen del Producto:</label>
+                            <input type="file" accept=".jpeg, .png, .jpg "  name="image">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="producto-descripcion">Descripción:</label>
-                                <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required></textarea>
-                            </div>  
-                            <div class="form-group">
-                                <label for="imagen">Imagen del Producto:</label>
-                                <input type="file" accept=".jpeg, .png, .jpg "  name="image">
-                                </div>
-                            </div>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    
-                    </form>
-                </main>
-            </header>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </main>
         </section>
     </section>
 </body>

@@ -6,7 +6,7 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/preveedores.css">
+    <link rel="stylesheet" href="../sources/css/addforms.css">
 </head>
 <body>
     <section class="index_section">
@@ -69,10 +69,15 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <main class="dashboard_container">
-                    <form action="add_proveedor.php" method="POST">
-        
-                        <div class="form-row">
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.html">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
+            </header>
+            <main class="dashboard_container">
+                <form action="add_proveedor.php" method="POST">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="id-proveedor">ID del proveedor:</label>
                             <input type="number" class="form-control" name="id-proveedor" id="id-proveedor" placeholder="ID del proveedor" required>
@@ -82,35 +87,29 @@
                             <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Empresa" required>
                         </div>
                     </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="direccion-proveedor">Dirección:</label>
-                                <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" required>
-                            </div>
-                       
-
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-proveedor">Dirección:</label>
+                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" required>
+                        </div>
                         <div class="form-group">
                             <label for="persona-contacto">Persona de contacto:</label>
                             <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Persona de contacto" required>
                         </div>
-                    </div>
-                        
-                        <div class="form-row">
+                    </div>    
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="telefono">Teléfono:</label>
                             <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono " required>
                         </div>
-                        
                         <div class="form-group">
                             <label for="correo-proveedor">Correo electrónico:</label>
                             <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor" placeholder="Correo electrónico" required>
                         </div>
                     </div>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </form>
-                </main>
-            </header>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </main>
         </section>
     </section>
 </body>

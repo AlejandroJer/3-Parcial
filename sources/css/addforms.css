@@ -1,0 +1,44 @@
+.dashboard_container {
+  float: center;
+
+  height: fit-content;
+  width: fit-content;
+
+  padding: 5rem;
+  margin-top: 80px; 
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: var(--main-color);
+  border-radius: 4px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label{
+  color: var(--background-body);
+}
+
+.form-control {
+  font-size: 16px;
+
+  padding: 10px;
+
+  border: 1px solid var(--background-body);
+  border-radius: 10px;
+}
+
+.btn {
+  font-size: 16px;
+
+  padding: 12px;
+
+  border: 1px solid var(--background-body);
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: var(--background-body);
+}

@@ -6,7 +6,7 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/empleados.css">
+    <link rel="stylesheet" href="../sources/css/addforms.css">
 </head>
 <body>
     <section class="index_section">
@@ -68,39 +68,41 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <main class="dashboard_container">
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.html">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
+            </header>
+            <main class="dashboard_container">
                 <form action="/add-empleado" method="post">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                          <label for="nombre">Nombre:</label>
-                          <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
                         </div>
-                            <div class="form-group col-md-6">
-                              <label for="apellido">Apellidos:</label>
-                              <input type="text" class="form-control" id="apellido" placeholder="Apellido">
-                            </div>
+                        <div class="form-group col-md-6">
+                            <label for="apellido">Apellidos:</label>
+                            <input type="text" class="form-control" id="apellido" placeholder="Apellido">
                         </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Email:</label>
                             <input type="email" class="form-control" id="email" placeholder="Email">
-                          </div>
-                        <div class="form-group col-md-6">
-                          <label for="password">Contraseña:</label>
-                          <input type="password" class="form-control" id="Password" placeholder="Contraseña">
                         </div>
-                      </div>
-                      <div class="form-group col-md-6">
+                        <div class="form-group col-md-6">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" class="form-control" id="Password" placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
                         <label for="idempleado">ID Empleado:</label>
                         <input type="number" class="form-control" id="idempleado" placeholder="ID Empleado" required>
-                      </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Agregar empleado</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                  </form>
-                
-                    
-                </main>
-            </header>
+                </form>
+            </main>
         </section>
     </section>
 </body>
