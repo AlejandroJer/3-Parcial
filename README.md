@@ -19,4 +19,4 @@ Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra 
 https://icon-sets.iconify.design/ic/baseline-inventory/
 https://icon-sets.iconify.design/fa-solid/users/
 https://icon-sets.iconify.design/clarity/employee-solid/
-
+https://icon-sets.iconify.design/clarity/sign-in-solid/
