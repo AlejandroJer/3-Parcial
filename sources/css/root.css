@@ -2,8 +2,7 @@
 
 :root{
     --main-color: #3c363c;
-    --secondary-color: white;
-    --background-body: #F4F4F4;
+    --secondary-color: #F4F4F4;
 
     --select-gradiant: linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0%, transparent 100%);
 }

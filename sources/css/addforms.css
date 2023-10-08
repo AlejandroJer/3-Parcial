@@ -18,7 +18,7 @@
 }
 
 .form-group label{
-  color: var(--background-body);
+  color: var(--secondary-color);
 }
 
 .form-control {
@@ -26,7 +26,7 @@
 
   padding: 10px;
 
-  border: 1px solid var(--background-body);
+  border: 1px solid var(--secondary-color);
   border-radius: 10px;
 }
 
@@ -35,10 +35,10 @@
 
   padding: 12px;
 
-  border: 1px solid var(--background-body);
+  border: 1px solid var(--secondary-color);
   border-radius: 5px;
 }
 
 .btn-primary {
-  background-color: var(--background-body);
+  background-color: var(--secondary-color);
 }
