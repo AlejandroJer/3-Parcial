@@ -30,11 +30,30 @@
 }
 
 .main_header {
+    display: flex;
     align-items: center;
 
     height: 60px;
 
     background-color: var(--main-color);
+}
+
+.header_login{
+    justify-content: flex-end;
+
+    width: 100%;
+
+    margin: 0 1rem 0 0;
+}
+
+.header_login .iconify:hover{
+    transform: scale(1.2);
+}
+
+.header_login .iconify{
+    color: var(--secondary-color);
+
+    transition: transform 0.2s ease-in-out;
 }
 
 .navHome_ol{
@@ -124,11 +143,11 @@
 
 #NavArrow.target{
     border-top: 10px solid var(--secondary-color); 
-    transform: translateY(1rem) translateX(0) rotate(270deg);
+    transform: translateX(0) rotate(270deg);
 }
 
 #NavArrow.target:hover {
-    transform: translateY(1rem) translateX(0) rotate(270deg) scale(1.5);
+    transform: translateX(0) rotate(270deg) scale(1.5);
 }
 
 #NavArrow{
@@ -138,10 +157,10 @@
     border-right: 10px solid transparent;
     border-top: 10px solid var(--main-color);
 
-    transform: translateY(1rem) translateX(-2rem) rotate(90deg);
+    transform: translateX(-2rem) rotate(90deg);
     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 #NavArrow:hover {
-    transform: translateY(1rem) translateX(-2rem) rotate(90deg) scale(1.5);
+    transform: translateX(-2rem) rotate(90deg) scale(1.5);
 }
