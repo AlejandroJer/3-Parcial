@@ -96,10 +96,6 @@
     background: var(--select-gradiant)
 }
 
-.option_container:hover .arrow {
-    transform: scale(1.5);
-}
-
 .navHome_ul li:hover{
     background: var(--select-gradiant);
 }
@@ -141,6 +137,10 @@
     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
+.arrow:hover {
+    transform: scale(1.5);
+}
+
 #NavArrow.target{
     border-top: 10px solid var(--secondary-color); 
     transform: translateX(0) rotate(270deg);
@@ -163,4 +163,52 @@
 
 #NavArrow:hover {
     transform: translateX(-2rem) rotate(90deg) scale(1.5);
+}
+/* barra de búsqueda */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff; 
+    border: 1px solid #ffffff; 
+    border-radius: 40px;
+    padding: 2px;
+    margin-left: 500px;
+}
+
+.search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.search-bar button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+}
+
+
+.iconify {
+    color: #333; 
+}
+
+
+.ver-button {
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font: bold;
+    border-radius: 5px;
+    margin-left: 600px; /* Puedes ajustar el margen según tus preferencias */
+}
+
+.ver-button:hover {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
 }
