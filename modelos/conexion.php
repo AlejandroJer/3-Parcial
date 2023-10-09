@@ -1,5 +1,5 @@
 <?php
-    namespace models;
+    namespace modelos;
     use PDO, PDOException;
     class conexion{
         private $servername= "localhost";

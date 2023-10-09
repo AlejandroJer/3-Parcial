@@ -35,7 +35,7 @@ class productos extends conexion{
         $this->id_proveedor = $id_proveedor;
         $this->dir_img= $img;
 
-        $sql="INSERT INTO productos(nombre_producto,descripcion_producto,imagen,precio_compra,precio_venta,categoria,peso,tipo_material,cantidad_disponible,ubicacion_almacen,id_proveedor) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO productos(nombre_producto,descripcion_producto,imagen,precio_compra,precio_venta,categoria,peso,tipo_material,cantidad_disponible,ubicacion_almacen,id_proveedor) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
         $arrData= array($this->nombre,$this->descripcion,$this->dir_img, $this->precio_compra, $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor);
         $resInsert = $insert->execute($arrData);
@@ -127,21 +127,21 @@ class productos extends conexion{
     }
 
     public function InsertarImg($name_images){
-        if(isset($_FILES['img'])){
+        if(isset($_FILES['image'])){
 
-            $file =$_FILES['img'];
+            $file =$_FILES['image'];
             $file_name=$file['name'];
             $mimetype=$file['type'];
             
             $ext_formatos=array("image/jpeg", "image/jpg","image/png");
             if(!in_array($mimetype,$ext_formatos)){
-                header("location:../inventario/add.html");
+                header("location:../inventario/add.php");
                 die();
             }
             $directorio="imagenes_productos/";
 
             if(in_array($directorio.$file_name, $name_images)){
-                header("location:../inventario/add.html");
+                header("location:../inventario/add.php");
                 die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
             }
 
@@ -152,7 +152,7 @@ class productos extends conexion{
             return $directorio.$file_name;
 
         }else{
-            header("location:../inventario/add.html");
+            header("location:../inventario/add.php");
         }       
     }
 
@@ -163,7 +163,7 @@ class productos extends conexion{
         }
     }
 
-    public function GetDirImg($id){
+    public function GetDirImg(){
         $sql="SELECT imagen FROM productos WHERE imagen is not null";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
