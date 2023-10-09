@@ -1,5 +1,5 @@
 <?php
-namespace models;
+namespace modelos;
 use PDO;
 class productos extends conexion{
     
@@ -164,7 +164,7 @@ class productos extends conexion{
     }
 
     public function GetDirImg($id){
-        $sql="SELECT imagen FROM productos WHERE imagen is not null AND  id_producto=$id";
+        $sql="SELECT imagen FROM productos WHERE imagen is not null";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
         return $request;

@@ -1,3 +1,6 @@
+<?php
+require_once("../autoload.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,32 +77,32 @@
                 </div>
             </header>
             <main class="dashboard_container">
-                <form action="/add-inventario" method="post">
+                <form action="../controladores/SetProducto.php" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <input type="hidden" name="id_inv" value="null">
                         <div class="form-group">
                             <label for="producto-nombre">Nombre del producto:</label>
-                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto">
+                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" required>
                         </div>
                         <div class="form-group">
                             <label for="producto-proveedor">ID del Proveedor:</label>
-                            <input type="number" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor">
+                            <input type="number" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="precio-venta">Precio de venta:</label>
-                            <input type="number" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $">
+                            <input type="number" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" required>
                         </div>
                         <div class="form-group">
                             <label for="precio-compra">Precio de compra:</label>
-                            <input type="number" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $">
+                            <input type="number" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="producto-categoria">Categoría:</label>
-                            <select name="categoria">
+                            <select name="categoria" required>
                                 <option value="Anillo">Anillos</option>
                                 <option value="Collar">Collares y Colgantes</option>
                                 <option value="Pulsera">Pulseras</option>
@@ -108,8 +111,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="tipo_material">Material:</label>
-                            <select name="tipo_material">
+                            <label for="tipo-material">Material:</label>
+                            <select name="tipo-material" required>
                                 <option value="Oro">Oro</option>
                                 <option value="Plata">Plata</option>
                                 <option value="Platino">Platino</option>
@@ -120,16 +123,16 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="peso">Peso:</label>
-                            <input type="number" class="form-control" name="peso" id="peso" placeholder="Peso">
+                            <input type="number" class="form-control" name="peso" id="peso" placeholder="Peso" required>
                         </div>
                         <div class="form-group">
                             <label for="producto-cantidad-disponible">Cantidad disponible:</label>
-                            <input type="number" class="form-control" name="cantidad_disponible" id="cantidad_disponible" placeholder="Disponible">
+                            <input type="number" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Disponible" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
-                        <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén">
+                        <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
