@@ -13,9 +13,9 @@ class productos extends conexion{
     private $cantidad_disponible;
     private $ubicacion_almacen;
     private $id_proveedor;
-    private $id_usuario;
+    private $id_usuario; // no pertenece a la tabla
     private $id_producto;
-    private $fecha_movimiento;
+    private $fecha_movimiento; // no pertenece a la tabla
     private $dir_img;
 
     public function __construct(){
