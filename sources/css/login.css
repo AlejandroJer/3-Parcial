@@ -7,9 +7,9 @@
 }
 
 :root {
-    --linear-grad: linear-gradient(to right, #8b56a3, #bca4b8);
+    --linear-grad: linear-gradient(to right, #413846, #594c57);
     --grad-clr1: #2c3014;
-    --grad-clr2: #8c7999;
+    --grad-clr2: #111011;
 }
 
 body {
@@ -214,6 +214,35 @@ p{
     opacity: 1;
     z-index: 5;
     animation: show 0.6s;
+}
+
+
+.main_header {
+    background-color: white; 
+    position:  fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000; 
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra  */
+}
+
+/*icono de inicio de sesión */
+.header_login a {
+    text-decoration: none; 
+    color: #333333; 
+    padding: 3px 10px; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    background-color: #f0f0f0; 
+    transition: background-color 0.3s ease; 
+
+}
+
+
+.header_login a:hover {
+    background-color: #7d697b;
+    color: white;
 }
 
 @keyframes show{
