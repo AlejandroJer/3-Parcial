@@ -19,7 +19,7 @@ require_once("../autoload.php");
             </header>
 
             <div class="navHome_ol">
-                <a href="../dashboard.html">
+                <a href="../dashboard.php">
                     <div  class="option_container">
                         <h3>Dashboard</h3>
                     </div>
