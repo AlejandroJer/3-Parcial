@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+
+<?php
+  require_once("../autoload.php");
+	use modelos\productos;
+  $productos = new productos();
+	$posts = $productos->Getproductos();
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +36,7 @@
                     </div>
                     <ul class="navHome_ul">
                         <a href="./add.php"><li>Agregar Inventario</li></a>
-                        <a href="./read.html"><li class="target">Ver Inventario</li></a>
+                        <a href="./read.php"><li class="target">Ver Inventario</li></a>
                         <a href="./search.html"><li>Buscar en Inventario</li></a>
                     </ul>
                 </div>
@@ -43,9 +49,9 @@
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul hidden">
-                        <a href="../preveedores/add.html"><li>Agregar Proveedor</li></a>
-                        <a href="../preveedores/read.html"><li>Ver Proveedores</li></a>
-                        <a href="../preveedores/search.html"><li>Buscar en Proveedores</li></a>
+                        <a href="../proveedores/add.html"><li>Agregar Proveedor</li></a>
+                        <a href="../proveedores/read.html"><li>Ver Proveedores</li></a>
+                        <a href="../proveedores/search.html"><li>Buscar en Proveedores</li></a>
                     </ul>
                 </div>
                 <div class="option">
@@ -57,7 +63,7 @@
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul hidden">
-                        <a href="../empleados/add.html"><li>Agregar Empleado</li></a>
+                        <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
                         <a href="../empleados/read.html"><li>Ver Empleados</li></a>
                         <a href="../empleados/search.html"><li>Buscar en Empleados</li></a>
                     </ul>
@@ -72,6 +78,29 @@
             </header>
         </section>
     </section>
+    <!-- PHP: Productos -->
+    <section class="">
+		<div class="">
+			<?php foreach ($posts as $post) { ?>
+			<div class="">
+				<h4><?php echo $post['nombre_producto'];?></h4>
+				<h5><?php echo $post['id_proveedor'];?></h5>
+                <h5><?php echo $post['precio_venta'];?></h5>
+                <h5><?php echo $post['precio_compra'];?></h5>
+                <h5><?php echo $post['categoria'];?></h5>
+                <h5><?php echo $post['tipo_material'];?></h5>
+                <h5><?php echo $post['peso'];?></h5>
+                <h5><?php echo $post['cantidad_disponible'];?></h5>
+                <h5><?php echo $post['ubicacion_almacen'];?></h5>
+                <h5><?php echo $post['descripcion_producto'];?></h5>
+				<?php if($post['imagen'] != null) {?>
+					<img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class=""><br>
+				<?php } ?>
+				
+			</div>
+			<?php } ?>
+		</div>
+	</section>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

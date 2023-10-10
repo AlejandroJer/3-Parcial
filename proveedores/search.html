@@ -6,7 +6,6 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/addforms.css">
 </head>
 <body>
     <section class="index_section">
@@ -31,11 +30,11 @@
                     </div>
                     <ul class="navHome_ul hidden">
                         <a href="../inventario/add.php"><li>Agregar Inventario</li></a>
-                        <a href="../inventario/read.html"><li>Ver Inventario</li></a>
+                        <a href="../inventario/read.php"><li>Ver Inventario</li></a>
                         <a href="../inventario/search.html"><li>Buscar en Inventario</li></a>
                     </ul>
                 </div>
-                <div class="option">
+                <div class="option target">
                     <div class="option_container">
                         <div>
                             <iconify-icon class="iconify" icon="fa-solid:users" width="20" height="20"></iconify-icon>
@@ -43,13 +42,13 @@
                         </div>
                         <span class="arrow"></span>
                     </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../preveedores/add.html"><li>Agregar Proveedor</li></a>
-                        <a href="../preveedores/read.html"><li>Ver Proveedores</li></a>
-                        <a href="../preveedores/search.html"><li>Buscar en Proveedores</li></a>
+                    <ul class="navHome_ul">
+                        <a href="./add.html"><li>Agregar Proveedor</li></a>
+                        <a href="./read.html"><li>Ver Proveedores</li></a>
+                        <a href="./search.html"><li class="target">Buscar en Proveedores</li></a>
                     </ul>
                 </div>
-                <div class="option target">
+                <div class="option">
                     <div class="option_container">
                         <div>
                             <iconify-icon class="iconify" icon="clarity:employee-solid" width="20" height="20"></iconify-icon>
@@ -57,48 +56,25 @@
                         </div>
                         <span class="arrow"></span>
                     </div>
-                    <ul class="navHome_ul">
-                        <a href="./add.html"><li class="target">Agregar Empleado</li></a>
-                        <a href="./read.html"><li>Ver Empleados</li></a>
-                        <a href="./search.html"><li>Buscar en Empleados</li></a>
+                    <ul class="navHome_ul hidden">
+                        <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
+                        <a href="../empleados/read.html"><li>Ver Empleados</li></a>
+                        <a href="../empleados/search.html"><li>Buscar en Empleados</li></a>
                     </ul>
                 </div>
             </div>
         </nav>
+
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <div class="header_login" data-messages="Iniciar Secion">
-                    <a href="../auth/login.html">
-                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
-                    </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar">
+                    <button type="submit">
+                        <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon>
+                    </button>
                 </div>
             </header>
-            <main class="dashboard_container">
-                <form action="/add-empleado" method="post">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="apellido">Apellidos:</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="Apellido">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="password">Contraseña:</label>
-                            <input type="password" class="form-control" id="Password" placeholder="Contraseña">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar empleado</button>
-                </form>
-            </main>
         </section>
     </section>
 </body>

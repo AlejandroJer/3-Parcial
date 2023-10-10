@@ -33,7 +33,7 @@ require_once("../autoload.php");
                     </div>
                     <ul class="navHome_ul">
                         <a href="./add.php"><li class="target">Agregar Inventario</li></a>
-                        <a href="./read.html"><li>Ver Inventario</li></a>
+                        <a href="./read.php"><li>Ver Inventario</li></a>
                         <a href="./search.html"><li>Buscar en Inventario</li></a>
                     </ul>
                 </div>
@@ -46,9 +46,9 @@ require_once("../autoload.php");
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul hidden">
-                        <a href="../preveedores/add.html"><li>Agregar Proveedor</li></a>
-                        <a href="../preveedores/read.html"><li>Ver Proveedores</li></a>
-                        <a href="../preveedores/search.html"><li>Buscar en Proveedores</li></a>
+                        <a href="../proveedores/add.html"><li>Agregar Proveedor</li></a>
+                        <a href="../proveedores/read.html"><li>Ver Proveedores</li></a>
+                        <a href="../proveedores/search.html"><li>Buscar en Proveedores</li></a>
                     </ul>
                 </div>
                 <div class="option">
@@ -60,7 +60,7 @@ require_once("../autoload.php");
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul hidden">
-                        <a href="../empleados/add.html"><li>Agregar Empleado</li></a>
+                        <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
                         <a href="../empleados/read.html"><li>Ver Empleados</li></a>
                         <a href="../empleados/search.html"><li>Buscar en Empleados</li></a>
                     </ul>
