@@ -22,7 +22,7 @@ class productos extends conexion{
         parent::__construct();
     }
 
-    public function Insertar(string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, int $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, $id_proveedor = null, $img = null){
+    public function Insertar(string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->precio_compra = $precio_compra;

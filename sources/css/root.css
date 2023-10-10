@@ -5,6 +5,9 @@
     --secondary-color: #F4F4F4;
 
     --select-gradiant: linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0%, transparent 100%);
+
+    --positive-spend: rgb(49, 188, 95);
+    --negative-spend: rgb(255, 51, 122);
 }
 
 body{
@@ -48,7 +51,12 @@ h3{
 }
 
 h4{
-    font-size: 1rem;
+    font-size: 0.8rem;
+}
+
+h5{
+    margin: 0.1rem;
+    font-size: 0.65rem;
 }
 
 li{

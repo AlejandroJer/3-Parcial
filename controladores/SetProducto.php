@@ -20,10 +20,10 @@
             $name_images= $producto->GetDirImg();
             $dir_img = $producto->InsertarImg($name_images);
             $producto->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int, $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
-            header("location:../inventario/read.html");
+            header("location:../inventario/read.php");
         }else{
             $producto->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int , $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
-            header("location:../inventario/read.html");
+            header("location:../inventario/read.php");
         }
     }
 ?>

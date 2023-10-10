@@ -4,7 +4,8 @@
 	use modelos\productos;
   $productos = new productos();
 	$posts = $productos->Getproductos();
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +13,7 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
+    <link rel="stylesheet" href="../sources/css/read.css">
 </head>
 <body>
     <section class="index_section">
@@ -74,34 +76,72 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <button class="ver-button">Ver Inventario</button>
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.html">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
             </header>
+            <main class="read_container">
+                <div class="read_header">
+                    <button type="button" class="btn_read">Ver Inventario</button>
+                </div>
+                <div class="read_main">
+                <?php foreach ($posts as $post) { ?>
+                    <div class="readObject_Container">
+                        <div class="readObject_header">
+                            <span class="arrow"></span>
+                        </div>
+                        <div>
+                            <div class="image_container">
+                            <?php if($post['imagen'] != null) {?>
+                                <img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class="">
+                                <h4 class="ingreso">Precio Venta <br> $<?= $post['precio_venta'];?> pesos</h4>
+                                <h4 class="gasto">Precio Compra <br> $<?= $post['precio_compra'];?> pesos</h4>
+                            <?php } ?>
+                            </div>
+                            <div class="data_container">
+                                <h3><?= $post['nombre_producto'];?></h3>
+                                <h4><?=$post['Descripcion_producto'];?></h4>
+                            </div>
+                        </div>
+                        <div class="data_container">
+                            <div class="product_details">
+                                <h5>Peso: <?= $post['peso'];?></h5>
+                                <h5><?= $post['cantidad_disponible'];?></h5>
+                                <h5><?= $post['ubicacion_almacen'];?></h5>
+                            </div>
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="readObject_Container">
+                        <div>
+                            <div class="image_container">
+                            
+                            </div>
+                        </div>
+                    </div> -->
+                <?php } ?>
+                </div>
+            </main>
         </section>
     </section>
-    <!-- PHP: Productos -->
-    <section class="">
-		<div class="">
-			<?php foreach ($posts as $post) { ?>
-			<div class="">
-				<h4><?php echo $post['nombre_producto'];?></h4>
-				<h5><?php echo $post['id_proveedor'];?></h5>
-                <h5><?php echo $post['precio_venta'];?></h5>
-                <h5><?php echo $post['precio_compra'];?></h5>
-                <h5><?php echo $post['categoria'];?></h5>
-                <h5><?php echo $post['tipo_material'];?></h5>
-                <h5><?php echo $post['peso'];?></h5>
-                <h5><?php echo $post['cantidad_disponible'];?></h5>
-                <h5><?php echo $post['ubicacion_almacen'];?></h5>
-                <h5><?php echo $post['descripcion_producto'];?></h5>
-				<?php if($post['imagen'] != null) {?>
-					<img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class=""><br>
-				<?php } ?>
-				
-			</div>
-			<?php } ?>
-		</div>
-	</section>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>
+
+
+
+
+
+
+
+
+
+                        
+                        <h5><?php echo $post['id_proveedor'];?></h5>
+                        <h5><?php echo $post['categoria'];?></h5>
+                        <h5><?php echo $post['tipo_material'];?></h5>

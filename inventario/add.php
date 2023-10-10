@@ -86,7 +86,7 @@ require_once("../autoload.php");
                         </div>
                         <div class="form-group">
                             <label for="producto-proveedor">ID del Proveedor:</label>
-                            <input type="number" step="0.01" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" required>
+                            <input type="number" min="0" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -115,19 +115,18 @@ require_once("../autoload.php");
                             <select name="tipo-material" required>
                                 <option value="Oro">Oro</option>
                                 <option value="Plata">Plata</option>
-                                <option value="Platino">Platino</option>
-                                <option value="Cobre">Cobre</option>
+                                <option value="Platino">Platino</option>    
                             </select>  
                         </div>
                     </div> 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="peso">Peso:</label>
-                            <input type="number" class="form-control" name="peso" id="peso" placeholder="Peso" required>
+                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Onzas" required>
                         </div>
                         <div class="form-group">
                             <label for="producto-cantidad-disponible">Cantidad disponible:</label>
-                            <input type="number" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Disponible" required>
+                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Disponible" required>
                         </div>
                     </div>
                     <div class="form-group">
