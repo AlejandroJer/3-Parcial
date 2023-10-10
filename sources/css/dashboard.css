@@ -75,3 +75,21 @@
 .search_bar{
     margin: 2rem;
 }
+
+/*Boton de ver proveedores*/
+.ver-button-link {
+    text-decoration: none; 
+    display: inline-block; 
+}
+
+.ver-button {
+    background-color: #007bff; 
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none; 
+    cursor: pointer; 
+}
+
+.ver-button:hover {
+    background-color: #0056b3; 
+}
