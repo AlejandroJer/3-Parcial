@@ -22,7 +22,7 @@
             $producto->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int, $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
             header("location:../inventario/read.html");
         }else{
-            $publicacion->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int , $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
+            $producto->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int , $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
             header("location:../inventario/read.html");
         }
     }

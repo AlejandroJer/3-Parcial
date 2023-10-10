@@ -32,7 +32,7 @@ require_once("../autoload.php");
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul">
-                        <a href="./add.html"><li class="target">Agregar Inventario</li></a>
+                        <a href="./add.php"><li class="target">Agregar Inventario</li></a>
                         <a href="./read.html"><li>Ver Inventario</li></a>
                         <a href="./search.html"><li>Buscar en Inventario</li></a>
                     </ul>
