@@ -33,7 +33,7 @@ if(isset($_POST['search'])) {
                         <h3>Dashboard</h3>
                     </div>
                 </a>
-                <div class="option">
+                <div class="option target">
                     <div class="option_container">
                         <div>
                             <iconify-icon class="iconify" icon="ic:baseline-inventory" width="20" height="20"></iconify-icon>
@@ -41,13 +41,13 @@ if(isset($_POST['search'])) {
                         </div>
                         <span class="arrow"></span>
                     </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../inventario/add.php"><li>Agregar Inventario</li></a>
-                        <a href="../inventario/read.php"><li>Ver Inventario</li></a>
-                        <a href="../inventario/search.php"><li>Buscar en Inventario</li></a>
+                    <ul class="navHome_ul">
+                        <a href="./add.php"><li>Agregar Inventario</li></a>
+                        <a href="./read.php"><li>Ver Inventario</li></a>
+                        <a href="./search.php"><li class="target">Buscar en Inventario</li></a>
                     </ul>
                 </div>
-                <div class="option target">
+                <div class="option">
                     <div class="option_container">
                         <div>
                             <iconify-icon class="iconify" icon="fa-solid:users" width="20" height="20"></iconify-icon>
@@ -55,10 +55,10 @@ if(isset($_POST['search'])) {
                         </div>
                         <span class="arrow"></span>
                     </div>
-                    <ul class="navHome_ul">
-                        <a href="./add.php"><li>Agregar Proveedor</li></a>
-                        <a href="./read.php"><li>Ver Proveedores</li></a>
-                        <a href="./search.php"><li class="target">Buscar en Proveedores</li></a>
+                    <ul class="navHome_ul hidden">
+                        <a href="../proveedores/add.php"><li>Agregar Proveedor</li></a>
+                        <a href="../proveedores/read.php"><li>Ver Proveedores</li></a>
+                        <a href="../proveedores/search.php"><li>Buscar en Proveedores</li></a>
                     </ul>
                 </div>
                 <div class="option">
