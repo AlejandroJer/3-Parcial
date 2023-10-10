@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2023 a las 01:18:47
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Host: 127.0.0.1
+-- Generation Time: Oct 10, 2023 at 03:59 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `jemas`
+-- Database: `jemas`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `movimientos`
+-- Table structure for table `movimientos`
 --
 
 CREATE TABLE `movimientos` (
@@ -39,7 +39,7 @@ CREATE TABLE `movimientos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `perfiles`
+-- Table structure for table `perfiles`
 --
 
 CREATE TABLE `perfiles` (
@@ -51,7 +51,7 @@ CREATE TABLE `perfiles` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Table structure for table `productos`
 --
 
 CREATE TABLE `productos` (
@@ -69,10 +69,17 @@ CREATE TABLE `productos` (
   `id_proveedor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `nombre_producto`, `Descripcion_producto`, `imagen`, `precio_compra`, `precio_venta`, `categoria`, `peso`, `tipo_material`, `cantidad_disponible`, `ubicacion_almacen`, `id_proveedor`) VALUES
+(1, '1', '1', NULL, 1.00, 1.00, 'Anillo', 1, 'Oro', 1, '1', 1);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proveedores`
+-- Table structure for table `proveedores`
 --
 
 CREATE TABLE `proveedores` (
@@ -87,95 +94,94 @@ CREATE TABLE `proveedores` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
   `id_usr` int(11) NOT NULL,
   `nombre_usr` varchar(30) NOT NULL,
   `contraseña` varchar(40) NOT NULL,
-  `nombre_completo_usr` varchar(60) NOT NULL,
+  `apellido_usr` varchar(30) NOT NULL,
   `email_usr` varchar(60) NOT NULL,
   `id_perfil` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usr`, `nombre_usr`, `contraseña`, `apellido_usr`, `email_usr`, `id_perfil`) VALUES
+(1, 'aa', 'aa', 'aa', 'aa@aa', 0),
+(2, 'ee', '$2y$10$G2yr/WVd8e1V/gWymJr2GunMRYyUr8XAF', 'eee', 'eee@ee', 0);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `movimientos`
+-- Indexes for table `movimientos`
 --
 ALTER TABLE `movimientos`
   ADD PRIMARY KEY (`id_movimiento`);
 
 --
--- Indices de la tabla `perfiles`
+-- Indexes for table `perfiles`
 --
 ALTER TABLE `perfiles`
   ADD PRIMARY KEY (`id_perfil`);
 
 --
--- Indices de la tabla `productos`
+-- Indexes for table `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`);
 
 --
--- Indices de la tabla `proveedores`
+-- Indexes for table `proveedores`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id_proveedor`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usr`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `movimientos`
+-- AUTO_INCREMENT for table `movimientos`
 --
 ALTER TABLE `movimientos`
   MODIFY `id_movimiento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `perfiles`
+-- AUTO_INCREMENT for table `perfiles`
 --
 ALTER TABLE `perfiles`
   MODIFY `id_perfil` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `productos`
+-- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `proveedores`
+-- AUTO_INCREMENT for table `proveedores`
 --
 ALTER TABLE `proveedores`
   MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `movimientos`
---
-
-
+  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
