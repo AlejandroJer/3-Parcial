@@ -1,3 +1,6 @@
+<?php
+require_once("../autoload.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,25 +78,26 @@
                 </div>
             </header>
             <main class="dashboard_container">
-                <form action="/add-empleado" method="post">
+                <form action="../controladores/SetUsuario.php" method="post">
                     <div class="form-row">
+                        <input type="hidden" name="usuario-rol" value="0">
                         <div class="form-group col-md-6">
                             <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                            <input type="text" name="usuario-nombre" class="form-control" id="nombre" placeholder="Nombre">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="apellido">Apellidos:</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                            <input type="text" name="usuario-apellido" class="form-control" id="apellido" placeholder="Apellido">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" name="usuario-email" class="form-control" id="email" placeholder="Email">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">Contraseña:</label>
-                            <input type="password" class="form-control" id="Password" placeholder="Contraseña">
+                            <input type="password" name="usuario-password" class="form-control" id="Password" placeholder="Contraseña">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Agregar empleado</button>
