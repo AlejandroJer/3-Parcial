@@ -14,16 +14,15 @@
         $peso_int = intval($peso_str);
         $cantidad_disponible_str = $_POST['cantidad-disponible'];
         $cantidad_disponible_int = intval($cantidad_disponible_str);
-        //var_dump($precio_compra_float);
-        //die();
+        
         if($_FILES['image']['error'] == 0){
             $name_images= $producto->GetDirImg();
             $dir_img = $producto->InsertarImg($name_images);
             $producto->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int, $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
-            header("location:../inventario/read.html");
+            header("location:../inventario/read.php");
         }else{
             $producto->Insertar($_POST['producto-nombre'], $_POST['producto-descripcion'], $precio_compra_float, $precio_venta_float, $_POST['categoria'],$peso_int , $_POST['tipo-material'], $cantidad_disponible_int, $_POST['ubicacion-almacen'], $_POST['producto-proveedor'], $dir_img);
-            header("location:../inventario/read.html");
+            header("location:../inventario/read.php");
         }
     }
 ?>
