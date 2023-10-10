@@ -9,9 +9,9 @@
 
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
-    }
+    } 
 
-    // Recibir los datos y almacenarlos en variables
+    // Recibir los datos y almacenarlos
     $idProveedor = $_POST["id-proveedor"];
     $nombreEmpresa = $_POST["nombre-empresa"];
     $direccionProveedor = $_POST["direccion-proveedor"];

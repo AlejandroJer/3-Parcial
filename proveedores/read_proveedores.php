@@ -15,7 +15,7 @@
     $sql = "SELECT * FROM proveedores";
     $result = $conn->query($sql);
 
-    //Verificacion de datos y tabla
+    //Datos y tabla
     if ($result->num_rows > 0) {
         echo "<h2>Lista de Proveedores</h2>";
         echo "<table>";
@@ -33,8 +33,9 @@
         }
 
         echo "</table>";
+        echo '<a href="../dashboard.html" class="btn btn-primary">Volver al Dashboard</a>';
     } else {
-        echo "No hay proveedores registrados.";
+        echo "No se encontraron proveedores.";
     }
 
     $conn->close();
