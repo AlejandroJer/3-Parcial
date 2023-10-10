@@ -23,7 +23,7 @@
             </header>
 
             <div class="navHome_ol">
-                <a href="../dashboard.html">
+                <a href="../dashboard.php">
                     <div  class="option_container">
                         <h3>Dashboard</h3>
                     </div>
@@ -39,7 +39,7 @@
                     <ul class="navHome_ul">
                         <a href="./add.php"><li>Agregar Inventario</li></a>
                         <a href="./read.php"><li class="target">Ver Inventario</li></a>
-                        <a href="./search.html"><li>Buscar en Inventario</li></a>
+                        <a href="./search.php"><li>Buscar en Inventario</li></a>
                     </ul>
                 </div>
                 <div class="option">
@@ -51,9 +51,9 @@
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul hidden">
-                        <a href="../proveedores/add.html"><li>Agregar Proveedor</li></a>
-                        <a href="../proveedores/read.html"><li>Ver Proveedores</li></a>
-                        <a href="../proveedores/search.html"><li>Buscar en Proveedores</li></a>
+                        <a href="../proveedores/add.php"><li>Agregar Proveedor</li></a>
+                        <a href="../proveedores/read.php"><li>Ver Proveedores</li></a>
+                        <a href="../proveedores/search.php"><li>Buscar en Proveedores</li></a>
                     </ul>
                 </div>
                 <div class="option">
@@ -66,8 +66,8 @@
                     </div>
                     <ul class="navHome_ul hidden">
                         <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
-                        <a href="../empleados/read.html"><li>Ver Empleados</li></a>
-                        <a href="../empleados/search.html"><li>Buscar en Empleados</li></a>
+                        <a href="../empleados/read.php"><li>Ver Empleados</li></a>
+                        <a href="../empleados/search.php"><li>Buscar en Empleados</li></a>
                     </ul>
                 </div>
             </div>

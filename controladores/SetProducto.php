@@ -14,8 +14,7 @@
         $peso_int = intval($peso_str);
         $cantidad_disponible_str = $_POST['cantidad-disponible'];
         $cantidad_disponible_int = intval($cantidad_disponible_str);
-        //var_dump($precio_compra_float);
-        //die();
+        
         if($_FILES['image']['error'] == 0){
             $name_images= $producto->GetDirImg();
             $dir_img = $producto->InsertarImg($name_images);
