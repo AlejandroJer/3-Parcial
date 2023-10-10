@@ -18,6 +18,8 @@ class productos extends conexion{
     private $fecha_movimiento; // no pertenece a la tabla
     private $dir_img;
 
+    objeto.varible = valor
+
     public function __construct(){
         parent::__construct();
     }

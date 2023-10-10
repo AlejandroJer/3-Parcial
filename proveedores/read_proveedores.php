@@ -33,7 +33,7 @@
         }
 
         echo "</table>";
-        echo '<a href="../dashboard.html" class="btn btn-primary">Volver al Dashboard</a>';
+        echo '<a href="../dashboard.php" class="btn btn-primary">Volver al Dashboard</a>';
     } else {
         echo "No se encontraron proveedores.";
     }

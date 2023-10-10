@@ -25,7 +25,7 @@
     
     if ($conn->query($sql) === TRUE) {
         echo "Datos guardados correctamente";
-        echo '<a href="../dashboard.html" class="btn btn-primary">Volver al Dashboard</a>';
+        echo '<a href="../dashboard.php" class="btn btn-primary">Volver al Dashboard</a>';
     } else {
         echo "Error al guardar los datos: " . $conn->error;
     }

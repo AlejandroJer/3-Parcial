@@ -77,7 +77,7 @@
             <header class="main_header">
                 <span id="NavArrow"></span>
                 <div class="header_login" data-messages="Iniciar Secion">
-                    <a href="../auth/login.html">
+                    <a href="../auth/login.php">
                         <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </div>

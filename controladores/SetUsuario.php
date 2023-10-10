@@ -13,6 +13,6 @@
         $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
 
         $usuario->Insertar($user_name, $user_lastname, $user_email, $hashed_password, $_POST['usuario-rol']);
-        header("location:../empleados/read.html");
+        header("location:../empleados/read.php");
     }
 ?>
