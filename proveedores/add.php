@@ -1,3 +1,6 @@
+<?php
+require_once("../autoload.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +17,6 @@
             <header class="navHome_header">
                 <h1>JEMAS</h1>
             </header>
-
             <div class="navHome_ol">
                 <a href="../dashboard.php">
                     <div  class="option_container">
@@ -74,18 +76,10 @@
                         <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </div>
-
-
-
-
             </header>
             <main class="dashboard_container">
-                <form action="add_proveedor.php" method="POST">
+                <form action="../controladores/SetProveedor.php" method="POST">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="id-proveedor">ID del proveedor:</label>
-                            <input type="number" class="form-control" name="id-proveedor" id="id-proveedor" placeholder="ID del proveedor" required>
-                        </div>
                         <div class="form-group">
                             <label for="nombre-empresa">Nombre de la Empresa:</label>
                             <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Empresa" required>
