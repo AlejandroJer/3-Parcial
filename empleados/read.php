@@ -1,3 +1,11 @@
+
+<?php
+  require_once("../autoload.php");
+use modelos\usuarios;
+    $usuarios = new usuarios();
+        $posts = $usuarios->Getusuarios();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +14,7 @@
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
+    <link rel="stylesheet" href="../sources/css/read.css">
 </head>
 <body>
     <section class="index_section">
@@ -68,8 +77,34 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <button class="ver-button">Ver Empleados</button>
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.php">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
             </header>
+            <main class="read_container">
+                <div class="read_header">
+                    <button type="button" class="btn_read">Ver Empleados</button>
+                </div>
+                <div class="read_main">
+    <?php foreach($posts as $post) { ?>
+        <div class="readObject_Container">
+            <div class="readObject_header">
+                <span class="arrow"></span>
+            </div>
+           
+            <div class="name_container">
+                <h4>Nombre:</h4>
+                <h4><?=$post['nombre_usr'] . ' ' . $post['apellido_usr'];?></h4>
+                <h4>Correo:</h4>
+                <h4><?=$post['email_usr'];?></h4>
+            </div>
+        </div> 
+    <?php } ?>
+</div> 
+
+
         </section>
     </section>
 </body>
