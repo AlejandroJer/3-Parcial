@@ -1,3 +1,4 @@
+
 <?php
   require_once("../autoload.php");
 	use modelos\productos;
@@ -140,4 +141,6 @@
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>
+
+
 
