@@ -8,7 +8,7 @@
 
     user-select: none;
 
-    height: 20vh;
+    height: 20rem;
 
     border-bottom: var(--main-color) solid 1px;
     border-right: var(--main-color) solid 1px;
@@ -165,7 +165,7 @@
     transform: translateX(-2rem) rotate(90deg) scale(1.5);
 }
 /* barra de búsqueda */
-.search-bar {
+.search_bar {
     display: flex;
     align-items: center;
     background-color: #ffffff; 
@@ -175,7 +175,7 @@
     margin-left: 500px;
 }
 
-.search-bar input[type="text"] {
+.search_bar input[type="text"] {
     border: none;
     outline: none;
     flex-grow: 1;
@@ -183,7 +183,7 @@
     font-size: 14px;
 }
 
-.search-bar button {
+.search_bar button {
     background-color: transparent;
     border: none;
     cursor: pointer;

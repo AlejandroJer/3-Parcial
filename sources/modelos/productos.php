@@ -50,10 +50,10 @@ class productos extends conexion{
         return $request;
     }
 
-    public function GetProductoById($id){
-        $sql="SELECT * FROM productos WHERE id_producto = $id";
+    public function GetProductoByKeyWord($KeyWord){
+        $sql="SELECT * FROM productos WHERE nombre_producto like '%$KeyWord%' OR descripcion_producto LIKE '%$KeyWord%'";
         $execute = $this->conn->query($sql);
-        $request = $execute->fetch();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
         return $request;
     }
 

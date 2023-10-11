@@ -81,7 +81,7 @@
                     Bienvenido al sistema de inventario JEMAS, en esta sección podras ver las opciones que tienes disponibles para administrar.
                 </h4>
                 <section>
-                    <a href="./inventario/read.php">
+                    <a href="./inventario/add.php">
                         <div class="dashboard_options option_container">
                             <div>
                                 <h3>Inventario</h3>

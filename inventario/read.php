@@ -1,4 +1,3 @@
-
 <?php
   require_once("../autoload.php");
 	use modelos\productos;
@@ -133,15 +132,3 @@
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>
 
-
-
-
-
-
-
-
-
-                        
-                        <h5><?php echo $post['id_proveedor'];?></h5>
-                        <h5><?php echo $post['categoria'];?></h5>
-                        <h5><?php echo $post['tipo_material'];?></h5>

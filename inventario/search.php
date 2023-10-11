@@ -1,13 +1,13 @@
 <?php
 require_once("../autoload.php");
-use modelos\productos;
-
-if(isset($_POST['search'])) {
-    $searchTerm = $_POST['search'];
-    $productos = new productos();
-    $posts = $productos->BuscarProductosPorPalabraClave($searchTerm);
-} else {
-    $posts = array();
+ use modelos\productos;
+$productObj = new productos();
+$productos = "";
+$flag = "";
+if(isset($_GET['search'])){
+    $KeyWord = filter_var($_GET['search'], FILTER_SANITIZE_STRING);
+    $productos = $productObj->GetProductoByKeyWord($KeyWord);
+    $flag = true;
 }
 ?>
 
@@ -81,38 +81,46 @@ if(isset($_POST['search'])) {
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <div class="search-bar">
-                    <form method="POST" action="">
-                        <input type="text" name="search" placeholder="Buscar">
-                        <button type="submit">
-                            <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon>
-                        </button>
-                    </form>
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.php">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
                 </div>
             </header>
-
-            <!-- Resultados de la búsqueda -->
-            <div class="search_results">
-                <?php if (!empty($posts)) { ?>
-                    <h2>Resultados de la búsqueda:</h2>
-                    <div class="">
-                        <?php foreach ($posts as $post) { ?>
-                            <div class="">
-                                <h4><?php echo $post['nombre_producto'];?></h4>
-                                <h5><?php echo $post['id_proveedor'];?></h5>
-                                <h5><?php echo $post['precio_venta'];?></h5>
-                                <h5><?php echo $post['precio_compra'];?></h5>
-                                <h5><?php echo $post['categoria'];?></h5>
-                                <?php if($post['imagen'] != null) {?>
-                                    <img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class=""><br>
-                                <?php } ?>
+            <main class="search_bar">
+                <form method="GET" action="<?= $_SERVER['PHP_SELF']; ?>">
+                    <input type="text" name="search" placeholder="Buscar">
+                    <button type="submit" name="submit">
+                        <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon>
+                    </button>
+                </form>
+                <div class="search_results">
+                    <?php if(empty($productos)){ ?>
+                        <h1>BUSQUE ALGO PARA EMPEZAR</h1>
+                    <?php } else { 
+                        foreach ($productos as $producto) { ?>
+                            <div>
+                                <div class="search_result_header">
+                                    <span class="arrow"></span>
+                                </div>
+                                <div class="search_result_main">
+                                    <div class="search_result_main_img">
+                                        <img src="../inventario/<?= $producto['imagen']; ?>" alt="">
+                                    </div>
+                                    <div class="search_result_main_info">
+                                        <h3><?= $producto[1]; ?></h3>
+                                        <p><?= $producto['descripcion_producto']; ?></p>
+                                        <p><?= $producto['precio_venta']; ?></p>
+                                        <p><?= $producto['cantidad_disponible']; ?></p>
+                                        <p><?= $producto['ubicacion_almacen']; ?></p>
+                                        <p><?= $producto['nombre_proveedor']; ?></p>
+                                    </div>
+                                </div>
                             </div>
                         <?php } ?>
-                    </div>
-                <?php } else { ?>
-                    <p>No se encontraron resultados para la búsqueda.</p>
-                <?php } ?>
-            </div>
+                    <?php } ?>
+                </div>
+            </main>
         </section>
     </section>
 </body>
