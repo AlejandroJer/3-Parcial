@@ -10,7 +10,9 @@
     --negative-spend: rgb(255, 51, 122);
 
     --hightlight-words: #FFB6C1;
-    
+
+    --font-bold: 'Poppins', sans-serif;
+
 }
 
 body{
@@ -19,7 +21,7 @@ body{
     height: 100vh;
 
     background-color: var(--secondary-color);
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-bold)
 }
 
 section{

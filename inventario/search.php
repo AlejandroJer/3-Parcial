@@ -4,7 +4,6 @@ namespace controladores;
  use modelos\utilities;
  $highlight = new utilities();
 
-
 if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
  $results = $_SESSION['results'];
  $keyword = $_SESSION['keyword'];
@@ -89,13 +88,19 @@ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
                 </div>
             </header>
             <main class="read_container">
-                <form method="POST" action="../controladores/gets/GetProducto.php" class="search_bar">
-                    <input type="text" name="search" placeholder="Buscar">
-                    <button type="submit" name="submit">
-                        <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
-                        <!-- <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon> -->
-                    </button>
-                </form>
+                <div class="read_header">
+                    <form method="POST" action="../controladores/gets/GetProducto.php" class="search_bar">
+                        <input type="text" name="search" placeholder="Buscar">
+                        <button type="submit" name="submit">
+                            <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
+                            <!-- <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon> -->
+                        </button>
+                    </form>
+                    <?php if(!empty($results)){ ?>
+                        <h5>Resultados para: "<?= $keyword; ?>"</h5>
+                    <?php } ?>
+                </div>
+                
                 <div class="read_main">
                     <?php if(!empty($results)){ ?>
                         <?php foreach($results as $index => $result): ?>

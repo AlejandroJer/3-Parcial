@@ -13,14 +13,20 @@ namespace modelos;
     public function HighlightKeyword($keywords, $string){
         $this->string = $string;
         $this->keywords = $keywords;
+        $trimmed_keywords = trim($this->keywords);
 
-        $start_pos = strpos($this->string, $this->keywords);
+        $normalized_string = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $this->string));
+        $normalized_keywords = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $trimmed_keywords));
+
+        $start_pos = stripos($normalized_string, $normalized_keywords);
 
         if ($start_pos !== false) {
-            $before = substr($this->string, 0, $start_pos);
-            $after = substr($this->string, $start_pos + strlen($this->keywords));
+            $pattern = '/' . preg_quote($trimmed_keywords, '/') . '/i';
 
-            $new_string = $before . '<span class="highlight">' . $this->keywords . '</span>' . $after;
+            $new_string = preg_replace_callback($pattern, function ($matches) {
+                return '<span class="highlight">' . $matches[0] . '</span>';
+            }, $this->string);
+            
         }else{
             $new_string = $this->string;
         }
