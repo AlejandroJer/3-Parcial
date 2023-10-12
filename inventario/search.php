@@ -1,10 +1,13 @@
 <?php
-require_once("../autoload.php");
-if(isset($_SESSION['results'])){
+namespace controladores;
+ require_once("../autoload.php");
+ use modelos\utilities;
+ $highlight = new utilities();
+
+
+if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
  $results = $_SESSION['results'];
-} else {
- unset($_SESSION['results']);
- $results = null;
+ $keyword = $_SESSION['keyword'];
 }
 ?>
 
@@ -89,7 +92,8 @@ if(isset($_SESSION['results'])){
                 <form method="POST" action="../controladores/gets/GetProducto.php" class="search_bar">
                     <input type="text" name="search" placeholder="Buscar">
                     <button type="submit" name="submit">
-                        <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon>
+                        <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
+                        <!-- <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon> -->
                     </button>
                 </form>
                 <div class="read_main">
@@ -111,21 +115,21 @@ if(isset($_SESSION['results'])){
                                     <?php } ?>
                                     </div>
                                     <div class="data_container">
-                                        <h2><?= $result['nombre_producto'];?></h2>
-                                        <h4><?=$result['Descripcion_producto'];?></h4>
+                                        <h2><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['nombre_producto']); ?></h2>
+                                        <h4><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['Descripcion_producto']); ?></h4>
                                     </div>
                                 </div>
                                 <div class="data_container">
                                     <div class="product_tags">
                                     
-                                        <h5>Categoría: <?php echo $result['categoria'];?></h5>
-                                        <h5>Material: <?php echo $result['tipo_material'];?></h5>
+                                        <h5>Categoría: <?= $result['categoria'];?></h5>
+                                        <h5>Material: <?= $result['tipo_material'];?></h5>
                                     </div>
                                     <div class="product_info">
                                         <h5>Peso: <?= $result['peso'];?></h5>
                                         <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
                                         <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>
-                                        <h5>ID Proveedor: <?php echo $result['id_proveedor'];?></h5>
+                                        <h5>ID Proveedor: <?= $result['id_proveedor'];?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -137,6 +141,8 @@ if(isset($_SESSION['results'])){
             </main>
         </section>
     </section>
+    <?php unset($_SESSION['results']); 
+            unset($_SESSION['keyword']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

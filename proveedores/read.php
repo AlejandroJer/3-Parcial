@@ -68,9 +68,6 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <a href="read_proveedores.php" class="ver-button-link">
-                    <button class="ver-button">Ver Proveedores</button>
-                </a>
             </header>
         </section>
     </section>

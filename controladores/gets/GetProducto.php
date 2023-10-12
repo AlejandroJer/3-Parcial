@@ -10,6 +10,7 @@
     $results = $producto->GetProductoByKeyWord($keyword);
 
     $_SESSION['results'] = $results;
+    $_SESSION['keyword'] = $keyword;
     header("location:./../../inventario/search.php");
  }
 

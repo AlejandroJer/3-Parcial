@@ -8,6 +8,9 @@
 
     --positive-spend: rgb(49, 188, 95);
     --negative-spend: rgb(255, 51, 122);
+
+    --hightlight-words: #FFB6C1;
+    
 }
 
 body{
