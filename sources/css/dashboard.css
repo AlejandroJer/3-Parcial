@@ -57,39 +57,4 @@
 .dashboard_options.option_container:hover div:last-child > *{
     transform: scale(1.1);
 }
-/* 
-.dashboard_options div:hover > *{
-    color: black;
-}
 
-.dashboard_options div h3::after{
-    content: "";
-
-    display: flex;
-
-    height: 1px;
-
-    border-bottom: var(--main-color) solid 1px;
-} */
-
-.search_bar{
-    margin: 2rem;
-}
-
-/*Boton de ver proveedores*/
-.ver-button-link {
-    text-decoration: none; 
-    display: inline-block; 
-}
-
-.ver-button {
-    background-color: #007bff; 
-    color: #fff; 
-    padding: 10px 20px; 
-    border: none; 
-    cursor: pointer; 
-}
-
-.ver-button:hover {
-    background-color: #0056b3; 
-}

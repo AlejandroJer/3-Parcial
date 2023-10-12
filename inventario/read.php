@@ -119,19 +119,8 @@
                                 <h5>Ubicación Almancen: <?= $post['ubicacion_almacen'];?></h5>
                                 <h5>ID Proveedor: <?php echo $post['id_proveedor'];?></h5>
                             </div>
-                            
-                            <div>
-                                
-                            </div>
                         </div>
                     </div>
-                    <!-- <div class="readObject_Container">
-                        <div>
-                            <div class="image_container">
-                            
-                            </div>
-                        </div>
-                    </div> -->
                 <?php } ?>
                 </div>
             </main>

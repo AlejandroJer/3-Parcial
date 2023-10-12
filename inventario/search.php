@@ -1,13 +1,10 @@
 <?php
 require_once("../autoload.php");
- use modelos\productos;
-$productObj = new productos();
-$productos = "";
-$flag = "";
-if(isset($_GET['search'])){
-    $KeyWord = filter_var($_GET['search'], FILTER_SANITIZE_STRING);
-    $productos = $productObj->GetProductoByKeyWord($KeyWord);
-    $flag = true;
+if(isset($_SESSION['results'])){
+ $results = $_SESSION['results'];
+} else {
+ unset($_SESSION['results']);
+ $results = null;
 }
 ?>
 
@@ -19,6 +16,7 @@ if(isset($_GET['search'])){
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
+    <link rel="stylesheet" href="../sources/css/read.css">
 </head>
 <body>
 <section class="index_section">
@@ -87,37 +85,53 @@ if(isset($_GET['search'])){
                     </a>
                 </div>
             </header>
-            <main class="search_bar">
-                <form method="GET" action="<?= $_SERVER['PHP_SELF']; ?>">
+            <main class="read_container">
+                <form method="POST" action="../controladores/gets/GetProducto.php" class="search_bar">
                     <input type="text" name="search" placeholder="Buscar">
                     <button type="submit" name="submit">
                         <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon>
                     </button>
                 </form>
-                <div class="search_results">
-                    <?php if(empty($productos)){ ?>
-                        <h1>BUSQUE ALGO PARA EMPEZAR</h1>
-                    <?php } else { 
-                        foreach ($productos as $producto) { ?>
-                            <div>
-                                <div class="search_result_header">
+                <div class="read_main">
+                    <?php if(!empty($results)){ ?>
+                        <?php foreach($results as $index => $result): ?>
+                            <!-- <button class="querybtn" data-index="<? //$index; ?>"> <?// $index + 1; ?> </button> -->
+                            <div class="readObject_Container">
+                                <div class="readObject_header">
                                     <span class="arrow"></span>
                                 </div>
-                                <div class="search_result_main">
-                                    <div class="search_result_main_img">
-                                        <img src="../inventario/<?= $producto['imagen']; ?>" alt="">
+                                <div>
+                                    <div class="image_container">
+                                    <?php if($result['imagen'] != null) {?>
+                                        <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="">
+                                        <h4 class="ingreso">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h4>
+                                        <h4 class="gasto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h4>
+
+
+                                    <?php } ?>
                                     </div>
-                                    <div class="search_result_main_info">
-                                        <h3><?= $producto[1]; ?></h3>
-                                        <p><?= $producto['descripcion_producto']; ?></p>
-                                        <p><?= $producto['precio_venta']; ?></p>
-                                        <p><?= $producto['cantidad_disponible']; ?></p>
-                                        <p><?= $producto['ubicacion_almacen']; ?></p>
-                                        <p><?= $producto['nombre_proveedor']; ?></p>
+                                    <div class="data_container">
+                                        <h2><?= $result['nombre_producto'];?></h2>
+                                        <h4><?=$result['Descripcion_producto'];?></h4>
+                                    </div>
+                                </div>
+                                <div class="data_container">
+                                    <div class="product_tags">
+                                    
+                                        <h5>Categoría: <?php echo $result['categoria'];?></h5>
+                                        <h5>Material: <?php echo $result['tipo_material'];?></h5>
+                                    </div>
+                                    <div class="product_info">
+                                        <h5>Peso: <?= $result['peso'];?></h5>
+                                        <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
+                                        <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>
+                                        <h5>ID Proveedor: <?php echo $result['id_proveedor'];?></h5>
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+                        <?php endforeach; ?>
+                    <?php } else { ?>
+                        <h1>Busque algo para comenzar</h1>
                     <?php } ?>
                 </div>
             </main>
