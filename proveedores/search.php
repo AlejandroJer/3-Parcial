@@ -74,6 +74,11 @@
                         <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon>
                     </button>
                 </div>
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.php">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
             </header>
         </section>
     </section>
