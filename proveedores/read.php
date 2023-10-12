@@ -1,3 +1,9 @@
+<?php
+require_once("../autoload.php");
+use modelos\proveedores;
+    $proveedores = new proveedores();
+        $posts = $proveedores->GetProveedores();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +74,38 @@
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
+                <div class="header_login" data-messages="Iniciar Secion">
+                    <a href="../auth/login.php">
+                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </div>
             </header>
+            <main class="read_container">
+                <div class="read_header">
+                    <button type="button" class="btn_read">Ver Proveedores</button>
+                </div>
+                <div class="read_main">
+                    <?php foreach ($posts as $post) { ?>
+                        <div class="readObject_Container">
+                            <div class="readObject_header">
+                                <span class="arrow"></span>
+                            </div>
+                            <div class="proveedor_container">
+                                <h4>Nombre del Proveedor:</h4>
+                                <h4><?= $post['nombre_empresa']; ?></h4>
+                                <h4>Correo:</h4>
+                                <h4><?= $post['email_proveedor']; ?></h4>
+                                <h4>Direccion:</h4>
+                                <h4><?= $post['direccion']; ?></h4>
+                                <h4>Contacto:</h4>
+                                <h4><?= $post['persona_contacto']; ?></h4>
+                                <h4>Telefono:</h4>
+                                <h4><?= $post['num_telefono']; ?></h4>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </main>
         </section>
     </section>
 </body>
