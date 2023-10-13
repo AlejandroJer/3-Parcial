@@ -93,7 +93,6 @@ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
                         <input type="text" name="search" placeholder="Buscar">
                         <button type="submit" name="submit">
                             <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
-                            <!-- <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon> -->
                         </button>
                     </form>
                     <?php if(!empty($results)){ ?>
@@ -104,7 +103,7 @@ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
                 <div class="read_main">
                     <?php if(!empty($results)){ ?>
                         <?php foreach($results as $index => $result): ?>
-                            <!-- <button class="querybtn" data-index="<? //$index; ?>"> <?// $index + 1; ?> </button> -->
+                            <button class="querybtn" data-index="<? $index; ?>"> <? $index + 1; ?> </button>
                             <div class="readObject_Container">
                                 <div class="readObject_header">
                                     <span class="arrow"></span>

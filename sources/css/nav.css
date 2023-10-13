@@ -8,23 +8,26 @@
 
     user-select: none;
 
-    height: 20rem;
+    height: 12rem;
 
     border-bottom: var(--main-color) solid 1px;
     border-right: var(--main-color) solid 1px;
 }
 
 .navHome{
-    height: 100vh;
-    width: 20rem;
+    width: 15rem;
 
     background-color: var(--main-color);
+}
+
+.navHome.hidden ~ .main_container{
+    width: 100%;
 }
 
 .main_container{
     flex-direction: column;
 
-    width: 100%;
+    width: calc(100% - 15rem);
 
     background-color: var(--background-color);
 }
@@ -143,11 +146,11 @@
 
 #NavArrow.target{
     border-top: 10px solid var(--secondary-color); 
-    transform: translateX(0) rotate(270deg);
+    transform: translateX(1.5rem) rotate(270deg);
 }
 
 #NavArrow.target:hover {
-    transform: translateX(0) rotate(270deg) scale(1.5);
+    transform: translateX(1.5rem) rotate(270deg) scale(1.5);
 }
 
 #NavArrow{

@@ -15,10 +15,14 @@
 
 }
 
+html{
+    height: 100%;
+}
+
 body{
     margin: 0;
 
-    height: 100vh;
+    min-height: 100vh;
 
     background-color: var(--secondary-color);
     font-family: var(--font-bold)
@@ -94,7 +98,23 @@ textarea{
 }
 
 body > section {
-    height: 100vh;
+    min-height: inherit;
+}
+
+input[type="text"]{
+    font-family: var(--font-bold);
+}
+
+input[type="number"]{
+    font-family: var(--font-bold);
+}
+
+select{
+    font-family: var(--font-bold);
+}
+
+textarea{
+    font-family: var(--font-bold); 
 }
 
 .hidden{

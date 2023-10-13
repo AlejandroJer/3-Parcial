@@ -21,8 +21,6 @@
     flex-direction: column;
     align-items: start;
 
-    width: 20%;
-
     margin: 1rem;
 }
 
@@ -36,6 +34,10 @@
     height: 100%;
 
     margin: 1rem;
+}
+
+.read_main h1{
+    user-select: none;
 }
 
 .readObject_Container{
@@ -130,7 +132,6 @@
     font-size: 14px;
 
     background-color: transparent;
-    font-family: var(--font-bold);
 }
 
 .search_bar button {

@@ -83,45 +83,47 @@
                 </div>
             </header>
             <main class="read_container">
-                <div class="read_header">
-                    <button type="button" class="btn_read">Ver Inventario</button>
-                </div>
+                <!-- <div class="read_header">
+                    <form action="" method="POST">
+                        <button type="button" class="btn_read">Ver Inventario</button>
+                    </form>
+                </div> -->
                 <div class="read_main">
-                <?php foreach ($posts as $post) { ?>
-                    <div class="readObject_Container">
-                        <div class="readObject_header">
-                            <span class="arrow"></span>
-                        </div>
-                        <div>
-                            <div class="image_container">
-                            <?php if($post['imagen'] != null) {?>
-                                <img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class="">
-                                <h4 class="ingreso">Precio Venta <br> $<?= $post['precio_venta'];?> pesos</h4>
-                                <h4 class="gasto">Precio Compra <br> $<?= $post['precio_compra'];?> pesos</h4>
+                    <?php foreach ($posts as $post) { ?>
+                        <div class="readObject_Container">
+                            <div class="readObject_header">
+                                <span class="arrow"></span>
+                            </div>
+                            <div>
+                                <div class="image_container">
+                                <?php if($post['imagen'] != null) {?>
+                                    <img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class="">
+                                    <h4 class="ingreso">Precio Venta <br> $<?= $post['precio_venta'];?> pesos</h4>
+                                    <h4 class="gasto">Precio Compra <br> $<?= $post['precio_compra'];?> pesos</h4>
 
 
-                            <?php } ?>
+                                <?php } ?>
+                                </div>
+                                <div class="data_container">
+                                    <h2><?= $post['nombre_producto'];?></h2>
+                                    <h4><?=$post['Descripcion_producto'];?></h4>
+                                </div>
                             </div>
                             <div class="data_container">
-                                <h2><?= $post['nombre_producto'];?></h2>
-                                <h4><?=$post['Descripcion_producto'];?></h4>
+                                <div class="product_tags">
+                                
+                                    <h5>Categoría: <?php echo $post['categoria'];?></h5>
+                                    <h5>Material: <?php echo $post['tipo_material'];?></h5>
+                                </div>
+                                <div class="product_info">
+                                    <h5>Peso: <?= $post['peso'];?></h5>
+                                    <h5>Cantidad disponible: <?= $post['cantidad_disponible'];?></h5>
+                                    <h5>Ubicación Almancen: <?= $post['ubicacion_almacen'];?></h5>
+                                    <h5>ID Proveedor: <?php echo $post['id_proveedor'];?></h5>
+                                </div>
                             </div>
                         </div>
-                        <div class="data_container">
-                            <div class="product_tags">
-                               
-                                <h5>Categoría: <?php echo $post['categoria'];?></h5>
-                                <h5>Material: <?php echo $post['tipo_material'];?></h5>
-                            </div>
-                            <div class="product_info">
-                                <h5>Peso: <?= $post['peso'];?></h5>
-                                <h5>Cantidad disponible: <?= $post['cantidad_disponible'];?></h5>
-                                <h5>Ubicación Almancen: <?= $post['ubicacion_almacen'];?></h5>
-                                <h5>ID Proveedor: <?php echo $post['id_proveedor'];?></h5>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
                 </div>
             </main>
         </section>

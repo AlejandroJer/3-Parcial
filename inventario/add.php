@@ -92,11 +92,11 @@ require_once("../autoload.php");
                     <div class="form-row">
                         <div class="form-group">
                             <label for="precio-venta">Precio de venta:</label>
-                            <input type="number" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" required>
+                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" required>
                         </div>
                         <div class="form-group">
                             <label for="precio-compra">Precio de compra:</label>
-                            <input type="number" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" required>
+                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" required>
                         </div>
                     </div>
                     <div class="form-row">
