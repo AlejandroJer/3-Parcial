@@ -1,9 +1,12 @@
 
 <?php
   require_once("../autoload.php");
-	use modelos\productos;
-  $productos = new productos();
-	$posts = $productos->Getproductos();
+
+  if(isset($_SESSION['results'])){
+    $results = $_SESSION['results'];
+    $index = $_SESSION['index'];
+    $page = $_SESSION['pageClicked'];
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,51 +86,64 @@
                 </div>
             </header>
             <main class="read_container">
-                <!-- <div class="read_header">
-                    <form action="" method="POST">
-                        <button type="button" class="btn_read">Ver Inventario</button>
+                <div class="read_header">
+                    <form action="../controladores/gets/ReadProductos.php" method="POST">
+                        <button type="submit" name="submit" class="btn_read">Ver Inventario</button>
                     </form>
-                </div> -->
+                </div>
                 <div class="read_main">
-                    <?php foreach ($posts as $post) { ?>
-                        <div class="readObject_Container">
-                            <div class="readObject_header">
-                                <span class="arrow"></span>
-                            </div>
-                            <div>
-                                <div class="image_container">
-                                <?php if($post['imagen'] != null) {?>
-                                    <img src="<?php echo $post['imagen']; ?>" alt="imagen de producto" class="">
-                                    <h4 class="ingreso">Precio Venta <br> $<?= $post['precio_venta'];?> pesos</h4>
-                                    <h4 class="gasto">Precio Compra <br> $<?= $post['precio_compra'];?> pesos</h4>
+                    <?php if(!empty($results)): ?>
+                            <?php foreach ($results as $result) { ?>
+                                <div class="readObject_Container">
+                                    <div class="readObject_header">
+                                        <span class="arrow"></span>
+                                    </div>
+                                    <div>
+                                        <div class="image_container">
+                                            <?php if($result['imagen'] != null) {?>
+                                                <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="">
+                                                <h4 class="ingreso">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h4>
+                                                <h4 class="gasto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h4>
 
 
-                                <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="data_container">
+                                            <h2><?= $result['nombre_producto'];?></h2>
+                                            <h4><?=$result['Descripcion_producto'];?></h4>
+                                        </div>
+                                    </div>
+                                    <div class="data_container">
+                                        <div class="product_tags">
+                                        
+                                            <h5>Categoría: <?php echo $result['categoria'];?></h5>
+                                            <h5>Material: <?php echo $result['tipo_material'];?></h5>
+                                        </div>
+                                        <div class="product_info">
+                                            <h5>Peso: <?= $result['peso'];?></h5>
+                                            <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
+                                            <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>
+                                            <h5>ID Proveedor: <?php echo $result['id_proveedor'];?></h5>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="data_container">
-                                    <h2><?= $post['nombre_producto'];?></h2>
-                                    <h4><?=$post['Descripcion_producto'];?></h4>
-                                </div>
-                            </div>
-                            <div class="data_container">
-                                <div class="product_tags">
-                                
-                                    <h5>Categoría: <?php echo $post['categoria'];?></h5>
-                                    <h5>Material: <?php echo $post['tipo_material'];?></h5>
-                                </div>
-                                <div class="product_info">
-                                    <h5>Peso: <?= $post['peso'];?></h5>
-                                    <h5>Cantidad disponible: <?= $post['cantidad_disponible'];?></h5>
-                                    <h5>Ubicación Almancen: <?= $post['ubicacion_almacen'];?></h5>
-                                    <h5>ID Proveedor: <?php echo $post['id_proveedor'];?></h5>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
+                            <?php } ?>
+                            <form action="../controladores/gets/ReadProductos.php" method="POST" class="form_pages">
+                                <?php for($i = 0; $i < $index; $i++): ?>
+                                    <?php if($i == $page){ ?>
+                                        <button type="submit" class="btn_page target" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                    <?php } else { ?>
+                                        <button type="submit" class="btn_page" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                    <?php } ?>
+                                <?php endfor; ?>
+                            </form>
+                        <?php endif; ?>
                 </div>
             </main>
         </section>
     </section>
+    <?php unset($_SESSION['results']);
+              unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

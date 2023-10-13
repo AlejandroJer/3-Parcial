@@ -50,10 +50,56 @@ class productos extends conexion{
         return $request;
     }
 
+    public function GetproductosIndex(){
+        $sql="SELECT COUNT(*) FROM productos";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
+    public function GetproductosLimited($offset, $limitQuery){
+        $sql="SELECT * FROM productos ORDER BY id_producto DESC LIMIT :offset, :limitQuery";
+        $execute = $this->conn->prepare($sql);
+
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
+
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+
+        return $request;
+    }
+
     public function GetProductoByKeyWord($KeyWord){
         $sql="SELECT * FROM productos WHERE nombre_producto like '%$KeyWord%' OR descripcion_producto LIKE '%$KeyWord%'";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
+    public function GetProductoByKeyWordIndex($KeyWord){
+        $sql="SELECT COUNT(*) FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword";
+        $execute = $this->conn->prepare($sql);
+
+        $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
+        $execute->execute();
+
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function GetProductoByKeyWordLimited($KeyWord, $offset, $limitQuery){
+        $sql="SELECT * FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword LIMIT :offset, :limitQuery";
+        $execute = $this->conn->prepare($sql);
+
+        $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
+
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+
         return $request;
     }
 

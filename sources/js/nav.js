@@ -40,6 +40,5 @@ navButton.addEventListener('click', () => {
     }
 
     localStorage.setItem('navHidden', nav.classList.contains('hidden'))
-    console.log(localStorage.getItem('navHidden'));
 })
-
+    

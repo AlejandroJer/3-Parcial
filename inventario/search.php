@@ -4,10 +4,12 @@ namespace controladores;
  use modelos\utilities;
  $highlight = new utilities();
 
-if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
- $results = $_SESSION['results'];
- $keyword = $_SESSION['keyword'];
-}
+ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
+    $results = $_SESSION['results'];
+    $keyword = $_SESSION['keyword'];
+    $index = $_SESSION['index'];
+    $page = $_SESSION['pageClicked'];
+   }
 ?>
 
 <!DOCTYPE html>
@@ -89,21 +91,21 @@ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
             </header>
             <main class="read_container">
                 <div class="read_header">
-                    <form method="POST" action="../controladores/gets/GetProducto.php" class="search_bar">
+                    <form method="POST" action="../controladores/gets/SearchProducto.php" class="search_bar">
                         <input type="text" name="search" placeholder="Buscar">
                         <button type="submit" name="submit">
                             <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
+                            <!-- <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon> -->
                         </button>
                     </form>
-                    <?php if(!empty($results)){ ?>
+                    <?php if(!empty($index)){ ?>
                         <h5>Resultados para: "<?= $keyword; ?>"</h5>
                     <?php } ?>
                 </div>
                 
                 <div class="read_main">
                     <?php if(!empty($results)){ ?>
-                        <?php foreach($results as $index => $result): ?>
-                            <button class="querybtn" data-index="<? $index; ?>"> <? $index + 1; ?> </button>
+                        <?php foreach($results as $result): ?>
                             <div class="readObject_Container">
                                 <div class="readObject_header">
                                     <span class="arrow"></span>
@@ -138,6 +140,16 @@ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
                                 </div>
                             </div>
                         <?php endforeach; ?>
+                        <form action="../controladores/gets/SearchProducto.php" method="POST" class="form_pages">
+                            <?php for($i = 0; $i < $index; $i++): ?>
+                                <?php if($i == $page){ ?>
+                                    <button type="submit" class="btn_page target" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                <?php } else { ?>
+                                    <button type="submit" class="btn_page" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                <?php } ?>
+                            <?php endfor; ?>
+                            <input type="hidden" name="searchPaginated" value="<?= $keyword ?>">
+                        </form>
                     <?php } else { ?>
                         <h1>Busque algo para comenzar</h1>
                     <?php } ?>
@@ -146,7 +158,8 @@ if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
         </section>
     </section>
     <?php unset($_SESSION['results']); 
-            unset($_SESSION['keyword']); ?>
+            unset($_SESSION['keyword']); 
+              unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
