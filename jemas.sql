@@ -1,61 +1,32 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Oct 13, 2023 at 04:02 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `jemas`
---
 
--- --------------------------------------------------------
-
---
--- Table structure for table `movimientos`
---
-
-CREATE TABLE `movimientos` (
-  `id_movimiento` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `movimientos` (
+  `id_movimiento` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_movimiento` datetime NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `nombre_producto` varchar(50) NOT NULL,
-  `cantidad_disponible` int(11) NOT NULL
+  `cantidad_disponible` int(11) NOT NULL,
+  PRIMARY KEY (`id_movimiento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `perfiles`
---
-
-CREATE TABLE `perfiles` (
-  `id_perfil` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `perfiles` (
+  `id_perfil` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_perfil` varchar(30) NOT NULL,
-  `descripcion_perfil` text NOT NULL
+  `descripcion_perfil` text NOT NULL,
+  PRIMARY KEY (`id_perfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `productos`
---
-
-CREATE TABLE `productos` (
-  `id_producto` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `productos` (
+  `id_producto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_producto` varchar(50) NOT NULL,
   `Descripcion_producto` text NOT NULL,
   `imagen` varchar(60) DEFAULT NULL,
@@ -66,14 +37,11 @@ CREATE TABLE `productos` (
   `tipo_material` varchar(50) NOT NULL,
   `cantidad_disponible` int(4) UNSIGNED NOT NULL,
   `ubicacion_almacen` varchar(50) NOT NULL,
-  `id_proveedor` int(11) DEFAULT NULL
+  `id_proveedor` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `productos`
---
-
-INSERT INTO `productos` (`id_producto`, `nombre_producto`, `Descripcion_producto`, `imagen`, `precio_compra`, `precio_venta`, `categoria`, `peso`, `tipo_material`, `cantidad_disponible`, `ubicacion_almacen`, `id_proveedor`) VALUES
+INSERT IGNORE INTO `productos` (`id_producto`, `nombre_producto`, `Descripcion_producto`, `imagen`, `precio_compra`, `precio_venta`, `categoria`, `peso`, `tipo_material`, `cantidad_disponible`, `ubicacion_almacen`, `id_proveedor`) VALUES
 (4, 'Anillo de Diamante Clásico', 'Anillo de oro con un hermoso diamante en el centro.', 'imagenes_productos/Imagen1.jpg', 250.00, 500.00, 'Anillo', 3, 'Oro', 20, 'Estante 1, Fila A', 1),
 (5, 'Anillo de Plata con Zafiro', 'Anillo de plata con un zafiro azul en la parte superior.', 'imagenes_productos/Imagen2.jpg', 75.00, 150.00, 'Anillo', 2, 'Plata', 15, 'Estante 2, Fila B', 2),
 (6, 'Anillo de Compromiso de Platino', 'Elegante anillo de compromiso de platino con un diamante central.', 'imagenes_productos/Imagen3.jpg', 400.00, 800.00, 'Anillo', 4, 'Platino', 10, 'Estante 3, Fila C', 3),
@@ -95,103 +63,68 @@ INSERT INTO `productos` (`id_producto`, `nombre_producto`, `Descripcion_producto
 (25, 'Pendientes de Platino con Esmeraldas', 'Pendientes de platino con esmeraldas verdes', 'imagenes_productos/Imagen19.jpg', 200.00, 400.00, 'Pulsera', 3, 'Platino', 8, 'Estante 24, Fila X', 24),
 (26, 'Pendientes de Oro con Rubíes', 'Pendientes de oro con rubíes rojos.', 'imagenes_productos/Imagen20.jpg', 130.00, 260.00, 'Pulsera', 2, 'Oro', 14, 'Estante 25, Fila Y', 25);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `proveedores`
---
-
-CREATE TABLE `proveedores` (
-  `id_proveedor` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `proveedores` (
+  `id_proveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_empresa` varchar(50) NOT NULL,
   `persona_contacto` varchar(70) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `num_telefono` int(10) UNSIGNED NOT NULL,
-  `email_proveedor` varchar(50) NOT NULL
+  `email_proveedor` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_proveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+INSERT IGNORE INTO `proveedores` (`id_proveedor`, `nombre_empresa`, `persona_contacto`, `direccion`, `num_telefono`, `email_proveedor`) VALUES
+(2, 'Joyería Elegante', 'Ana Pérez', 'Calle de las gemas 123', 3145554567, 'ana@joyeriaelegante.com'),
+(3, 'Diamantes Brillantes', 'Juan Rodríguez', 'Avenida de los Zafiros 456', 3145555678, 'juan@diamantesbrillantes.com'),
+(4, 'Oro Fino Joyería', 'María López', 'Plaza de las Joyas 789', 3145556789, 'maria@orofinojoyeria.com'),
+(5, 'Gemas Preciosas S.A.', 'Carlos Martínez', 'Calle de las Perlas 101', 3145557890, 'carlos@gemaspreciosas.com'),
+(6, 'Plata y Brillantes', 'Laura González', 'Avenida de los Diamantes 222', 3145558901, 'laura@plataYbrillantes.com'),
+(7, 'Zafiros Elegantes', 'Pedro Sánchez', 'Calle de las joyas 333', 3145559012, 'pedro@zafirosElegantes.com'),
+(8, 'Joyería Brillante', 'Marta Pérez', 'Avenida de los Rubíes 444', 3145550123, 'marta@joyeriaBrillante.com'),
+(9, 'Perlas Finas', 'Juanita Rodríguez', 'Calle de las Perlas 555', 3145551234, 'juanita@perlasFinas.com'),
+(10, 'Diamantes y Rubíes', 'Pablo Gómez', 'Avenida de las Gemas 666', 3145552345, 'pablo@diamantesYrubies.com'),
+(11, ' Plata Elegante S.A.', 'Elena Torres', 'Calle de los Zafiros 777', 3145553456, 'elena@plataElegante.com'),
+(12, ' Gemas Exclusivas', 'Marta González', 'Calle de los Zafiros 789', 4294967295, 'marta@gemasexclusivas.com'),
+(13, 'Orfebrería Fina', 'David Martínez', 'Paseo de los Rubíes 567', 4294967295, 'david@orfebreriafina.com'),
+(14, 'Piedras Preciosas S.A.', 'Laura Sánchez', 'Avenida de las Esmeraldas 890', 4294967295, 'laura@piedraspreciosas.com'),
+(15, ' Anillos de Plata', 'Andrés López', ' Calle de los Diamantes 123', 4294967295, 'andres@anillosdeplata.com'),
+(16, 'Bisutería Creativa', 'Patricio Fernández', ' Avenida de las Perlas 456', 4294967295, 'patricio@bisuteriacreativa.com'),
+(17, 'Piedras del Mundo', 'Carlos Pérez', 'Avenida de las Perlas 456', 1415557890, 'carlos@piedrasdelmundo.com'),
+(18, 'Brillantes y Más', ' Ana Martínez', 'Calle de los Zafiros 789', 1515551234, 'ana@brillantesymas.com');
 
---
--- Table structure for table `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id_usr` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usr` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_usr` varchar(30) NOT NULL,
   `contraseña` varchar(40) NOT NULL,
   `apellido_usr` varchar(30) NOT NULL,
   `email_usr` varchar(60) NOT NULL,
-  `id_perfil` int(11) NOT NULL
+  `id_perfil` int(11) NOT NULL,
+  PRIMARY KEY (`id_usr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `movimientos`
---
-ALTER TABLE `movimientos`
-  ADD PRIMARY KEY (`id_movimiento`);
-
---
--- Indexes for table `perfiles`
---
-ALTER TABLE `perfiles`
-  ADD PRIMARY KEY (`id_perfil`);
-
---
--- Indexes for table `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id_producto`);
-
---
--- Indexes for table `proveedores`
---
-ALTER TABLE `proveedores`
-  ADD PRIMARY KEY (`id_proveedor`);
-
---
--- Indexes for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usr`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `movimientos`
---
-ALTER TABLE `movimientos`
-  MODIFY `id_movimiento` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `perfiles`
---
-ALTER TABLE `perfiles`
-  MODIFY `id_perfil` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `proveedores`
---
-ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+INSERT IGNORE INTO `usuarios` (`id_usr`, `nombre_usr`, `contraseña`, `apellido_usr`, `email_usr`, `id_perfil`) VALUES
+(3, 'Juan', '$2y$10$tJEpiFiWkg7XVC70jx/PAOv6JXem4Bp/C', 'Lopez', 'juan.lopez@email.com', 0),
+(4, 'María ', '$2y$10$96D0flU99PVmDaA6hy8qiuV2ywlBgptmb', 'Rodríguez', 'maria.rodriguez@email.com', 0),
+(5, 'Carlos', '$2y$10$jK3nwXN1cIc3/iWOC9.66OX1sz5Y1arIC', 'Sánchez', 'carlos.sanchez@email.com', 0),
+(6, 'Laura', '$2y$10$M4gU/i64wqd/qfzxlLjsQ.3TcFm7oeJSj', 'Martínez', 'laura.martinez@email.com', 0),
+(7, 'Pedro', '$2y$10$5y0DfQR6bXENZWrFW5JoRefS/AFBf.Nkk', 'Gómez', 'pedro.gomez@email.com', 0),
+(8, 'Ana', '$2y$10$02LUqGM2TD3AyNhQKXoz2uBnbzfR63qJC', 'Pérez', 'ana.perez@email.com', 0),
+(9, 'David', '$2y$10$PTpx0XQNyQMAP0AuWTCTruktyb3KGv0KF', 'García', 'david.garcia@email.com', 0),
+(10, 'Carmen', '$2y$10$7PtwXOLBtKYO.IkqdP6icuz88v.EmwZtN', 'López', 'carmen.lopez@email.com', 0),
+(11, 'José', '$2y$10$2t5n7tRDe0dhGBVo2eZfGOudVw0pU7RLE', 'Torres', 'jose.torres@email.com', 0),
+(12, 'Marta', '$2y$10$7aGyQXdXzEX3WyyHwsrp2OI3GWsBVnYqu', 'Rodríguez', 'marta.rodriguez@email.com', 0),
+(13, 'Miguel', '$2y$10$iR1nJDlswigZDXIKEjhIzeTTvE4gO0foC', 'Fernández', 'miguel.fernandez@email.com', 0),
+(14, 'Elena', '$2y$10$Doxfe2A95zMYz9r.Nob5wudlsVKAWnx0G', 'Ramírez', 'elena.ramirez@email.com', 0),
+(15, 'Javier ', '$2y$10$X4AlnF5SAN4UvFJwY7nEXu8sa9T8n6Kts', 'Soto', 'javier.soto@email.com', 0),
+(16, 'Silvia', '$2y$10$yWZemxe2XBzjd1Q94vOJtOZaoMOirk4/W', 'Castro', 'silvia.castro@email.com', 0),
+(17, 'Raúl', '$2y$10$27OwtHOt3qQT7N6Sk0Uv1.QJrFsLxNYqD', 'Herrera', 'raul.herrera@email.com', 0),
+(18, 'Alejandro', '$2y$10$t1c3whli0buHPPmas1CYfu0QSI8GPST4k', 'García', 'alejandro.garcia@email.com', 0),
+(19, 'Andrés', '$2y$10$m3kiQK90XZR.buKy6PK1auj49fqw18GDs', 'Torres', 'andres.torres@email.com', 0),
+(20, 'Patricia', '$2y$10$95QRJOwrGAGm6cFw1LbqmOfLHQx2klC0b', 'Silva', 'patricia.silva@email.com', 0),
+(21, 'Luis', '$2y$10$y0fACFrpHf9ny8qyfXu7vu2A0QTO3ovHt', 'Ortega', 'luis.ortega@email.com', 0),
+(22, 'Isabel', '$2y$10$EuI22iCShBSdpbtlexwE9OYP7uPnBe3WH', 'Vargas', 'isabel.vargas@email.com', 0),
+(23, 'Daniel', '$2y$10$qYEli1epEnyblf6mFBOUmefa/iRQAaNgv', 'Molina', 'daniel.molina@email.com', 0),
+(24, 'Sonia', '$2y$10$b24pEYnWokJCrI/hAoA2/uPnJXZ26ahns', 'Castillo', 'sonia.castillo@email.com', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
