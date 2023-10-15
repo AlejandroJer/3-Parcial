@@ -3,7 +3,7 @@
   require_once("../autoload.php");
 
     if(isset($_SESSION['results'])){
-        $posts = $_SESSION['results'];
+        $results = $_SESSION['results'];
         $index = $_SESSION['index'];
         $page = $_SESSION['pageClicked'];
     }
@@ -102,12 +102,13 @@
                                     <div class="image_container">
                                     </div>
                                     <div class="data_container">
-                                        <h4>Nombre:</h4>
-                                        <h4><?=$post['nombre_usr'] . ' ' . $post['apellido_usr'];?></h4>
-                                        <h4>Correo:</h4>
-                                        <h4><?=$post['email_usr'];?></h4>
-                                     </div>
-                                </div> 
+                                        <h4>Nombre</h4>
+                                        <h4><?=$result['nombre_usr'] . ' ' . $result['apellido_usr'];?></h4>
+                                        <h4>Correo</h4>
+                                        <h4><?=$result['email_usr'];?></h4>
+                                   </div>
+                              </div>  
+                            </div> 
                         <?php } ?>
                         <form action = "../controladores/gets/ReadUsuario.php" method = "POST" class="form_pages">
                             <?php for($i = 0; $i < $index; $i++): ?>
