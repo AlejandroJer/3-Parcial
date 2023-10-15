@@ -1,11 +1,13 @@
 
 <?php
   require_once("../autoload.php");
-use modelos\usuarios;
-    $usuarios = new usuarios();
-        $posts = $usuarios->Getusuarios();
-?>
 
+    if(isset($_SESSION['results'])){
+        $posts = $_SESSION['results'];
+        $index = $_SESSION['index'];
+        $page = $_SESSION['pageClicked'];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,29 +87,51 @@ use modelos\usuarios;
             </header>
             <main class="read_container">
                 <div class="read_header">
-                    <button type="button" class="btn_read">Ver Empleados</button>
+                    <form action="../controladores/gets/ReadUsuario.php" method="POST">
+                        <button type="submit" name="submit" class="btn_read">Ver Empleados</button>
+                    </form>
                 </div>
                 <div class="read_main">
-    <?php foreach($posts as $post) { ?>
-        <div class="readObject_Container">
-            <div class="readObject_header">
-                <span class="arrow"></span>
-            </div>
-           
-            <div class="name_container">
-                <h4>Nombre:</h4>
-                <h4><?=$post['nombre_usr'] . ' ' . $post['apellido_usr'];?></h4>
-                <h4>Correo:</h4>
-                <h4><?=$post['email_usr'];?></h4>
-            </div>
-        </div> 
-    <?php } ?>
-</div> 
-
+                    <?php if(!empty($results)): ?>
+                        <?php foreach ($results as $result) { ?>
+                            <div class="readObject_Container">
+                                <div class="readObject_header">
+                                    <span class="arrow"></span>
+                                </div>
+                                <div>
+                                    <div class="image_container">
+                                    </div>
+                                    <div class="data_container">
+                                        <h4>Nombre:</h4>
+                                        <h4><?=$post['nombre_usr'] . ' ' . $post['apellido_usr'];?></h4>
+                                        <h4>Correo:</h4>
+                                        <h4><?=$post['email_usr'];?></h4>
+                                     </div>
+                                </div> 
+                        <?php } ?>
+                        <form action = "../controladores/gets/ReadUsuario.php" method = "POST" class="form_pages">
+                            <?php for($i = 0; $i < $index; $i++): ?>
+                                <?php if($i == $page){ ?>
+                                    <button type="submit" class="btn_page target" name="submitPaginated" value="<?=$i?>"><?=$i+1?></button>
+                                <?php } else {?>
+                                    <button type="submit" class="btn_page" name="submitPaginated" value="<?=$i?>"><?=$i+1?></button>
+                                <?php } ?>
+                           <?php endfor; ?>
+                        </form>
+                     <?php endif; ?>
+            </div> 
+         </main>
 
         </section>
     </section>
+
+    <?php unset($_SESSION['results']); 
+             unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>
+
+
+
+        
