@@ -58,3 +58,22 @@
     transform: scale(1.1);
 }
 
+/* CUSTOM CSS FOR PHONES DEVICES */
+
+@media screen and (max-aspect-ratio: 9/16){
+    .main_container{
+        display: block;
+        width: 100%;
+    }
+
+    .dashboard_main{
+        flex-direction: column;
+    
+        margin: 1rem;
+    }
+
+    .dashboard_main section{
+        flex-direction: column;
+        align-items: center;
+    }
+}

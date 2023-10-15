@@ -41,4 +41,11 @@ navButton.addEventListener('click', () => {
 
     localStorage.setItem('navHidden', nav.classList.contains('hidden'))
 })
-    
+
+//dettect if the user is on a small/media screen and hide the nav bar
+var aspectRatio = window.innerWidth / window.innerHeight;
+
+if(aspectRatio < 1){
+    nav.classList.add('hidden')
+    navButton.classList.add('target')
+}

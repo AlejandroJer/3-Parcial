@@ -78,7 +78,7 @@ require_once("../autoload.php");
             </header>
             <main class="dashboard_container">
                 <form action="../controladores/SetProducto.php" method="post" enctype="multipart/form-data">
-                    <div class="form-row">
+                    <div class="form_row">
                         <input type="hidden" name="id_inv" value="null">
                         <div class="form-group">
                             <label for="producto-nombre">Nombre del producto:</label>
@@ -89,7 +89,7 @@ require_once("../autoload.php");
                             <input type="number" min="0" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="precio-venta">Precio de venta:</label>
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" required>
@@ -99,7 +99,7 @@ require_once("../autoload.php");
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="producto-categoria">Categoría:</label>
                             <select name="categoria" required>
@@ -119,7 +119,7 @@ require_once("../autoload.php");
                             </select>  
                         </div>
                     </div> 
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="peso">Peso:</label>
                             <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Onzas" required>
@@ -133,7 +133,7 @@ require_once("../autoload.php");
                         <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
                         <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" required>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="producto-descripcion">Descripción:</label>
                             <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required></textarea>

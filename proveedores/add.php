@@ -79,13 +79,13 @@ require_once("../autoload.php");
             </header>
             <main class="dashboard_container">
                 <form action="../controladores/SetProveedor.php" method="POST">
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="nombre-empresa">Nombre de la Empresa:</label>
                             <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Empresa" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="direccion-proveedor">Dirección:</label>
                             <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" required>
@@ -95,7 +95,7 @@ require_once("../autoload.php");
                             <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Persona de contacto" required>
                         </div>
                     </div>    
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="telefono">Teléfono:</label>
                             <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono " required>

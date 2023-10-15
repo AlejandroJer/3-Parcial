@@ -98,12 +98,14 @@
                                     <div class="readObject_header">
                                         <span class="arrow"></span>
                                     </div>
-                                    <div>
+                                    <div class="principal_data">
                                         <div class="image_container">
                                             <?php if($result['imagen'] != null) {?>
                                                 <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="">
-                                                <h4 class="ingreso">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h4>
-                                                <h4 class="gasto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h4>
+                                                <div>
+                                                    <h4 class="ingreso">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h4>
+                                                    <h4 class="gasto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h4>
+                                                </div>
 
 
                                             <?php } ?>
@@ -115,11 +117,14 @@
                                     </div>
                                     <div class="data_container">
                                         <div class="product_tags">
-                                        
-                                            <h5>Categoría: <?php echo $result['categoria'];?></h5>
-                                            <h5>Material: <?php echo $result['tipo_material'];?></h5>
+                                            <h3>TAGS</h3>
+                                            <div>
+                                                <h5>Categoría: <?php echo $result['categoria'];?></h5>
+                                                <h5>Material: <?php echo $result['tipo_material'];?></h5>
+                                            </div>
                                         </div>
                                         <div class="product_info">
+                                            <h3>Datos del producto</h3>
                                             <h5>Peso: <?= $result['peso'];?></h5>
                                             <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
                                             <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>

@@ -38,10 +38,6 @@ class usuarios extends conexion{
         return $request;
     }
 
-
-
-
-
     public function GetusuariosIndex(){
         $sql="SELECT COUNT(*) FROM usuarios";
         $execute = $this->conn->query($sql);
