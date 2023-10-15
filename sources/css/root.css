@@ -67,8 +67,12 @@ h4{
 }
 
 h5{
-    margin: 0.1rem;
+    margin: 0.3rem;
     font-size: 0.65rem;
+}
+
+p{
+    margin: 0.25rem;
 }
 
 li{

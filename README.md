@@ -26,3 +26,5 @@ https://icon-sets.iconify.design/fa-solid/users/
 https://icon-sets.iconify.design/clarity/employee-solid/
 https://icon-sets.iconify.design/clarity/sign-in-solid/
 https://icon-sets.iconify.design/ic/sharp-content-paste-search/
+https://icon-sets.iconify.design/mdi/face-woman/
+https://icon-sets.iconify.design/mdi/face-man/

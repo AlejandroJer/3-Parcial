@@ -6,6 +6,7 @@ class usuarios extends conexion{
     private $nombre;
     private $apellido;
     private $email;
+    private $sexo;
     private $password;
     private $id_usuario;
     private $id_rol;
@@ -16,16 +17,17 @@ class usuarios extends conexion{
         parent::__construct();
     }
 
-    public function Insertar(string $nombre, string $apellido, string $email, string $password, int $id_rol){
+    public function Insertar(string $nombre, string $apellido, string $email,string $sexo ,string $password, int $id_rol){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
 
-        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,contraseña,id_perfil) VALUES(?,?,?,?,?)";
+        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
@@ -37,6 +39,72 @@ class usuarios extends conexion{
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
         return $request;
     }
+
+    public function GetusuariosIndex(){
+        $sql="SELECT COUNT(*) FROM usuarios";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
+    public function GetusuariosLimited($offset, $limitQuery){
+        $sql="SELECT * FROM usuarios ORDER BY id_usr DESC LIMIT :offset, :limitQuery";
+        $execute = $this->conn->prepare($sql);
+
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
+
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+
+        return $request;
+    }
+
+    public function GetUsuarioByKeyword($keyword){
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR id_usr LIKE '%$keyword%' ORDER BY id_usr DESC";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
+    public function GetUsuarioByKeywordIndex($keyword){
+        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR id_usr LIKE '%$keyword%'";
+        $execute = $this->conn->prepare($sql);
+        
+        $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
+        $execute->execute();
+
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function GetUsuarioByKeywordLimited($keyword, $offset, $limitQuery){
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR id_usr LIKE '%$keyword%' ORDER BY id_usr DESC LIMIT $offset, $limitQuery";
+        $execute = $this->conn->prepare($sql);
+
+        $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
+
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+
+        return $request;
+    }
+
+
+
+
+
+
+    
+
+
+
+
+
+
 
     public function GetUsuarioById($id){
         $sql="SELECT * FROM usuarios WHERE id_usr = $id";
@@ -74,16 +142,17 @@ class usuarios extends conexion{
         return $request;
     }
 
-    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, string $password, int $id_rol){
+    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, string $sexo, string $password, int $id_rol){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
 
-        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
+        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, sexo=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
         $update= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
         $resExecute = $update->execute($arrData);
         return $resExecute;
     }

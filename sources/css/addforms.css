@@ -1,16 +1,11 @@
 .dashboard_container {
-  float: center;
-
-  height: fit-content;
-  width: fit-content;
-
   padding: 5rem;
-  margin-top: 80px; 
-  margin-left: auto;
-  margin-right: auto;
+  margin: 6rem auto;
 
   background-color: var(--main-color);
   border-radius: 4px;
+
+  overflow-y: auto;
 }
 
 .form-group {
@@ -37,4 +32,38 @@
 
 .btn-primary {
   background-color: var(--secondary-color);
+}
+
+@media screen and (max-aspect-ratio: 9/16){
+  .main_container{
+    display: block;
+    width: 100%;
+  }
+
+  .dashboard_container{
+    margin: 1rem;
+    padding: 0;
+    
+    height: calc(100vh - auto);
+    overflow: hidden;
+  }
+
+  .dashboard_container form{
+    margin: 1rem;
+    width: 100%;
+  }
+
+  .form_row{
+    flex-direction: column;
+  }
+
+  .form-control{
+    width: 100%;
+
+    padding: 5px 10px;
+  }
+
+  .form-group{
+    margin-bottom: 10px;
+  }
 }

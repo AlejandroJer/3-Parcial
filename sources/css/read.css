@@ -65,10 +65,13 @@
     margin: 0 0.5rem 0 0;
 }
 
+.principal_data{
+    height: calc(70% - 20px);
+}
+
 .image_container{
     flex-direction: column;
-
-    height: 12.5rem;
+    align-items: center;
 
     margin: 1rem 1rem 0 1rem;
 }
@@ -77,9 +80,16 @@
     user-select: none;
 
     width: 150px;
-    height: 150px;
+    height: 70%;
 
     object-fit: contain;
+}
+
+.readObject_Container > .data_container{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    height: 30%;
 }
 
 .data_container{
@@ -92,22 +102,27 @@
     margin: 1rem 0.5rem;
 }
 
+.data_container h4 p{
+    font-size: 1.5rem;
+}
+
 .product_tags{
-    height: 150%;
     flex-direction: column;
     text-align: left;
-    margin-left: 400px;
-    border: var(--main-color) solid 2px;
-    background-color: rgba(230, 218, 230, 0.412);
 
+    width: 50%;
+    
+    padding: 1rem;
+
+    border: var(--main-color) solid 2px;
+    border-radius: 5px;
+    background-color: rgba(230, 218, 230, 0.3);
 }
 
 .product_info{
     flex-direction: column;
     justify-content: center;
-    height: auto;
-    margin-left: 15px;
-    
+    height: auto;    
 }
 
 /* SEARCH FORM */
@@ -181,4 +196,54 @@
     cursor: pointer;
     
     background-color: transparent;
+}
+
+@media screen and (max-aspect-ratio: 9/16){
+    .read_container{
+        height: calc(100vh - 60px);
+    }
+
+    .read_main h1{
+        text-align: center;
+    }
+    
+    .main_container{
+     display: block;
+     width: 100%;
+    }
+
+    .readObject_Container{
+        width: 90%;
+    }
+
+    .image_container{
+        flex-direction: column;
+        align-items: center;
+    
+        margin: 0.5rem 0.5rem 0 0.5rem;
+    }
+
+    .principal_data > .data_container{
+        text-align: center;
+    }
+
+    .readObject_Container > .data_container h3{
+        text-align: center;
+    }
+
+    .data_container h2{
+        font-size: 1.25rem;
+    }
+
+    .product_tags{
+        padding: 0.5rem;
+    }
+
+    .product_tags h5{
+        margin: 0.1rem;
+    }
+
+    .product_info h3{
+        font-size: 0.8rem;
+    }
 }

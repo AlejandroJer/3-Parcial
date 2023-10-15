@@ -96,7 +96,7 @@ if(isset($_SESSION['producto'])){
                             <input type="number" min="0" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" value="<?php if(isset($result['id_proveedor'])){echo $result['id_proveedor'];} ?>" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="precio-venta">Precio de venta:</label>
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" value="<?php if(isset($result['precio_venta'])){echo $result['precio_venta'];} ?>" required>
@@ -106,7 +106,7 @@ if(isset($_SESSION['producto'])){
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" value="<?php if(isset($result['precio_compra'])){echo $result['precio_compra'];} ?>" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="producto-categoria">Categoría:</label>
                             <select name="categoria" required>
@@ -126,7 +126,7 @@ if(isset($_SESSION['producto'])){
                             </select>  
                         </div>
                     </div> 
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="peso">Peso:</label>
                             <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Onzas" value="<?php if(isset($result['peso'])){echo $result['peso'];} ?>" required>
@@ -140,7 +140,7 @@ if(isset($_SESSION['producto'])){
                         <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
                         <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" value="<?php if(isset($result['ubicacion_almacen'])){echo $result['ubicacion_almacen'];} ?>" required>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group">
                             <label for="producto-descripcion">Descripción:</label>
                             <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required><?php if(isset($result['Descripcion_producto'])){echo $result['Descripcion_producto'];} ?></textarea>

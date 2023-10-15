@@ -14,7 +14,6 @@
             <header class="navHome_header">
                 <h1>JEMAS</h1>
             </header>
-
             <div class="navHome_ol">
                 <a href="./dashboard.php">
                     <div  class="active option_container target">
@@ -120,5 +119,6 @@
     </section>
 </body>
 <script src="./sources/js/nav.js"></script>
+<script src="./sources/js/phone.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>

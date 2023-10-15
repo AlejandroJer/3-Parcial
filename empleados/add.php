@@ -79,7 +79,7 @@ require_once("../autoload.php");
             </header>
             <main class="dashboard_container">
                 <form action="../controladores/SetUsuario.php" method="post">
-                    <div class="form-row">
+                    <div class="form_row">
                         <input type="hidden" name="usuario-rol" value="0">
                         <div class="form-group col-md-6">
                             <label for="nombre">Nombre:</label>
@@ -90,10 +90,17 @@ require_once("../autoload.php");
                             <input type="text" name="usuario-apellido" class="form-control" id="apellido" placeholder="Apellido">
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form_row">
                         <div class="form-group col-md-6">
                             <label for="email">Email:</label>
                             <input type="email" name="usuario-email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="sexo">Sexo:</label>
+                            <select name="sexo" required>
+                                <option value="f">Femenino</option>
+                                <option value="m">Masculino</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">Contraseña:</label>

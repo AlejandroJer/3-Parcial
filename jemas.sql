@@ -98,33 +98,34 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `contraseña` varchar(40) NOT NULL,
   `apellido_usr` varchar(30) NOT NULL,
   `email_usr` varchar(60) NOT NULL,
+  `sexo` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `id_perfil` int(11) NOT NULL,
   PRIMARY KEY (`id_usr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT IGNORE INTO `usuarios` (`id_usr`, `nombre_usr`, `contraseña`, `apellido_usr`, `email_usr`, `id_perfil`) VALUES
-(3, 'Juan', '$2y$10$tJEpiFiWkg7XVC70jx/PAOv6JXem4Bp/C', 'Lopez', 'juan.lopez@email.com', 0),
-(4, 'María ', '$2y$10$96D0flU99PVmDaA6hy8qiuV2ywlBgptmb', 'Rodríguez', 'maria.rodriguez@email.com', 0),
-(5, 'Carlos', '$2y$10$jK3nwXN1cIc3/iWOC9.66OX1sz5Y1arIC', 'Sánchez', 'carlos.sanchez@email.com', 0),
-(6, 'Laura', '$2y$10$M4gU/i64wqd/qfzxlLjsQ.3TcFm7oeJSj', 'Martínez', 'laura.martinez@email.com', 0),
-(7, 'Pedro', '$2y$10$5y0DfQR6bXENZWrFW5JoRefS/AFBf.Nkk', 'Gómez', 'pedro.gomez@email.com', 0),
-(8, 'Ana', '$2y$10$02LUqGM2TD3AyNhQKXoz2uBnbzfR63qJC', 'Pérez', 'ana.perez@email.com', 0),
-(9, 'David', '$2y$10$PTpx0XQNyQMAP0AuWTCTruktyb3KGv0KF', 'García', 'david.garcia@email.com', 0),
-(10, 'Carmen', '$2y$10$7PtwXOLBtKYO.IkqdP6icuz88v.EmwZtN', 'López', 'carmen.lopez@email.com', 0),
-(11, 'José', '$2y$10$2t5n7tRDe0dhGBVo2eZfGOudVw0pU7RLE', 'Torres', 'jose.torres@email.com', 0),
-(12, 'Marta', '$2y$10$7aGyQXdXzEX3WyyHwsrp2OI3GWsBVnYqu', 'Rodríguez', 'marta.rodriguez@email.com', 0),
-(13, 'Miguel', '$2y$10$iR1nJDlswigZDXIKEjhIzeTTvE4gO0foC', 'Fernández', 'miguel.fernandez@email.com', 0),
-(14, 'Elena', '$2y$10$Doxfe2A95zMYz9r.Nob5wudlsVKAWnx0G', 'Ramírez', 'elena.ramirez@email.com', 0),
-(15, 'Javier ', '$2y$10$X4AlnF5SAN4UvFJwY7nEXu8sa9T8n6Kts', 'Soto', 'javier.soto@email.com', 0),
-(16, 'Silvia', '$2y$10$yWZemxe2XBzjd1Q94vOJtOZaoMOirk4/W', 'Castro', 'silvia.castro@email.com', 0),
-(17, 'Raúl', '$2y$10$27OwtHOt3qQT7N6Sk0Uv1.QJrFsLxNYqD', 'Herrera', 'raul.herrera@email.com', 0),
-(18, 'Alejandro', '$2y$10$t1c3whli0buHPPmas1CYfu0QSI8GPST4k', 'García', 'alejandro.garcia@email.com', 0),
-(19, 'Andrés', '$2y$10$m3kiQK90XZR.buKy6PK1auj49fqw18GDs', 'Torres', 'andres.torres@email.com', 0),
-(20, 'Patricia', '$2y$10$95QRJOwrGAGm6cFw1LbqmOfLHQx2klC0b', 'Silva', 'patricia.silva@email.com', 0),
-(21, 'Luis', '$2y$10$y0fACFrpHf9ny8qyfXu7vu2A0QTO3ovHt', 'Ortega', 'luis.ortega@email.com', 0),
-(22, 'Isabel', '$2y$10$EuI22iCShBSdpbtlexwE9OYP7uPnBe3WH', 'Vargas', 'isabel.vargas@email.com', 0),
-(23, 'Daniel', '$2y$10$qYEli1epEnyblf6mFBOUmefa/iRQAaNgv', 'Molina', 'daniel.molina@email.com', 0),
-(24, 'Sonia', '$2y$10$b24pEYnWokJCrI/hAoA2/uPnJXZ26ahns', 'Castillo', 'sonia.castillo@email.com', 0);
+INSERT IGNORE INTO `usuarios` (`id_usr`, `nombre_usr`, `contraseña`, `apellido_usr`, `email_usr`, `sexo`, `id_perfil`) VALUES
+(3, 'Juan', '$2y$10$tJEpiFiWkg7XVC70jx/PAOv6JXem4Bp/C', 'Lopez', 'juan.lopez@email.com', 'm', 0),
+(4, 'María ', '$2y$10$96D0flU99PVmDaA6hy8qiuV2ywlBgptmb', 'Rodríguez', 'maria.rodriguez@email.com', 'f', 0),
+(5, 'Carlos', '$2y$10$jK3nwXN1cIc3/iWOC9.66OX1sz5Y1arIC', 'Sánchez', 'carlos.sanchez@email.com', 'm', 0),
+(6, 'Laura', '$2y$10$M4gU/i64wqd/qfzxlLjsQ.3TcFm7oeJSj', 'Martínez', 'laura.martinez@email.com', 'f', 0),
+(7, 'Pedro', '$2y$10$5y0DfQR6bXENZWrFW5JoRefS/AFBf.Nkk', 'Gómez', 'pedro.gomez@email.com', 'm', 0),
+(8, 'Ana', '$2y$10$02LUqGM2TD3AyNhQKXoz2uBnbzfR63qJC', 'Pérez', 'ana.perez@email.com', 'f', 0),
+(9, 'David', '$2y$10$PTpx0XQNyQMAP0AuWTCTruktyb3KGv0KF', 'García', 'david.garcia@email.com', 'm', 0),
+(10, 'Carmen', '$2y$10$7PtwXOLBtKYO.IkqdP6icuz88v.EmwZtN', 'López', 'carmen.lopez@email.com', 'f', 0),
+(11, 'José', '$2y$10$2t5n7tRDe0dhGBVo2eZfGOudVw0pU7RLE', 'Torres', 'jose.torres@email.com', 'm', 0),
+(12, 'Marta', '$2y$10$7aGyQXdXzEX3WyyHwsrp2OI3GWsBVnYqu', 'Rodríguez', 'marta.rodriguez@email.com', 'f', 0),
+(13, 'Miguel', '$2y$10$iR1nJDlswigZDXIKEjhIzeTTvE4gO0foC', 'Fernández', 'miguel.fernandez@email.com', 'm', 0),
+(14, 'Elena', '$2y$10$Doxfe2A95zMYz9r.Nob5wudlsVKAWnx0G', 'Ramírez', 'elena.ramirez@email.com', 'f', 0),
+(15, 'Javier ', '$2y$10$X4AlnF5SAN4UvFJwY7nEXu8sa9T8n6Kts', 'Soto', 'javier.soto@email.com', 'm', 0),
+(16, 'Silvia', '$2y$10$yWZemxe2XBzjd1Q94vOJtOZaoMOirk4/W', 'Castro', 'silvia.castro@email.com', 'f', 0),
+(17, 'Raúl', '$2y$10$27OwtHOt3qQT7N6Sk0Uv1.QJrFsLxNYqD', 'Herrera', 'raul.herrera@email.com', 'm', 0),
+(18, 'Alejandro', '$2y$10$t1c3whli0buHPPmas1CYfu0QSI8GPST4k', 'García', 'alejandro.garcia@email.com', 'm', 0),
+(19, 'Andrés', '$2y$10$m3kiQK90XZR.buKy6PK1auj49fqw18GDs', 'Torres', 'andres.torres@email.com', 'm', 0),
+(20, 'Patricia', '$2y$10$95QRJOwrGAGm6cFw1LbqmOfLHQx2klC0b', 'Silva', 'patricia.silva@email.com', 'f', 0),
+(21, 'Luis', '$2y$10$y0fACFrpHf9ny8qyfXu7vu2A0QTO3ovHt', 'Ortega', 'luis.ortega@email.com', 'm', 0),
+(22, 'Isabel', '$2y$10$EuI22iCShBSdpbtlexwE9OYP7uPnBe3WH', 'Vargas', 'isabel.vargas@email.com', 'f', 0),
+(23, 'Daniel', '$2y$10$qYEli1epEnyblf6mFBOUmefa/iRQAaNgv', 'Molina', 'daniel.molina@email.com', 'm', 0),
+(24, 'Sonia', '$2y$10$b24pEYnWokJCrI/hAoA2/uPnJXZ26ahns', 'Castillo', 'sonia.castillo@email.com', 'f', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
