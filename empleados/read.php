@@ -92,8 +92,8 @@
                     </form>
                 </div>
                 <div class="read_main">
-                    <?php if(!empty($posts)): ?>
-                        <?php foreach ($posts as $post) { ?>
+                    <?php if(!empty($results)): ?>
+                        <?php foreach ($results as $result) { ?>
                             <div class="readObject_Container">
                                 <div class="readObject_header">
                                     <span class="arrow"></span>
