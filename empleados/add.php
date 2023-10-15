@@ -95,6 +95,13 @@ require_once("../autoload.php");
                             <label for="email">Email:</label>
                             <input type="email" name="usuario-email" class="form-control" id="email" placeholder="Email">
                         </div>
+                        <div class="form-group">
+                            <label for="producto-categoria">Sexo:</label>
+                            <select name="categoria" required>
+                                <option value="f">Femenino</option>
+                                <option value="m">Masculino</option>
+                            </select>
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="password">Contraseña:</label>
                             <input type="password" name="usuario-password" class="form-control" id="Password" placeholder="Contraseña">

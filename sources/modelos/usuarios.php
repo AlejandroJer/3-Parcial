@@ -6,6 +6,7 @@ class usuarios extends conexion{
     private $nombre;
     private $apellido;
     private $email;
+    private $sexo;
     private $password;
     private $id_usuario;
     private $id_rol;
@@ -16,16 +17,17 @@ class usuarios extends conexion{
         parent::__construct();
     }
 
-    public function Insertar(string $nombre, string $apellido, string $email, string $password, int $id_rol){
+    public function Insertar(string $nombre, string $apellido, string $email,string $sexo ,string $password, int $id_rol){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
 
-        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,contraseña,id_perfil) VALUES(?,?,?,?,?)";
+        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
@@ -140,16 +142,17 @@ class usuarios extends conexion{
         return $request;
     }
 
-    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, string $password, int $id_rol){
+    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, string $sexo, string $password, int $id_rol){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
 
-        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
+        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, sexo=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
         $update= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
         $resExecute = $update->execute($arrData);
         return $resExecute;
     }
