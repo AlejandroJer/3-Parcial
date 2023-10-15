@@ -1,9 +1,13 @@
 <?php
 require_once("../autoload.php");
-use modelos\proveedores;
-    $proveedores = new proveedores();
-        $posts = $proveedores->GetProveedores();
+
+if(isset($_SESSION['results'])){
+    $results = $_SESSION['results'];
+    $index = $_SESSION['index'];
+    $page = $_SESSION['pageClicked'];
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +16,11 @@ use modelos\proveedores;
     <title>JEMAS</title>
     <link rel="stylesheet" href="../sources/css/root.css">
     <link rel="stylesheet" href="../sources/css/nav.css">
+    <link rel="stylesheet" href="../sources/css/read.css">
 </head>
 <body>
     <section class="index_section">
-        <nav class="navHome">
+    <nav class="navHome">
             <header class="navHome_header">
                 <h1>JEMAS</h1>
             </header>
@@ -74,7 +79,7 @@ use modelos\proveedores;
         <section class="main_container">
             <header class="main_header">
                 <span id="NavArrow"></span>
-                <div class="header_login" data-messages="Iniciar Secion">
+                <div class="header_login" data-messages="Iniciar Sesión">
                     <a href="../auth/login.php">
                         <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                     </a>
@@ -82,32 +87,43 @@ use modelos\proveedores;
             </header>
             <main class="read_container">
                 <div class="read_header">
-                    <button type="button" class="btn_read">Ver Proveedores</button>
+                    <form action="../controladores/gets/ReadProveedores.php" method="POST">
+                        <button type="submit" name="submit" class="btn_read">Ver Proveedores</button>
+                    </form>
                 </div>
                 <div class="read_main">
-                    <?php foreach ($posts as $post) { ?>
-                        <div class="readObject_Container">
-                            <div class="readObject_header">
-                                <span class="arrow"></span>
+                    <?php if(!empty($results)): ?>
+                        <?php foreach ($results as $result) { ?>
+                            <div class="readObject_Container">
+                                <div class="readObject_header">
+                                    <span class="arrow"></span>
+                                </div>
+                                <div class="supplier_info">
+                                    <h2><?= $result['nombre_empresa'];?></h2>
+                                    <h4>ID Proveedor: <?php echo $result['id_proveedor'];?></h4>
+                                    <h4>Dirección: <?=$result['direccion'];?></h4>
+                                    <h4>Telefono: <?=$result['num_telefono'];?></h4>
+                                    <h4>Contacto: <?=$result['persona_contacto'];?></h4>
+                                    <h4>Correo: <?=$result['email_proveedor'];?></h4>
+                                </div>
                             </div>
-                            <div class="proveedor_container">
-                                <h4>Nombre del Proveedor:</h4>
-                                <h4><?= $post['nombre_empresa']; ?></h4>
-                                <h4>Correo:</h4>
-                                <h4><?= $post['email_proveedor']; ?></h4>
-                                <h4>Direccion:</h4>
-                                <h4><?= $post['direccion']; ?></h4>
-                                <h4>Contacto:</h4>
-                                <h4><?= $post['persona_contacto']; ?></h4>
-                                <h4>Telefono:</h4>
-                                <h4><?= $post['num_telefono']; ?></h4>
-                            </div>
-                        </div>
-                    <?php } ?>
+                        <?php } ?>
+                        <form action="../controladores/gets/ReadProveedores.php" method="POST" class="form_pages">
+                            <?php for($i = 0; $i < $index; $i++): ?>
+                                <?php if($i == $page){ ?>
+                                    <button type="submit" class="btn_page target" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                <?php } else { ?>
+                                    <button type="submit" class="btn_page" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                <?php } ?>
+                            <?php endfor; ?>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </main>
         </section>
     </section>
+    <?php unset($_SESSION['results']);
+          unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

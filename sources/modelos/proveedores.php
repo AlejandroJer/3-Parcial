@@ -37,6 +37,24 @@ class proveedores extends conexion {
         return $request;
     }
 
+    public function GetProveedoresIndex() {
+        $sql = "SELECT COUNT(*) FROM proveedores"; 
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+    
+    public function GetProveedoresLimited($offset, $limitQuery) {
+        $sql = "SELECT * FROM proveedores ORDER BY id_proveedor DESC LIMIT :offset, :limitQuery";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+        return $request;
+    }
+    
+    
     public function GetProveedorById($id) {
         $sql = "SELECT * FROM proveedores WHERE id_proveedor = ?";
         $execute = $this->conn->prepare($sql);
