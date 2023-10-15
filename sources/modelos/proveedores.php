@@ -54,6 +54,14 @@ class proveedores extends conexion {
         return $request;
     }
     
+    public function GetProveedorByKeyword($keyword) {
+        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+        $execute->execute();
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+        return $request;
+    }
     
     public function GetProveedorById($id) {
         $sql = "SELECT * FROM proveedores WHERE id_proveedor = ?";
