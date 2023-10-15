@@ -27,6 +27,7 @@ class proveedores extends conexion {
         $arrData = array($this->nombreEmpresa, $this->direccionProveedor, $this->personaContacto, $this->telefono, $this->correoProveedor);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
+
         return $idInsert;
     }
 
@@ -34,6 +35,7 @@ class proveedores extends conexion {
         $sql = "SELECT * FROM proveedores";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+
         return $request;
     }
 
@@ -41,6 +43,7 @@ class proveedores extends conexion {
         $sql = "SELECT COUNT(*) FROM proveedores"; 
         $execute = $this->conn->query($sql);
         $request = $execute->fetchColumn();
+
         return $request;
     }
     
@@ -51,15 +54,37 @@ class proveedores extends conexion {
         $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
         $execute->execute();
         $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+
         return $request;
     }
     
     public function GetProveedorByKeyword($keyword) {
-        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword";
+        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE '%$keyword%' OR direccion LIKE '%$keyword%' OR persona_contacto LIKE '%$keyword%' OR num_telefono LIKE '%$keyword%' OR email_proveedor LIKE '%$keyword%'";
+        $execute = $this->conn->prepare($sql);
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+
+        return $request;
+    }
+
+    public function GetProveedorByKeywordIndex($keyword) {
+        $sql = "SELECT COUNT(*) FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword";
         $execute = $this->conn->prepare($sql);
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
         $execute->execute();
+        $request = $execute->fetchColumn();
+    
+        return $request;
+    }
+
+    public function GetProveedorByKeywordLimited($keyword, $offset, $limitQuery) {
+        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword LIMIT :offset, :limitQuery";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
         $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+    
         return $request;
     }
     
@@ -68,6 +93,7 @@ class proveedores extends conexion {
         $execute = $this->conn->prepare($sql);
         $execute->execute([$id]);
         $request = $execute->fetch(PDO::FETCH_ASSOC);
+
         return $request;
     }
 
@@ -84,6 +110,7 @@ class proveedores extends conexion {
         $update = $this->conn->prepare($sql);
         $arrData = array($this->nombreEmpresa, $this->direccionProveedor, $this->personaContacto, $this->telefono, $this->correoProveedor, $id);
         $resUpdate = $update->execute($arrData);
+
         return $resUpdate;
     }
 
@@ -92,6 +119,7 @@ class proveedores extends conexion {
         $arrwhere = array($id);
         $delete = $this->conn->prepare($sql);
         $del = $delete->execute($arrwhere);
+
         return $del;
     }
 }
