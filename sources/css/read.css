@@ -102,6 +102,10 @@
     margin: 1rem 0.5rem;
 }
 
+.data_container h4 p{
+    font-size: 1.5rem;
+}
+
 .product_tags{
     flex-direction: column;
     text-align: left;

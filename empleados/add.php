@@ -96,8 +96,8 @@ require_once("../autoload.php");
                             <input type="email" name="usuario-email" class="form-control" id="email" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <label for="producto-categoria">Sexo:</label>
-                            <select name="categoria" required>
+                            <label for="sexo">Sexo:</label>
+                            <select name="sexo" required>
                                 <option value="f">Femenino</option>
                                 <option value="m">Masculino</option>
                             </select>

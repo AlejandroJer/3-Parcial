@@ -98,16 +98,21 @@
                                 <div class="readObject_header">
                                     <span class="arrow"></span>
                                 </div>
-                                <div>
+                                <div class="principal_data">
                                     <div class="image_container">
+                                        <?php if($result['sexo'] == 'f'){ ?>
+                                            <iconify-icon icon="mdi:face-woman" width="100" height="100"></iconify-icon>
+                                        <?php } else if($result['sexo'] == 'm'){ ?>
+                                            <iconify-icon icon="mdi:face-man" width="100" height="100"></iconify-icon>
+                                        <?php } ?>
                                     </div>
                                     <div class="data_container">
-                                        <h4>Nombre</h4>
-                                        <h4><?=$result['nombre_usr'] . ' ' . $result['apellido_usr'];?></h4>
-                                        <h4>Correo</h4>
-                                        <h4><?=$result['email_usr'];?></h4>
+                                        <h4>Nombre: <p><?=$result['nombre_usr'] . ' ' . $result['apellido_usr'];?></p></h4>
                                    </div>
-                              </div>  
+                                </div>
+                                <div class="data_container">
+                                    <h4>Correo: <?=$result['email_usr'];?></h4>
+                                </div>
                             </div> 
                         <?php } ?>
                         <form action = "../controladores/gets/ReadUsuario.php" method = "POST" class="form_pages">
