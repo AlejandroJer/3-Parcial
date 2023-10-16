@@ -50,6 +50,13 @@ class productos extends conexion{
         return $request;
     }
 
+    public function GetProductoById($id){
+        $sql="SELECT * FROM productos WHERE id_producto = $id";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
     public function GetproductosIndex(){
         $sql="SELECT COUNT(*) FROM productos";
         $execute = $this->conn->query($sql);
@@ -139,7 +146,7 @@ class productos extends conexion{
         return $request;
     }
 
-    public function UpdateProducto(int $id, string $nombre, string $descripcion, string $precio_compra,string $precio_venta, string $categoria, int $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, $id_proveedor = null, $img=null){
+    public function UpdateProducto(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->precio_compra = $precio_compra;
@@ -194,7 +201,10 @@ class productos extends conexion{
             if(!is_dir("../inventario/".$directorio)){
                 mkdir("../inventario/".$directorio,0777);
             }
+            if(in_array($directorio.$file_name, $name_images)){
+            }else{
             move_uploaded_file($file['tmp_name'],"../inventario/".$directorio.$file_name);
+            }
             return $directorio.$file_name;
 
         }else{
