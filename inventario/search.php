@@ -106,7 +106,7 @@ namespace controladores;
                 <div class="read_main">
                     <?php if(!empty($results)){ ?>
                         <?php foreach($results as $result): ?>
-                            <div class="readObject_Container">
+                            <div class="readObject_Container target">
                                 <div class="readObject_header">
                                     <span class="arrow"></span>
                                 </div>
@@ -125,7 +125,7 @@ namespace controladores;
                                         <h4><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['Descripcion_producto']); ?></h4>
                                     </div>
                                 </div>
-                                <div class="data_container">
+                                <div class="data_container hidden">
                                     <div class="product_tags">
                                     
                                         <h5>Categoría: <?= $result['categoria'];?></h5>
@@ -162,5 +162,6 @@ namespace controladores;
               unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
+<script src="../sources/js/read.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>

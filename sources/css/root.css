@@ -67,7 +67,7 @@ h4{
 }
 
 h5{
-    margin: 0.3rem;
+    margin: 0.1rem 0.5rem;
     font-size: 0.65rem;
 }
 
@@ -113,6 +113,10 @@ input[type="number"]{
     font-family: var(--font-bold);
 }
 
+input[type="file"]{
+    font-family: var(--font-bold);
+}
+
 button {
     user-select: none;
     cursor: pointer;
@@ -135,4 +139,36 @@ textarea{
 
 .hidden{
     display: none;
+}
+
+
+@media screen and (max-aspect-ratio: 9/16){ /* 9:16 = 0.5625 */
+    h1, h2, h3, h4{
+        margin: .2rem;
+    }
+    
+    h1{
+        font-size: 2rem;
+    }
+    
+    h2{
+        font-size: 1.0rem;
+    }
+    
+    h3{
+        font-size: 0.9rem;
+    }
+    
+    h4{
+        font-size: 0.7rem;
+    }
+    
+    h5{
+        margin: 0.1rem 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    ul{
+        padding-inline-start: 20px;
+    }
 }

@@ -1,3 +1,10 @@
+<?php
+ require_once("./autoload.php");
+ use modelos\{proveedores, usuarios, productos};
+  $proveedores = new proveedores();
+  $empleados = new usuarios();
+  $productos = new productos();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,6 +76,7 @@
             <header class="main_header">
                 <span id="NavArrow"></span>
                 <div class="header_login" data-messages="Iniciar Secion">
+                    <h3 id="dataScreen"></h3>
                     <a href="./auth/login.php">
                         <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                     </a>
@@ -87,7 +95,7 @@
                             </div>
                             <div>
                                 <iconify-icon class="iconify" icon="ic:baseline-inventory" width="40" height="40"></iconify-icon>
-                                <h4>No. Inventario</h4>
+                                <h4><?= $productos->GetproductosIndex(); ?> Productos</h4>
                             </div>
                         </div>
                     </a>
@@ -109,7 +117,7 @@
                             </div>
                             <div>
                                 <iconify-icon class="iconify" icon="clarity:employee-solid" width="40" height="40"></iconify-icon>
-                                <h4>No. Proveedores</h4>
+                                <h4><?= $empleados->GetusuariosIndex(); ?> Empleados</h4>
                             </div>
                         </div>
                     </a>
@@ -119,6 +127,5 @@
     </section>
 </body>
 <script src="./sources/js/nav.js"></script>
-<script src="./sources/js/phone.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>

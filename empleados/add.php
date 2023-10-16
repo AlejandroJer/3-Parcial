@@ -107,7 +107,7 @@ require_once("../autoload.php");
                             <input type="password" name="usuario-password" class="form-control" id="Password" placeholder="Contraseña">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Agregar empleado</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
             </main>
         </section>

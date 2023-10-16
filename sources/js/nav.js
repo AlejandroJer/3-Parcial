@@ -44,8 +44,11 @@ navButton.addEventListener('click', () => {
 
 //dettect if the user is on a small/media screen and hide the nav bar
 var aspectRatio = window.innerWidth / window.innerHeight;
+// let header = document.querySelector('main')
 
 if(aspectRatio < 1){
     nav.classList.add('hidden')
     navButton.classList.add('target')
 }
+
+// header.innerHTML += "<h4 style='color:var(--main-color); position:absolute; transform:translateY(-1rem)'>width: " + window.innerWidth + ", height: " + window.innerHeight + ", aspect ratio: " + aspectRatio + "</h4>";

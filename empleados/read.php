@@ -94,7 +94,7 @@
                 <div class="read_main">
                     <?php if(!empty($results)): ?>
                         <?php foreach ($results as $result) { ?>
-                            <div class="readObject_Container">
+                            <div class="readObject_Container target">
                                 <div class="readObject_header">
                                     <span class="arrow"></span>
                                 </div>
@@ -110,7 +110,7 @@
                                         <h4>Nombre: <p><?=$result['nombre_usr'] . ' ' . $result['apellido_usr'];?></p></h4>
                                    </div>
                                 </div>
-                                <div class="data_container">
+                                <div class="data_container hidden">
                                     <h4>Correo: <?=$result['email_usr'];?></h4>
                                 </div>
                             </div> 
@@ -135,6 +135,7 @@
              unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
+<script src="../sources/js/read.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>
 

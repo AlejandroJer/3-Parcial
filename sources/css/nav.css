@@ -178,7 +178,7 @@
 
 /* CUSTOM CSS FOR PHONES DEVICES */
 
-@media screen and (max-aspect-ratio: 9/16){
+@media screen and (max-aspect-ratio: 4/5){ /* 4:5 = 0.8 */
     .navHome{
         position: absolute;
 
@@ -200,5 +200,65 @@
 
     #NavArrow:hover {
         transform: translateX(16rem) rotate(90deg) scale(1.5);
+    }
+}
+
+@media screen and (max-aspect-ratio: 10/16){ /* 10:16 = 0.625 */ /* 9:16 = 0.5625 */
+    .navHome{
+        position: absolute;
+
+        height: inherit;
+
+        z-index: 5;
+    }
+
+    #NavArrow{
+        position: absolute;
+    
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid var(--secondary-color);
+    
+        transform: translateX(16rem) rotate(90deg);
+        transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    #NavArrow:hover {
+        transform: translateX(16rem) rotate(90deg) scale(1.5);
+    }
+}
+
+@media screen and (max-aspect-ratio: 9/16){ /* 9:16 = 0.5625 */
+    .option_container{
+        padding: 0.5rem;
+    }
+
+    .navHome{
+        position: absolute;
+
+        height: inherit;
+        width: 10rem;
+
+        z-index: 5;
+    }
+
+    .navHome_ul li{
+        margin: 0.2rem 0;
+        padding: 0.25rem;
+    }
+
+    #NavArrow{
+        position: absolute;
+    
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid var(--secondary-color);
+    
+        transform: translateX(10rem) rotate(90deg);
+        transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    #NavArrow:hover {
+        transform: translateX(10rem) rotate(90deg) scale(1.5);
     }
 }

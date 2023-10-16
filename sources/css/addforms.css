@@ -34,27 +34,29 @@
   background-color: var(--secondary-color);
 }
 
-@media screen and (max-aspect-ratio: 9/16){
+/* CUSTOM CSS FOR PHONES DEVICES */
+
+@media screen and (max-aspect-ratio: 4/5){ /* 4:5 = 0.8 */
   .main_container{
     display: block;
     width: 100%;
   }
 
   .dashboard_container{
-    margin: 1rem;
+    margin: 2rem;
     padding: 0;
     
-    height: calc(100vh - auto);
+    height: 100%;
     overflow: hidden;
   }
 
   .dashboard_container form{
-    margin: 1rem;
+    margin: 2rem;
     width: 100%;
   }
 
   .form_row{
-    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .form-control{
@@ -65,5 +67,159 @@
 
   .form-group{
     margin-bottom: 10px;
+  }
+
+  .form-group label{
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-aspect-ratio: 10/16){ /* 10:16 = 0.625 */
+  .main_container{
+    display: block;
+    width: 100%;
+  }
+
+  .dashboard_container{
+    margin: 1rem;
+    padding: 0;
+    
+    height: 85%;
+    overflow: hidden;
+  }
+
+  .dashboard_container form{
+    margin: 1rem;
+    width: 100%;
+  }
+
+  .form_row{
+    flex-direction: column;
+    flex-wrap: unset;
+  }
+
+  .form-control{
+    width: 55%;
+
+    padding: 3.5px 7.5px;
+  }
+
+  .form-group{
+    margin-bottom: 10px;
+  }
+
+  .form-group label{
+    width: 30%;
+    font-size: 0.8rem;
+  }
+  
+  .form-group input[type="text"]{
+    font-size: 0.85rem;
+  }
+
+  .form-group input[type="number"]{
+    font-size: 0.85rem;
+  }
+
+  .form-group input[type="tel"]{
+    font-size: 0.85rem;
+  }
+
+  .form-group input[type="email"]{
+    font-size: 0.85rem;
+  }
+
+  .form-group input[type="password"]{
+    font-size: 0.85rem;
+  }
+
+  .form-group select{
+    font-size: 0.85rem;
+  }
+
+  .dashboard_container form button{
+    font-size: 12.5px;
+    padding: 10px 13.5px;
+  }
+}
+
+@media screen and (max-aspect-ratio: 9/16){ /* 9:16 = 0.5625 */
+  .main_container{
+    display: block;
+    width: 100%;
+  }
+
+  .dashboard_container{
+    margin: 1rem;
+    padding: 0;
+    
+    height: 80%;
+    width: calc(100% - 2rem);
+    overflow: hidden;
+  }
+
+  .dashboard_container form{
+    margin: 1rem;
+    width: 100%;
+  }
+
+  .dashboard_container form button{
+    font-size: 10px;
+    padding: 5px;
+  }
+
+  .form_row{
+    flex-wrap: unset;
+    flex-direction: column;
+  }
+
+  .form-control{
+    width: 50%;
+
+    padding: 2.5px 5px;
+  }
+
+  .form-group{
+    margin-bottom: 10px;
+  }
+
+  .form-group label{
+    width: 30%;
+
+    font-size: 0.6rem;
+  }
+
+  .form-group textarea{
+    width: 50%;
+
+    font-size: 0.6rem;
+  }
+
+  .form-group input[type="text"]{
+    font-size: 0.6rem;
+  }
+
+  .form-group input[type="number"]{
+    font-size: 0.6rem;
+  }
+
+  .form-group input[type="tel"]{
+    font-size: 0.6rem;
+  }
+
+  .form-group input[type="email"]{
+    font-size: 0.6rem;
+  }
+
+  .form-group input[type="password"]{
+    font-size: 0.6rem;
+  }
+
+  .form-group input[type="file"]{
+    font-size: 0.6rem;
+  }
+
+  .form-group select{
+    font-size: 0.6rem;
   }
 }
