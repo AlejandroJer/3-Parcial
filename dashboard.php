@@ -106,7 +106,7 @@
                             </div>
                             <div>
                                 <iconify-icon class="iconify" icon="fa-solid:users" width="40" height="40"></iconify-icon>
-                                <h4>No. Proveedores</h4>
+                                <h4><?= $proveedores->GetproveedoresIndex(); ?> Proveedores</h4>
                             </div>
                         </div>
                     </a>
