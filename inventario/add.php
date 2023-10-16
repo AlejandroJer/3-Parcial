@@ -1,7 +1,7 @@
 <?php
 require_once("../autoload.php");
 if(isset($_SESSION['producto'])){
-    $results = $_SESSION['producto'];
+    $result = $_SESSION['producto'];
   }
 ?>
 <!DOCTYPE html>
@@ -80,30 +80,26 @@ if(isset($_SESSION['producto'])){
                 </div>
             </header>
             <main class="dashboard_container">
-                <form action=<?php if (!empty($results)) {
-                    echo "../controladores/edits/UpdateProductos.php";
-                }else{
-                    echo "../controladores/SetProducto.php";}?> method="post" enctype="multipart/form-data">
+                <form action="<?php echo (!empty($result)) ? '../controladores/edits/UpdateProductos.php' : '../controladores/SetProducto.php'; ?>" method="post" enctype="multipart/form-data">
                     <div class="form-row">
-                        <?php if (!empty($results)) { foreach($results as $result){ ?>
                         <input type="hidden" name="id_inv" value="null">
                         <div class="form-group">
                             <label for="producto-nombre">Nombre del producto:</label>
-                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="<?php if(isset($result['nombre_producto'])){echo $result['nombre_producto'];} ?>" required>
+                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="<?php echo (isset($result['nombre_producto'])) ? $result['nombre_producto'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="producto-proveedor">ID del Proveedor:</label>
-                            <input type="number" min="0" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" value="<?php if(isset($result['id_proveedor'])){echo $result['id_proveedor'];} ?>" required>
+                            <input type="number" min="0" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" value="<?php echo (isset($result['id_proveedor'])) ? $result['id_proveedor'] : ''; ?>" required>
                         </div>
                     </div>
                     <div class="form_row">
                         <div class="form-group">
                             <label for="precio-venta">Precio de venta:</label>
-                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" value="<?php if(isset($result['precio_venta'])){echo $result['precio_venta'];} ?>" required>
+                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" value="<?php echo (isset($result['precio_venta'])) ? $result['precio_venta'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="precio-compra">Precio de compra:</label>
-                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" value="<?php if(isset($result['precio_compra'])){echo $result['precio_compra'];} ?>" required>
+                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" value="<?php echo (isset($result['precio_compra'])) ? $result['precio_venta'] : ''; ?>" required>
                         </div>
                     </div>
                     <div class="form_row">
@@ -129,21 +125,21 @@ if(isset($_SESSION['producto'])){
                     <div class="form_row">
                         <div class="form-group">
                             <label for="peso">Peso:</label>
-                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Onzas" value="<?php if(isset($result['peso'])){echo $result['peso'];} ?>" required>
+                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Onzas" value="<?php echo (isset($result['peso'])) ? $result['peso'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="producto-cantidad-disponible">Cantidad disponible:</label>
-                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Disponible" value="<?php if(isset($result['cantidad_disponible'])){echo $result['cantidad_disponible'];} ?>" required>
+                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Disponible" value="<?php echo (isset($result['cantidad_disponible'])) ? $result['cantidad_disponible'] : ''; ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
-                        <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" value="<?php if(isset($result['ubicacion_almacen'])){echo $result['ubicacion_almacen'];} ?>" required>
+                        <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" value="<?php echo (isset($result['ubicacion_almacen'])) ? $result['ubicacion_almacen'] : ''; ?>" required>
                     </div>
                     <div class="form_row">
                         <div class="form-group">
                             <label for="producto-descripcion">Descripción:</label>
-                            <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required><?php if(isset($result['Descripcion_producto'])){echo $result['Descripcion_producto'];} ?></textarea>
+                            <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required><?php echo (isset($result['Descripcion_producto'])) ? $result['Descripcion_producto'] : ''; ?></textarea>
                         </div>  
                         <div class="form-group">
                             <label for="imagen">Imagen del Producto: </label>
@@ -155,14 +151,16 @@ if(isset($_SESSION['producto'])){
                     if(isset($result['id_producto'])){
                         echo '<input type="hidden" name="id_producto" value="' . $result['id_producto'] . '">';
                     }
-                }
-            }
                     ?>
                     <button type="submit" class="btn btn-primary" name="submit">Guardar</button>
                 </form>
             </main>
         </section>
     </section>
+    <?php
+    if(isset($_SESSION['producto'])){
+        unset($_SESSION['producto']);
+    } ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="../sources/js/app.js"></script>
