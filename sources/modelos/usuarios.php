@@ -68,7 +68,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordIndex($keyword){
-        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR id_usr LIKE '%$keyword%'";
+        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR id_usr LIKE :keyword";
         $execute = $this->conn->prepare($sql);
         
         $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
@@ -80,7 +80,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordLimited($keyword, $offset, $limitQuery){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR id_usr LIKE '%$keyword%' ORDER BY id_usr DESC LIMIT $offset, $limitQuery";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR id_usr LIKE :keyword ORDER BY id_usr DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
 
         $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
