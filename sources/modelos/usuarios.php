@@ -34,20 +34,20 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarios(){
-        $sql="SELECT * FROM usuarios ORDER BY id_usr DESC";
+        $sql="SELECT * FROM usuarios";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
         return $request;
     }
 
-    public function GetusuariosIndex(){
+    public function GetUsuariosIndex(){
         $sql="SELECT COUNT(*) FROM usuarios";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchColumn();
         return $request;
     }
 
-    public function GetusuariosLimited($offset, $limitQuery){
+    public function GetUsuariosLimited($offset, $limitQuery){
         $sql="SELECT * FROM usuarios ORDER BY id_usr DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
 
@@ -55,7 +55,7 @@ class usuarios extends conexion{
         $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
         $execute->execute();
 
-        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
 
         return $request;
     }
@@ -63,7 +63,8 @@ class usuarios extends conexion{
     public function GetUsuarioByKeyword($keyword){
         $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%'";
         $execute = $this->conn->query($sql);
-        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+
         return $request;
     }
 
@@ -71,7 +72,7 @@ class usuarios extends conexion{
         $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword";
         $execute = $this->conn->prepare($sql);
         
-        $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
+        $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
         $execute->execute();
 
         $request = $execute->fetchColumn();
@@ -80,10 +81,10 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordLimited($keyword, $offset, $limitQuery){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR id_usr LIKE :keyword ORDER BY id_usr DESC LIMIT :offset, :limitQuery";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
 
-        $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
+        $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
         $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
         $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
         $execute->execute();
