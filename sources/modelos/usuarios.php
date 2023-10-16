@@ -61,14 +61,14 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeyword($keyword){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR id_usr LIKE '%$keyword%' ORDER BY id_usr DESC";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%'";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
         return $request;
     }
 
     public function GetUsuarioByKeywordIndex($keyword){
-        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR id_usr LIKE :keyword";
+        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword";
         $execute = $this->conn->prepare($sql);
         
         $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
