@@ -1,0 +1,116 @@
+.dashboard_main{
+    flex-direction: column;
+
+    margin: 3rem 0 0 3rem;
+}
+
+.main_container section:first-child{
+    min-height: 10vh;
+
+    flex-direction: column;
+}
+
+.dashboard_options.option_container{
+    flex-direction: column;
+
+    width: 10rem;
+    height: 8rem;
+
+    margin: 2rem;
+    padding: 0;
+
+    border: var(--main-color) solid 2px;
+    border-radius: 5px;
+}
+
+.dashboard_options.option_container > *{
+    justify-content: center;
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.dashboard_options.option_container div:first-child{
+    width: 100%;
+
+    color: var(--secondary-color);
+    background-color: var(--main-color);
+
+    transition: background 0.1s ease-in-out, color 0.10ms ease-in-out;
+}
+
+.dashboard_options.option_container div:last-child{
+    flex-direction: column;
+
+    width: 100%;
+    
+    color: var(--main-color);
+
+    transition: transform 0.1s ease-in-out;
+}
+
+.dashboard_options.option_container:hover div:first-child{
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+}
+
+.dashboard_options.option_container:hover div:last-child > *{
+    transform: scale(1.1);
+}
+
+/* CUSTOM CSS FOR PHONES DEVICES */
+
+@media screen and (max-aspect-ratio: 4/5){ /* 4:5 = 0.8 */
+    .main_container{
+        display: block;
+        width: 100%;
+    }
+
+    .dashboard_main{
+        flex-direction: column;
+        margin: 2rem;
+    }
+
+    .dashboard_main section{
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+@media screen and (max-aspect-ratio: 10/16){ /* 10:16 = 0.625 */ /* 9:16 = 0.5625 */
+    .main_container{
+        display: block;
+        
+        width: 100%;
+    }
+
+    .dashboard_main{
+        flex-direction: column;
+    
+        margin: 1rem;
+    }
+
+    .dashboard_main section{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-aspect-ratio: 9/16){ /* 9:16 = 0.5625 */
+    .main_container{
+        display: block;
+        
+        width: 100%;
+    }
+
+    .dashboard_main{
+        flex-direction: column;
+    
+        margin: 1rem;
+    }
+
+    .dashboard_main section{
+        flex-direction: column;
+        align-items: center;
+    }
+}
