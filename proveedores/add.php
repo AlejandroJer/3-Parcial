@@ -1,5 +1,8 @@
 <?php
 require_once("../autoload.php");
+if(isset($_SESSION['proveedores'])){
+    $result = $_SESSION['proveedores'];
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +49,7 @@ require_once("../autoload.php");
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul">
-                        <a href="./add.php"><li class="target">Agregar Proveedor</li></a>
+                        <a href="./add.php"><li class="target"><?php echo (isset($result['id_proveedor'])) ? 'Actualizar Proveedor' : 'Agregar Proveedor'; ?></li></a>
                         <a href="./read.php"><li>Ver Proveedores</li></a>
                         <a href="./search.php"><li>Buscar en Proveedores</li></a>
                     </ul>
@@ -78,38 +81,47 @@ require_once("../autoload.php");
                 </div>
             </header>
             <main class="dashboard_container">
-                <form action="../controladores/SetProveedor.php" method="POST">
+                <form action="<?php echo (!empty($result)) ? '../controladores/edits/UpdateProveedores.php' : '../controladores/SetProveedor.php'; ?>" method="POST">
                     <div class="form_row">
                         <div class="form-group">
                             <label for="nombre-empresa">Nombre de la Empresa:</label>
-                            <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Empresa" required>
+                            <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Empresa" value="<?php echo (isset($result['nombre_empresa'])) ? $result['nombre_empresa'] : ''; ?>" required>
                         </div>
                     </div>
                     <div class="form_row">
                         <div class="form-group">
                             <label for="direccion-proveedor">Dirección:</label>
-                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" required>
+                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" value="<?php echo (isset($result['direccion'])) ? $result['direccion'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="persona-contacto">Persona de contacto:</label>
-                            <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Persona de contacto" required>
+                            <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Persona de contacto" value="<?php echo (isset($result['persona_contacto'])) ? $result['persona_contacto'] : ''; ?>" required>
                         </div>
                     </div>    
                     <div class="form_row">
                         <div class="form-group">
                             <label for="telefono">Teléfono:</label>
-                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono " required>
+                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="<?php echo (isset($result['num_telefono'])) ? $result['num_telefono'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="correo-proveedor">Correo electrónico:</label>
-                            <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor" placeholder="Correo electrónico" required>
+                            <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor" value="<?php echo (isset($result['email_proveedor'])) ? $result['email_proveedor'] : ''; ?>" placeholder="Correo electrónico" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <?php
+                    if(isset($result['id_proveedor'])){
+                        echo '<input type="hidden" name="id_proveedor" value="' . $result['id_proveedor'] . '">';
+                    }
+                    ?>
+                    <button type="submit" class="btn btn-primary" name="submit"><?php echo (isset($result['id_proveedor'])) ? 'Actualizar' : 'Guardar'; ?></button>
                 </form>
             </main>
         </section>
     </section>
+    <?php
+    if(isset($_SESSION['proveedores'])){
+        unset($_SESSION['proveedores']);
+    } ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

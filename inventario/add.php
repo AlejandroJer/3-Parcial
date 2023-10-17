@@ -35,7 +35,7 @@ if(isset($_SESSION['producto'])){
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul">
-                        <a href="./add.php"><li class="target">Agregar Inventario</li></a>
+                        <a href="./add.php"><li class="target"><?php echo (isset($result['id_producto'])) ? 'Actualizar Inventario' : 'Agregar Inventario'; ?></li></a>
                         <a href="./read.php"><li>Ver Inventario</li></a>
                         <a href="./search.php"><li>Buscar en Inventario</li></a>
                     </ul>
@@ -142,9 +142,16 @@ if(isset($_SESSION['producto'])){
                             <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required><?php echo (isset($result['Descripcion_producto'])) ? $result['Descripcion_producto'] : ''; ?></textarea>
                         </div>  
                         <div class="form-group">
-                            <label for="imagen">Imagen del Producto: </label>
+                            <h3>Imagen del Producto: </h3>
                             <input type="file" accept=".jpeg, .png, .jpg "id="imagen"  name="image" hidden>
-                            <span class="file-status"><td><?php if (empty($result['imagen'])) { echo "Sin imagen "; } else { ?><a href='<?php echo $result['imagen']; ?>' target=“_blank”><?php echo explode("/", $result['imagen'])[1]; ?></a><?php } ?></td></span>
+                            <?php if (empty($result['imagen'])) { ?>
+                                    <button class="btn btn-primary" id="btn_imagen"> Agregar Imagen</button>
+                            <?php } else { ?>
+                                    <button type="none"  class="btn btn-primary" id="btn_imagen"> Cambiar Imagen</button>
+                                    <a href='<?php echo $result['imagen']; ?>' target=“_blank” class="hidden" id="img_link"><?php echo explode("/", $result['imagen'])[1]; ?></a>
+                                    <button  class="btn btn-primary" id="btn_imagen_ver">Ver</button>
+                            <?php } ?>
+                            <span class="file-status"><td><?php ?></td></span>
                         </div>
                     </div>
                     <?php
@@ -152,17 +159,33 @@ if(isset($_SESSION['producto'])){
                         echo '<input type="hidden" name="id_producto" value="' . $result['id_producto'] . '">';
                     }
                     ?>
-                    <button type="submit" class="btn btn-primary" name="submit">Guardar</button>
+                    <button type="submit" class="btn btn-primary" name="submit"><?php echo (isset($result['id_producto'])) ? 'Actualizar' : 'Guardar'; ?></button>
                 </form>
             </main>
         </section>
     </section>
     <?php
     if(isset($_SESSION['producto'])){
-        unset($_SESSION['producto']);
+       unset($_SESSION['producto']);
     } ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="../sources/js/app.js"></script>
+<script>
+    let file_input = document.getElementById('imagen');
+    let btn_imgInput = document.getElementById('btn_imagen');
+    let img_link = document.getElementById('img_link');
+    let btn_ver = document.getElementById('btn_imagen_ver');
+
+    btn_imgInput.addEventListener('click', (e) => {
+        e.preventDefault();
+        file_input.click();
+    });
+
+    btn_ver.addEventListener('click', (e) => {
+        e.preventDefault();
+        img_link.click();
+    });
+</script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>

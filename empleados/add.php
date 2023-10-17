@@ -1,5 +1,8 @@
 <?php
 require_once("../autoload.php");
+if(isset($_SESSION['empleados'])){
+    $result = $_SESSION['empleados'];
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +64,7 @@ require_once("../autoload.php");
                         <span class="arrow"></span>
                     </div>
                     <ul class="navHome_ul">
-                        <a href="./add.php"><li class="target">Agregar Empleado</li></a>
+                        <a href="./add.php"><li class="target"><?php echo (isset($result['id_usr'])) ? 'Actualizar Empleado' : 'Agregar Empleado'; ?></li></a>
                         <a href="./read.php"><li>Ver Empleados</li></a>
                         <a href="./search.php"><li>Buscar en Empleados</li></a>
                     </ul>
@@ -78,40 +81,49 @@ require_once("../autoload.php");
                 </div>
             </header>
             <main class="dashboard_container">
-                <form action="../controladores/SetUsuario.php" method="post">
+                <form action="<?php echo (!empty($result)) ? '../controladores/edits/UpdateEmpleados.php' : '../controladores/SetUsuario.php'; ?>" method="post">
                     <div class="form_row">
-                        <input type="hidden" name="usuario-rol" value="0">
+                        <input type="hidden" name="usuario-rol" value="<?php echo (isset($result['id_perfil'])) ? $result['id_perfil'] : '0'; ?>">
                         <div class="form-group col-md-6">
                             <label for="nombre">Nombre:</label>
-                            <input type="text" name="usuario-nombre" class="form-control" id="nombre" placeholder="Nombre">
+                            <input type="text" name="usuario-nombre" class="form-control" id="nombre" placeholder="Nombre"  value="<?php echo (isset($result['nombre_usr'])) ? $result['nombre_usr'] : ''; ?>" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="apellido">Apellidos:</label>
-                            <input type="text" name="usuario-apellido" class="form-control" id="apellido" placeholder="Apellido">
+                            <input type="text" name="usuario-apellido" class="form-control" id="apellido" placeholder="Apellido" value="<?php echo (isset($result['apellido_usr'])) ? $result['apellido_usr'] : ''; ?>" required>
                         </div>
                     </div>
                     <div class="form_row">
                         <div class="form-group col-md-6">
                             <label for="email">Email:</label>
-                            <input type="email" name="usuario-email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" name="usuario-email" class="form-control" id="email" placeholder="Email" value="<?php echo (isset($result['email_usr'])) ? $result['email_usr'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="sexo">Sexo:</label>
                             <select name="sexo" required>
-                                <option value="f">Femenino</option>
-                                <option value="m">Masculino</option>
+                                <option value="f" <?php if(isset($result['sexo']) && $result['sexo'] == 'f') { echo 'selected'; } ?>>Femenino</option>
+                                <option value="m" <?php if(isset($result['sexo']) && $result['sexo'] == 'm') { echo 'selected'; } ?>>Masculino</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="password">Contraseña:</label>
-                            <input type="password" name="usuario-password" class="form-control" id="Password" placeholder="Contraseña">
+                            <label for="password"><?php echo (isset($result['contraseña'])) ? 'Confirme Contraseña:' : 'Contraseña:'; ?></label>
+                            <input type="password" name="usuario-password" class="form-control" id="Password" placeholder="Contraseña" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <?php
+                    if(isset($result['id_usr'])){
+                        echo '<input type="hidden" name="id_usr" value="' . $result['id_usr'] . '">';
+                    }
+                    ?>
+                    <button type="submit" class="btn btn-primary" name="submit"><?php echo (isset($result['id_usr'])) ? 'Actualizar' : 'Guardar'; ?></button>
                 </form>
             </main>
         </section>
     </section>
+    <?php
+    if(isset($_SESSION['empleados'])){
+        unset($_SESSION['empleados']);
+    } ?>
 </body>
 <script src="../sources/js/nav.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

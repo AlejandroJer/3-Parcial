@@ -43,13 +43,13 @@
                     </div>
                     <span class="arrow"></span>
                 </div>
-                <ul class="navHome_ul">
+                <ul class="navHome_ul hidden">
                     <a href="../inventario/add.php"><li>Agregar Inventario</li></a>
                     <a href="../inventario/read.php"><li>Ver Inventario</li></a>
                     <a href="../inventario/search.php"><li>Buscar en Inventario</li></a>
                 </ul>
             </div>
-            <div class="option">
+            <div class="option target">
                 <div class="option_container">
                     <div>
                         <iconify-icon class="iconify" icon="fa-solid:users" width="20" height="20"></iconify-icon>
@@ -57,10 +57,10 @@
                     </div>
                     <span class="arrow"></span>
                 </div>
-                <ul class="navHome_ul hidden">
+                <ul class="navHome_ul">
                     <a href="./add.php"><li>Agregar Proveedor</li></a>
                     <a href="./read.php"><li>Ver Proveedores</li></a>
-                    <a href="./search.php"><li>Buscar en Proveedores</li></a>
+                    <a href="./search.php"><li class="target">Buscar en Proveedores</li></a>
                 </ul>
             </div>
             <div class="option">
@@ -107,6 +107,10 @@
                     <?php foreach($results as $result): ?>
                         <div class="readObject_Container">
                             <div class="readObject_header">
+                                <form action="../controladores/edits/UpdateProveedores.php" method="post" class="form_edit">
+                                    <input type="hidden" name="id" value=<?php echo $result['id_proveedor']; ?>>
+                                    <button class="button"> Editar</button>
+                                </form>
                                 <span class="arrow"></span>
                             </div>
                             <div>
@@ -146,5 +150,6 @@ unset($_SESSION['keyword']);
 unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
+<script src="../sources/js/read.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>

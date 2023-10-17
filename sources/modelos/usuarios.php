@@ -114,6 +114,17 @@ class usuarios extends conexion{
         return $request;
     }
 
+    public function GetUsuarioPassWordById($id){
+        $sql="SELECT contraseña FROM usuarios WHERE id_usr = :id";
+
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch();
+
+        return $request;
+    }
+
     public function SetMovimineto(string $fecha_movimiento, int $id_usuario_movimiento, int $id_usuario, string $nombre, string $apellido){
         $this->fecha_movimiento = $fecha_movimiento;
         $this->id_usuario_movimiento = $id_usuario_movimiento;

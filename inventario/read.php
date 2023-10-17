@@ -96,6 +96,10 @@
                             <?php foreach ($results as $result) { ?>
                                 <div class="readObject_Container target">
                                     <div class="readObject_header">
+                                        <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit">
+                                            <input type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
+                                            <button class="button"> Editar</button>
+                                        </form>
                                         <span class="arrow"></span>
                                     </div>
                                     <div class="principal_data">
@@ -131,11 +135,6 @@
                                             <h5>ID Proveedor: <?php echo $result['id_proveedor'];?></h5>
                                         </div>
                                     </div>
-                                    <td><form action="../controladores/edits/UpdateProductos.php" method="post">
-                                        <input type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button class="button"> Editar</button>
-                                     </form>
-                                    </td>
                                 </div>
                             <?php } ?>
                             <form action="../controladores/gets/ReadProductos.php" method="POST" class="form_pages">

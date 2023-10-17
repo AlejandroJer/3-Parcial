@@ -101,6 +101,11 @@ textarea{
     margin: 0 0.5rem 0 0.5rem;
 }
 
+label{
+    font-size: 1rem;
+    font-family: var(--font-bold);
+}
+
 body > section {
     height: 100vh;
 }

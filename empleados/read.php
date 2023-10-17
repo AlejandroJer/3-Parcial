@@ -96,6 +96,10 @@
                         <?php foreach ($results as $result) { ?>
                             <div class="readObject_Container target">
                                 <div class="readObject_header">
+                                    <form action="../controladores/edits/UpdateEmpleados.php" method="post" class="form_edit">
+                                        <input type="hidden" name="id" value=<?php echo $result['id_usr']; ?>>
+                                        <button class="button"> Editar</button>
+                                    </form>
                                     <span class="arrow"></span>
                                 </div>
                                 <div class="principal_data">

@@ -94,17 +94,26 @@ if(isset($_SESSION['results'])){
                 <div class="read_main">
                     <?php if(!empty($results)): ?>
                         <?php foreach ($results as $result) { ?>
-                            <div class="readObject_Container">
+                            <div class="readObject_Container target">
                                 <div class="readObject_header">
+                                        <form action="../controladores/edits/UpdateProveedores.php" method="post" class="form_edit">
+                                            <input type="hidden" name="id" value=<?php echo $result['id_proveedor']; ?>>
+                                            <button class="button"> Editar</button>
+                                        </form>
                                     <span class="arrow"></span>
                                 </div>
-                                <div class="supplier_info">
-                                    <h2><?= $result['nombre_empresa'];?></h2>
-                                    <h4>ID Proveedor: <?php echo $result['id_proveedor'];?></h4>
-                                    <h4>Dirección: <?=$result['direccion'];?></h4>
-                                    <h4>Telefono: <?=$result['num_telefono'];?></h4>
-                                    <h4>Contacto: <?=$result['persona_contacto'];?></h4>
-                                    <h4>Correo: <?=$result['email_proveedor'];?></h4>
+                                <div class="principal_data">
+                                    <div class="data_container">
+                                        <h2><?= $result['nombre_empresa'];?></h2>
+                                        <h4>Dirección: <?=$result['direccion'];?></h4>
+                                    </div>
+                                </div>
+                                <div class="data_container hidden">
+                                    <div class="product_info">
+                                        <h4>Telefono: <?=$result['num_telefono'];?></h4>
+                                        <h4>Contacto: <?=$result['persona_contacto'];?></h4>
+                                        <h4>Correo: <?=$result['email_proveedor'];?></h4>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>
@@ -126,5 +135,6 @@ if(isset($_SESSION['results'])){
           unset($_SESSION['index']); ?>
 </body>
 <script src="../sources/js/nav.js"></script>
+<script src="../sources/js/read.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </html>

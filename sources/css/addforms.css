@@ -1,6 +1,6 @@
 .dashboard_container {
   padding: 5rem;
-  margin: 6rem auto;
+  margin: 4rem;
 
   background-color: var(--main-color);
   border-radius: 4px;
@@ -13,6 +13,10 @@
 }
 
 .form-group label{
+  color: var(--secondary-color);
+}
+
+.form-group h3{
   color: var(--secondary-color);
 }
 
@@ -33,6 +37,31 @@
 .btn-primary {
   background-color: var(--secondary-color);
 }
+
+#btn_imagen{
+  height: 3rem;
+  border: 1px solid var(--secondary-color);
+}
+
+#btn_imagen:hover{
+  color: var(--secondary-color);
+  background-color: var(--main-color);
+  border: 1px solid var(--secondary-color);
+}
+
+#btn_imagen_ver{
+  height: 3rem;
+  margin-left: 1rem;
+
+  color: var(--secondary-color);
+  background-color: var(--main-color);
+  border: 1px solid var(--secondary-color);
+}
+
+#btn_imagen_ver:hover{
+  background-color: var(--secondary-color);
+}
+
 
 /* CUSTOM CSS FOR PHONES DEVICES */
 
