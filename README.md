@@ -6,7 +6,13 @@
 
 ## Preview
 <p align="center">
-    <img width="700" src="./sources/imgs/websitePreview.gif" />
+    <img width="700" src="./sources/imgs/preview.gif" />
+</p>
+
+## CRUD FUNCTIONS
+<p align="center">
+    <img width="700" src="./sources/imgs/CRUD_CreateUpdate.gif" />
+    <img width="700" src="./sources/imgs/CRUD_Read.gif" />
 </p>
 
 ## Descripcion del proyecto
