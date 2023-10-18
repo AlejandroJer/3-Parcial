@@ -1,6 +1,8 @@
-
 <?php
-  require_once("../autoload.php");
+namespace controladores;
+require_once("../autoload.php");
+ use modelos\productos;
+    $productos = new productos();
 
   if(isset($_SESSION['results'])){
     $results = $_SESSION['results'];
@@ -129,10 +131,10 @@
                                         </div>
                                         <div class="product_info">
                                             <h3>Datos del producto</h3>
-                                            <h5>Peso: <?= $result['peso'];?></h5>
+                                            <h5>Peso: <?= $result['peso'];?> g</h5>
                                             <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
                                             <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>
-                                            <h5>ID Proveedor: <?php echo $result['id_proveedor'];?></h5>
+                                            <h5>Proveedor: <?= $productos->GetProveedorByProductoId($result['id_producto']); ?></h5>
                                         </div>
                                     </div>
                                 </div>

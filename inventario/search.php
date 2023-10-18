@@ -1,8 +1,10 @@
 <?php
 namespace controladores;
  require_once("../autoload.php");
- use modelos\utilities;
- $highlight = new utilities();
+ use modelos\{utilities, productos};
+  $highlight = new utilities();
+  $productos = new productos();
+
 
  if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
     $results = $_SESSION['results'];
@@ -139,7 +141,7 @@ namespace controladores;
                                         <h5>Peso: <?= $result['peso'];?></h5>
                                         <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
                                         <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>
-                                        <h5>ID Proveedor: <?= $result['id_proveedor'];?></h5>
+                                        <h5>Proveedor: <?= $productos->GetProveedorByProductoId($result['id_producto']); ?></h5>
                                     </div>
                                 </div>
                             </div>

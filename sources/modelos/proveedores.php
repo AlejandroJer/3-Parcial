@@ -97,6 +97,14 @@ class proveedores extends conexion {
         return $request;
     }
 
+    public function GetNombresProveedores(){
+        $sql = "SELECT id_proveedor, nombre_empresa FROM proveedores";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+
+        return $request;
+    }
+
     public function UpdateProveedor($id, $nombreEmpresa, $direccionProveedor, $personaContacto, $telefono, $correoProveedor) {
         $this->nombreEmpresa = $nombreEmpresa;
         $this->direccionProveedor = $direccionProveedor;

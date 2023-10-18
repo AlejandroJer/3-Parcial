@@ -97,7 +97,7 @@ if(isset($_SESSION['results'])){
                             <div class="readObject_Container target">
                                 <div class="readObject_header">
                                         <form action="../controladores/edits/UpdateProveedores.php" method="post" class="form_edit">
-                                            <input type="hidden" name="id" value=<?php echo $result['id_proveedor']; ?>>
+                                            <input type="hidden" name="id" value=<?= $result['id_proveedor']; ?>>
                                             <button class="button"> Editar</button>
                                         </form>
                                     <span class="arrow"></span>

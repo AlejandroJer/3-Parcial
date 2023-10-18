@@ -57,6 +57,18 @@ class productos extends conexion{
         return $request;
     }
 
+    public function GetProveedorByProductoId($id){
+        $sql="SELECT proveedores.nombre_empresa
+                FROM productos
+                INNER JOIN proveedores ON productos.id_proveedor = proveedores.id_proveedor
+                WHERE productos.id_producto = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', (int)$id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
     public function GetproductosIndex(){
         $sql="SELECT COUNT(*) FROM productos";
         $execute = $this->conn->query($sql);

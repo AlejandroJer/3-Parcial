@@ -1,5 +1,9 @@
 <?php
+namespace controladores;
 require_once("../autoload.php");
+ use modelos\proveedores;
+    $proveedores = new proveedores();
+    $proveedoresResults = $proveedores->GetNombresProveedores();
 if(isset($_SESSION['producto'])){
     $result = $_SESSION['producto'];
   }
@@ -88,8 +92,13 @@ if(isset($_SESSION['producto'])){
                             <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="<?php echo (isset($result['nombre_producto'])) ? $result['nombre_producto'] : ''; ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="producto-proveedor">ID del Proveedor:</label>
-                            <input type="number" min="0" class="form-control" name="producto-proveedor" id="producto-proveedor" placeholder="ID Proveedor" value="<?php echo (isset($result['id_proveedor'])) ? $result['id_proveedor'] : ''; ?>" required>
+                            <label for="producto-proveedor">Proveedor:</label>
+                            <select name="producto-proveedor" required>
+                                <?php if(!empty($proveedoresResults)) ?>
+                                    <?php foreach ($proveedoresResults as $proveedoresResult) { ?>
+                                        <option value="<?= $proveedoresResult['id_proveedor']; ?>" <?php if(isset($result['id_proveedor']) && $result['id_proveedor'] == $proveedoresResult['id_proveedor']) { echo 'selected'; } ?>><?= $proveedoresResult['nombre_empresa'];?></option>
+                                    <?php } ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form_row">
@@ -119,7 +128,7 @@ if(isset($_SESSION['producto'])){
                                 <option value="Oro" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Oro') { echo 'selected'; } ?>>Oro</option>
                                 <option value="Plata" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Plata') { echo 'selected'; } ?>>Plata</option>
                                 <option value="Platino" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Platino') { echo 'selected'; } ?>>Platino</option>    
-                            </select>  
+                            </select>
                         </div>
                     </div> 
                     <div class="form_row">
