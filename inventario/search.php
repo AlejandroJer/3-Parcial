@@ -13,161 +13,164 @@ namespace controladores;
     $page = $_SESSION['pageClicked'];
    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEMAS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/root.css">
-    <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/read.css">
 </head>
-<body>
-<section class="index_section">
-        <nav class="navHome">
-            <header class="navHome_header">
-                <h1>JEMAS</h1>
-            </header>
-
-            <div class="navHome_ol">
-                <a href="../dashboard.php">
-                    <div  class="option_container">
-                        <h3>Dashboard</h3>
-                    </div>
+<body class="container-fluid bg-light">
+    <section class="index_section row vh-100">
+        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
+            <a href="#" class="d-block p-3 link-secondary text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
+                <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
+            </a>
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                <li class="nav-item">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                        <iconify-icon icon="bxs:dashboard" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../inventario/add.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                        <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../proveedores/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                        <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../empleados/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                        <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+            </ul>
+            <div class="border-top">
+                <a href="./auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-primary text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
+                    <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                 </a>
-                <div class="option target">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="ic:baseline-inventory" width="20" height="20"></iconify-icon>
-                            <h3>Inventario</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul">
-                        <a href="./add.php"><li>Agregar Inventario</li></a>
-                        <a href="./read.php"><li>Ver Inventario</li></a>
-                        <a href="./search.php"><li class="target">Buscar en Inventario</li></a>
-                    </ul>
-                </div>
-                <div class="option">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="fa-solid:users" width="20" height="20"></iconify-icon>
-                            <h3>Proveedores</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../proveedores/add.php"><li>Agregar Proveedor</li></a>
-                        <a href="../proveedores/read.php"><li>Ver Proveedores</li></a>
-                        <a href="../proveedores/search.php"><li>Buscar en Proveedores</li></a>
-                    </ul>
-                </div>
-                <div class="option">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="clarity:employee-solid" width="20" height="20"></iconify-icon>
-                            <h3>Empleados</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
-                        <a href="../empleados/read.php"><li>Ver Empleados</li></a>
-                        <a href="../empleados/search.php"><li>Buscar en Empleados</li></a>
-                    </ul>
-                </div>
             </div>
         </nav>
 
-        <section class="main_container">
-            <header class="main_header">
-                <span id="NavArrow"></span>
-                <div class="header_login" data-messages="Iniciar Secion">
-                    <a href="../auth/login.php">
-                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
-                    </a>
-                </div>
-            </header>
-            <main class="read_container">
-                <div class="read_header">
-                    <form method="POST" action="../controladores/gets/SearchProducto.php" class="search_bar">
-                        <input type="text" name="search" placeholder="Buscar">
-                        <button type="submit" name="submit">
-                            <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
-                            <!-- <iconify-icon class="iconify" icon="fa-solid:search" width="20" height="20"></iconify-icon> -->
-                        </button>
-                    </form>
-                    <?php if(!empty($index)){ ?>
-                        <h5>Resultados para: "<?= $keyword; ?>"</h5>
+        <section class="main_container col-lg-11 bg-light">
+            <ul class="nav nav-tabs my-4">
+                <li class="nav-item">
+                    <a href="./add.php" class="nav-link">Agregar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./read.php" class="nav-link" aria-current="page">Ver todos los Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./search.php" class="nav-link active">Buscar Productos</a>
+                </li>
+            </ul>
+            <div class="read_header my-4">
+                <form method="POST" action="../controladores/gets/SearchProducto.php" class="search_bar input-group">
+                    <div class="form-floating flex-grow-1">
+                        <input type="text" name="search" id="search" placeholder="Buscar" class="form-control">
+                    <?php if(!empty($keyword)){?>
+                        <label for="search">Resultados para: "<?= $keyword; ?>"</label>
+                    <?php } else { ?>
+                        <label for="search">Buscar</label>
                     <?php } ?>
-                </div>
-                
-                <div class="read_main">
-                    <?php if(!empty($results)){ ?>
-                        <?php foreach($results as $result): ?>
-                            <div class="readObject_Container target">
-                                <div class="readObject_header">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit">
-                                        <input type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button class="button"> Editar</button>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary">
+                        <iconify-icon icon="ic:sharp-content-paste-search" width="20" height="20"></iconify-icon>
+                    </button>
+                </form>
+            </div>
+            <main class="dashboard_container container">
+                <?php if(!empty($results)): ?>
+                    <?php foreach ($results as $result) { ?>
+                        <div class="readObject_Container target card mb-4">
+                            <div class="readObject_header card-header">
+                                <div class="row">
+                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
+                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
+                                        <button  class="button btn btn-primary"> Editar</button>
                                     </form>
-                                    <span class="arrow"></span>
-                                </div>
-                                <div>
-                                    <div class="image_container">
-                                    <?php if($result['imagen'] != null) {?>
-                                        <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="">
-                                        <h4 class="ingreso">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h4>
-                                        <h4 class="gasto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h4>
-
-
-                                    <?php } ?>
-                                    </div>
-                                    <div class="data_container">
-                                        <h2><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['nombre_producto']); ?></h2>
-                                        <h4><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['Descripcion_producto']); ?></h4>
-                                    </div>
-                                </div>
-                                <div class="data_container hidden">
-                                    <div class="product_tags">
-                                    
-                                        <h5>Categoría: <?= $result['categoria'];?></h5>
-                                        <h5>Material: <?= $result['tipo_material'];?></h5>
-                                    </div>
-                                    <div class="product_info">
-                                        <h5>Peso: <?= $result['peso'];?></h5>
-                                        <h5>Cantidad disponible: <?= $result['cantidad_disponible'];?></h5>
-                                        <h5>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h5>
-                                        <h5>Proveedor: <?= $productos->GetProveedorByProductoId($result['id_producto']); ?></h5>
+                                    <div class="accordion col-auto">
+                                        <div class="row accordion-header">
+                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
+                                            data-bs-toggle="collapse" data-bs-target="#Accordion<?= $result['id_producto']; ?>">
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                        <form action="../controladores/gets/SearchProducto.php" method="POST" class="form_pages">
+                            <div class="principal_data card-body row">
+                                <div class="row">
+                                    <div class="image_container col-lg-2">
+                                        <?php if($result['imagen'] != null) {?>
+                                            <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="img-fluid rounded-start">
+                                        <?php } ?>
+                                    </div>
+                                    <div class="data_container col-lg-10">
+                                        <div class="row">
+                                            <h2><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['nombre_producto']); ?></h2>
+                                            <h4><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['Descripcion_producto']); ?></h4>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <h6 class="ingreso col-auto me-auto">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h6>
+                                            <h6 class="gasto col-auto me-auto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="data_container hidde card-footer collapse" id="Accordion<?= $result['id_producto']; ?>">
+                                <div class="row">
+                                    <div class="product_tags col-lg-3">
+                                        <h5>TAGS</h5>
+                                        <div>
+                                            <h6>Categoría: <?php echo $result['categoria'];?></h6>
+                                            <h6>Material: <?php echo $result['tipo_material'];?></h6>
+                                        </div>
+                                    </div>
+                                    <div class="product_info col-lg-9">
+                                        <h5>Datos del producto</h5>
+                                        <h6>Peso: <?= $result['peso'];?> g</h6>
+                                        <h6>Cantidad disponible: <?= $result['cantidad_disponible'];?></h6>
+                                        <h6>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h6>
+                                        <h6>Proveedor: <?= $productos->GetProveedorByProductoId($result['id_producto']); ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php endif; ?>
+            </main>
+            <?php if(!empty($index)) {?>
+                <nav>
+                    <form action="../controladores/gets/SearchProducto.php" method="POST" class="form_pages">
+                        <ul class="pagination justify-content-center">
                             <?php for($i = 0; $i < $index; $i++): ?>
                                 <?php if($i == $page){ ?>
-                                    <button type="submit" class="btn_page target" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                    <li class="page-item active">
+                                        <button type="submit" class="btn_page target page-link" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                    </li>
                                 <?php } else { ?>
-                                    <button type="submit" class="btn_page" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                    <li class="page-item">
+                                        <button type="submit" class="btn_page page-link" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
+                                    </li>
                                 <?php } ?>
                             <?php endfor; ?>
-                            <input type="hidden" name="searchPaginated" value="<?= $keyword ?>">
-                        </form>
-                    <?php } else { ?>
-                        <h1>Busque algo para comenzar</h1>
-                    <?php } ?>
-                </div>
-            </main>
+                        </ul>
+                        <input type="hidden" name="searchPaginated" value="<?= $keyword ?>">
+                    </form>
+                </nav>
+            <?php } ?>
         </section>
     </section>
-    <?php unset($_SESSION['results']); 
+    <?php unset($_SESSION['results']);
             unset($_SESSION['keyword']); 
               unset($_SESSION['index']); ?>
 </body>
-<script src="../sources/js/nav.js"></script>
-<script src="../sources/js/read.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="../sources/js/app.js"></script>
 </html>

@@ -60,7 +60,7 @@ class productos extends conexion{
     public function GetProveedorByProductoId($id){
         $sql="SELECT proveedores.nombre_empresa
                 FROM productos
-                INNER JOIN proveedores ON productos.id_proveedor = proveedores.id_proveedor
+                INNER JOIN proveedores -- ON productos.id_proveedor = proveedores.id_proveedor
                 WHERE productos.id_producto = :id";
         $execute = $this->conn->prepare($sql);
         $execute->bindValue(':id', (int)$id, PDO::PARAM_INT);

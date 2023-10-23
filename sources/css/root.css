@@ -15,99 +15,8 @@
 
 }
 
-html{
-    height: 100%;
-}
-
 body{
-    margin: 0;
-
-    max-height: 100vh;
-
-    background-color: var(--secondary-color);
     font-family: var(--font-bold)
-}
-
-section{
-    display: flex;
-}
-
-main{
-    display: flex;
-}
-
-div{
-    display: flex;
-}
-
-a{
-    text-decoration: none;
-
-    display: contents;
-}
-
-h1, h2, h3, h4{
-    margin: .5rem;
-}
-
-h1{
-    font-size: 3rem;
-}
-
-h2{
-    font-size: 1.7rem;
-}
-
-h3{
-    font-size: 1rem;
-}
-
-h4{
-    font-size: 0.8rem;
-}
-
-h5{
-    margin: 0.1rem 0.5rem;
-    font-size: 0.65rem;
-}
-
-p{
-    margin: 0.25rem;
-}
-
-li{
-    font-size: 0.8rem;
-}
-
-ul, ol{
-    list-style: none;
-
-    margin-top: 0;
-}
-
-select{
-    margin: 0 0.5rem 0 0.5rem;
-}
-
-input{
-  margin: 0 0.5rem 0 0.5rem;
-}
-
-option{
-  margin: 0 0.5rem 0 0.5rem;
-}
-
-textarea{
-    margin: 0 0.5rem 0 0.5rem;
-}
-
-label{
-    font-size: 1rem;
-    font-family: var(--font-bold);
-}
-
-body > section {
-    height: 100vh;
 }
 
 input[type="text"]{
@@ -122,58 +31,10 @@ input[type="file"]{
     font-family: var(--font-bold);
 }
 
-button {
-    user-select: none;
-    cursor: pointer;
-
-    border: none;
-    border-radius: 5px;
-
-    font-family: var(--font-bold);
-
-    transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
-}
-
 select{
     font-family: var(--font-bold);
 }
 
 textarea{
     font-family: var(--font-bold); 
-}
-
-.hidden{
-    display: none;
-}
-
-
-@media screen and (max-aspect-ratio: 9/16){ /* 9:16 = 0.5625 */
-    h1, h2, h3, h4{
-        margin: .2rem;
-    }
-    
-    h1{
-        font-size: 2rem;
-    }
-    
-    h2{
-        font-size: 1.0rem;
-    }
-    
-    h3{
-        font-size: 0.9rem;
-    }
-    
-    h4{
-        font-size: 0.7rem;
-    }
-    
-    h5{
-        margin: 0.1rem 0.5rem;
-        font-size: 0.65rem;
-    }
-
-    ul{
-        padding-inline-start: 20px;
-    }
 }
