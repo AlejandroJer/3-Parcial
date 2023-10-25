@@ -423,6 +423,18 @@ namespace controladores;
                             </div>
                         </div>
                     <?php } ?>
+                <?php } elseif(!empty($_SESSION['keyword']) || !empty($_SESSION['filters'])){ ?>
+                    <div class="row mx-1 my-3">
+                        <div class="d-flex justify-content-center">
+                            <h3>No se encontraron resultados</h3>
+                        </div>
+                    </div>
+                <?php } else {?>
+                    <div class="row mx-1 my-3">
+                        <div class="d-flex justify-content-center">
+                            <h3>Inicie la busqueda</h3>
+                        </div>
+                    </div>
                 <?php } ?>
             </main>
             <!-- PAGINATION -->
