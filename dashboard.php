@@ -50,7 +50,7 @@
         </nav>
 
         <section class="main_container col-lg-11 bg-light">
-            <main class="dashboard_main container">
+            <main class="dashboard_main container m-5">
                 <h2 class="row display-1">Dashboard</h2>
                 <h4 class="row display-6 mb-5">
                     Bienvenido al sistema de inventario JEMAS, en esta sección podras ver las opciones que tienes disponibles para administrar.

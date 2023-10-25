@@ -5,6 +5,8 @@
     $producto = new productos();
 
     $limit = 2;
+
+// SEARCH BY KEYWORD
  if(!isset($_POST['search']) && !isset($_POST['submit'])){
    header("location:./../../inventario/search.php");
  } else {
@@ -26,6 +28,7 @@
     header("location:./../../inventario/search.php");
  }
 
+// MOVE THROUGHT PAGES IN THE SEARCH BY KEYWORD
  if(!isset($_POST['submitPaginated'])){
       header("location:./../../inventario/search.php");
    } else {

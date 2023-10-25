@@ -1,8 +1,9 @@
 <?php
 namespace controladores;
 require_once("../autoload.php");
- use modelos\productos;
+ use modelos\{productos, proveedores};
     $productos = new productos();
+    $proveedores = new proveedores();
 
   if(isset($_SESSION['results'])){
     $results = $_SESSION['results'];
@@ -27,6 +28,7 @@ require_once("../autoload.php");
 </head>
 <body class="container-fluid bg-light">
     <section class="index_section row vh-100">
+        <!-- MAIN NAV -->
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
             <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
@@ -54,13 +56,14 @@ require_once("../autoload.php");
                 </li>
             </ul>
             <div class="border-top">
-                <a href="./auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
+                <a href="../auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
                     <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                 </a>
             </div>
         </nav>
 
         <section class="main_container col-lg-11 bg-light">
+            <!-- PRODUCTS NAV -->
             <ul class="nav nav-tabs my-4">
                 <li class="nav-item">
                     <a href="./add.php" class="nav-link">Agregar Producto</a>
@@ -72,8 +75,16 @@ require_once("../autoload.php");
                     <a href="./search.php" class="nav-link">Buscar Productos</a>
                 </li>
             </ul>
+            <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
                 <?php if(!empty($results)): ?>
+                    <!-- COLLAPSE BUTTON -->
+                    <div class="row mx-1 my-3">
+                        <div class="d-flex">
+                            <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
+                        </div>
+                    </div>
+                    <!-- PRODUCTS CARD LOOP -->
                     <?php foreach ($results as $result) { ?>
                         <div class="readObject_Container target card mb-4">
                             <div class="readObject_header card-header">
@@ -124,7 +135,7 @@ require_once("../autoload.php");
                                         <h6>Peso: <?= $result['peso'];?> g</h6>
                                         <h6>Cantidad disponible: <?= $result['cantidad_disponible'];?></h6>
                                         <h6>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h6>
-                                        <h6>Proveedor: <?= $productos->GetProveedorByProductoId($result['id_producto']); ?></h6>
+                                        <h6>Proveedor: <?= $proveedores->GetNombreEmpresaById($result['id_proveedor']); ?></h6>
                                     </div>
                                 </div>
                             </div>
@@ -153,6 +164,7 @@ require_once("../autoload.php");
             <?php } ?>
         </section>
     </section>
+    <!-- DISSBLE THE SESSIONS - to reset the pagination when reset -->
     <?php unset($_SESSION['results']);
               unset($_SESSION['index']); ?>
 </body>

@@ -24,6 +24,7 @@ if(isset($_SESSION['producto'])){
 </style>
 <body class="container-fluid bg-light">
     <section class="index_section row vh-100">
+        <!-- MAIN NAV -->
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
             <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
@@ -51,13 +52,14 @@ if(isset($_SESSION['producto'])){
                 </li>
             </ul>
             <div class="border-top">
-                <a href="./auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
+                <a href="../auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
                     <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                 </a>
             </div>
         </nav>
 
         <section class="main_container col-lg-11 bg-light">
+            <!-- PRODUCTS NAV -->
             <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
                     <a href="./add.php" class="nav-link active" aria-current="page"><?php echo (isset($result['id_producto'])) ? 'Actualizar Inventario' : 'Agregar Inventario'; ?></a>
@@ -69,7 +71,9 @@ if(isset($_SESSION['producto'])){
                     <a href="./search.php" class="nav-link">Buscar Productos</a>
                 </li>
             </ul>
+            <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
+                <!-- FORM - to add and edit products -->
                 <form action="<?php echo (!empty($result)) ? '../controladores/edits/UpdateProductos.php' : '../controladores/SetProducto.php'; ?>" method="post" enctype="multipart/form-data" class="my-4 needs-validation <?= (!empty($result)) ? 'was-validated' : '' ?>" novalidate>
                     <input type="hidden" name="id_inv" value="null">
                     <div class="row my-3">
@@ -213,12 +217,16 @@ if(isset($_SESSION['producto'])){
                             </div>
                         </div>
                     <?php } ?>
+                    <!-- FORMS BTNS -->
                     <?php if(isset($result['id_producto'])){ ?>
+                        <!-- SUBMIT BTN TO UPDATE A PRODUCT -->
                         <input type="hidden" name="id_producto" value="<?= $result['id_producto'] ?>">
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal-submit">Actualizar</button>
                     <?php } else { ?>
+                        <!-- SUBMIT BTN TO ADD A PRODUCT -->
                         <button type="submit" class="btn btn-primary" name="submit" id="submit">Guardar</button>
                     <?php } ?>
+                    <!-- MODAL TO UPDATE THE PRODUCT - this is used only if the update button is triggered -->
                     <div class="modal fade" id="modal-submit"  tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -231,6 +239,7 @@ if(isset($_SESSION['producto'])){
                                     <p>Al actualizar este producto se reemplazará la información actual por la nueva, siendo una accion irreversible</p>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-between">
+                                    <!-- SUBMIT/CANCEL BTN - to submit/cancel the update -->
                                     <button type="submit" class="btn btn-warning" name="submit" id="submit">Actualizar</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
@@ -241,6 +250,7 @@ if(isset($_SESSION['producto'])){
             </main>
         </section>
     </section>
+    <!-- DISSBLE THE SESSIONS - to reset the form redirect the add if was the update form -->
     <?php
     if(isset($_SESSION['producto'])){
       unset($_SESSION['producto']);
