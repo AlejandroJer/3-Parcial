@@ -82,6 +82,10 @@ require_once("../autoload.php");
                                         <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
                                         <button  class="button btn btn-primary"> Editar</button>
                                     </form>
+                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="">
+                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
+                                        <button  class=""> Borrar</button>
+                                    </form>
                                     <div class="accordion col-auto">
                                         <div class="row accordion-header">
                                             <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
