@@ -11,7 +11,7 @@
  if(!isset($_POST['submit'])){   
  // MOVE THROUGHT PAGES IN THE SEARCH BY FILTER
   if(!isset($_POST['submitFilterPaginated'])){
-    header("location:./../../inventario/search.php");
+    header("location:./../../inventario/read.php");
    } else {
     $array = json_decode($_POST['searchFilterPaginated'], true);
     $page = filter_var($_POST['submitFilterPaginated'], FILTER_SANITIZE_NUMBER_INT);
@@ -40,7 +40,7 @@
     $_SESSION['filters'] = json_encode($array);
     $_SESSION['index'] = $index;
     $_SESSION['pageClicked'] = $page;
-    header("location:./../../inventario/search.php");
+    header("location:./../../inventario/read.php");
   }
  } else {
 //    if(!isset($_POST['filter-search-proov']) && !isset($_POST['filter-search-Ubi']) // SEARCH INPUTS - proveedor y ubicacion
@@ -84,17 +84,11 @@
       foreach ($_POST['filter-materials'] as $material) {
         $materiales[] = filter_var($material, FILTER_SANITIZE_STRING);
       }
-      if (in_array("all", $materiales)) {
-        $materiales = null;
-      } 
      }
 
     if (isset($_POST['filter-categorias'])) {
       foreach ($_POST['filter-categorias'] as $categoria) {
         $categorias[] = filter_var($categoria, FILTER_SANITIZE_STRING);
-      }
-      if (in_array("all", $categorias)) {
-        $categorias = null;
       }
      }
 
@@ -165,7 +159,7 @@
     $_SESSION['filters'] = json_encode($array);
     $_SESSION['index'] = $index;
     $_SESSION['pageClicked'] = 0;
-    header("location:./../../inventario/search.php");
+    header("location:./../../inventario/read.php");
 //   }
  }
  

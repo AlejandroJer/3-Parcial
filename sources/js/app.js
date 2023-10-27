@@ -44,7 +44,6 @@ function checkExpanded() {
 
 function collapse() {
   var allexpanded = checkExpanded()
-  console.log(allexpanded);
 
   for (var i = 0; i < elementaccordion.length; i++) {
     if (allexpanded){
@@ -80,22 +79,37 @@ function checkAll(elementBoxes, elementAll){
   }
 
   if(allChecked || noneChecked){
-    all.disabled = false;
     all.checked = true;
   } else {
-    all.disabled = true;
     all.checked = false;
   }
 }
 
 function checkInput(id, event){
-  var input1 = document.getElementById(id);
-  var input2 = document.getElementById(event.target.id);
+  var input = document.getElementById(id);
+  var event = document.getElementById(event.target.id);
 
-  if(input2.value != ""){
-    input1.disabled = true;
+  if(event.value != ""){
+    input.disabled = true;
   } else {
-    input1.disabled = false;
+    input.disabled = false;
   }
 }
 
+var input = document.getElementById('search');
+var button = document.getElementById('search-button');
+
+function SearchInputFocused(){
+  button.classList.add('focused');
+  input.classList.add('focused');
+}
+
+function SearchInputBlur(){
+  button.classList.remove('focused');
+  input.classList.remove('focused');
+}
+
+if(input){
+  input.addEventListener('focus', SearchInputFocused);
+  input.addEventListener('blur', SearchInputBlur);
+}

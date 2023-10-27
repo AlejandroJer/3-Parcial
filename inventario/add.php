@@ -31,28 +31,28 @@ if(isset($_SESSION['producto'])){
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                    <a href="../dashboard.php" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
                         <iconify-icon icon="bxs:dashboard" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../inventario/add.php" class="option_container active nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="../inventario/add.php" class="option_container active nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../proveedores/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="../proveedores/add.php" class="option_container nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="../empleados/add.php" class="option_container nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
             </ul>
             <div class="border-top">
-                <a href="../auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
+                <a href="../auth/login.php" class= justify-content-center p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
                     <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
                 </a>
             </div>
@@ -65,29 +65,31 @@ if(isset($_SESSION['producto'])){
                     <a href="./add.php" class="nav-link active" aria-current="page"><?php echo (isset($result['id_producto'])) ? 'Actualizar Inventario' : 'Agregar Inventario'; ?></a>
                 </li>
                 <li class="nav-item">
-                    <a href="./read.php" class="nav-link">Ver todos los Productos</a>
+                    <a href="./read.php" class="nav-link">Ver Productos</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="./search.php" class="nav-link">Buscar Productos</a>
-                </li>
+                </li> -->
             </ul>
             <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
                 <!-- FORM - to add and edit products -->
                 <form action="<?php echo (!empty($result)) ? '../controladores/edits/UpdateProductos.php' : '../controladores/SetProducto.php'; ?>" method="post" enctype="multipart/form-data" class="my-4 needs-validation <?= (!empty($result)) ? 'was-validated' : '' ?>" novalidate>
                     <input type="hidden" name="id_inv" value="null">
+                    <!-- NOMBRE -->
                     <div class="row my-3">
-                        <label for="producto-nombre" class="col-lg-2 col-form-label">Nombre:</label>
-                        <div class="col-lg-10">
+                        <label for="producto-nombre" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Nombre:</label>
+                        <div class="col-lg-10 ">
                             <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="<?php echo (isset($result['nombre_producto'])) ? $result['nombre_producto'] : ''; ?>" required>
                             <div class="invalid-feedback">
                                 Ingresa un nombre para el producto
                             </div>
                         </div>
                     </div>
+                    <!-- PROVEEDOR -->
                     <div class="row mb-3">
-                        <label for="producto-proveedor" class="col-lg-2 col-form-label">Proveedor:</label>
-                        <div class="col-lg-10">
+                        <label for="producto-proveedor" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Proveedor:</label>
+                        <div class="col-lg-10 ">
                             <select name="producto-proveedor" class="form-select" required>
                                 <option value="" selected>Proveedor del producto</option>
                                 <?php if(!empty($proveedoresResults)) ?>
@@ -100,27 +102,30 @@ if(isset($_SESSION['producto'])){
                             </div>
                         </div>
                     </div>
+                    <!-- PRECIO DE VENTA -->
                     <div class="row mb-3">
-                        <label for="precio-venta" class="col-lg-2 col-form-label">Precio de venta:</label>
-                        <div class="col-lg-10">
+                        <label for="precio-venta" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Venta:</label>
+                        <div class="col-lg-10 ">
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio MXN venta" value="<?php echo (isset($result['precio_venta'])) ? $result['precio_venta'] : ''; ?>" required>
                             <div class="invalid-feedback">
                                 Ingresa el precio de venta del producto
                             </div>
                         </div>
                     </div>
+                    <!-- PRECIO DE COMPRA -->
                     <div class="row mb-3">
-                        <label for="precio-compra" class="col-lg-2 col-form-label">Precio de compra:</label>
-                        <div class="col-lg-10">
+                        <label for="precio-compra" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Compra:</label>
+                        <div class="col-lg-10 ">
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio MXN compra" value="<?php echo (isset($result['precio_compra'])) ? $result['precio_venta'] : ''; ?>" required>
                             <div class="invalid-feedback">
                                 Ingresa el precio de compra del producto
                             </div>
                         </div>
                     </div>
+                    <!-- CATEGORIA -->
                     <div class="row mb-3">
-                        <label for="producto-categoria" class="col-lg-2 col-form-label">Categoría:</label>
-                        <div class="col-lg-10">
+                        <label for="producto-categoria" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Categoría:</label>
+                        <div class="col-lg-10 ">
                             <select name="categoria" class="form-select" required>
                                 <option value="" selected>Categoria del producto</option>
                                 <option value="Anillo" <?php if(isset($result['categoria']) && $result['categoria'] == 'Anillo') { echo 'selected'; } ?>>Anillos</option>
@@ -133,10 +138,11 @@ if(isset($_SESSION['producto'])){
                                 Selecciona la categoria del producto
                             </div>
                         </div>
-                    </div> 
+                    </div>
+                    <!-- MATERIAL -->
                     <div class="row mb-3">
-                        <label for="tipo-material" class="col-lg-2 col-form-label">Material:</label>
-                        <div class="col-lg-10">
+                        <label for="tipo-material" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Material:</label>
+                        <div class="col-lg-10 ">
                             <select name="tipo-material" class="form-select" required>
                                 <option value="" selected>Material del producto</option>
                                 <option value="Oro" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Oro') { echo 'selected'; } ?>>Oro</option>
@@ -148,44 +154,49 @@ if(isset($_SESSION['producto'])){
                             </div>
                         </div>
                     </div>
+                    <!-- PESO -->
                     <div class="row mb-3">
-                        <label for="peso" class="col-lg-2 col-form-label">Peso:</label>
-                        <div class="col-lg-10">
+                        <label for="peso" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Peso:</label>
+                        <div class="col-lg-10 ">
                             <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Gramos" value="<?php echo (isset($result['peso'])) ? $result['peso'] : ''; ?>" required>
                             <div class="invalid-feedback">
                                 Ingresa el peso en gramos del producto
                             </div>
                         </div>
                     </div>
+                    <!-- CANTIDAD -->
                     <div class="row mb-3">
-                        <label for="producto-cantidad-disponible" class="col-lg-2 col-form-label">Cantidad:</label>
-                        <div class="col-lg-10">
-                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Cantidad Disponible" value="<?php echo (isset($result['cantidad_disponible'])) ? $result['cantidad_disponible'] : ''; ?>" required>
+                        <label for="cantidad-disponible" class="col-lg-2 col-form-label fs-4 p-0 border-bottom">Cantidad:</label>
+                        <div class="col-lg-10 ">
+                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad-disponible" placeholder="Cantidad Disponible" value="<?php echo (isset($result['cantidad_disponible'])) ? $result['cantidad_disponible'] : ''; ?>" required>
                             <div class="invalid-feedback">
                                 Ingresa la cantidad disponible del producto
                             </div>
                         </div>
                     </div>
+                    <!-- UBICACION -->
                     <div class="row mb-3">
-                        <label for="producto-ubicacion-almacen" class="col-lg-2 col-form-label">Ubicación:</label>
-                        <div class="col-lg-10">
+                        <label for="ubicacion-almacen" class="col-lg-2 col-form-label fs-4 p-0">Ubicación:</label>
+                        <div class="col-lg-10 ">
                             <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" value="<?php echo (isset($result['ubicacion_almacen'])) ? $result['ubicacion_almacen'] : ''; ?>" required>
                             <div class="invalid-feedback">
                                 Ingresa la ubicación del producto en el almacén
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="producto-descripcion" class="col-lg-2 col-form-label">Descripción:</label>
-                        <textarea id="producto-descripcion" class="form-control" name="producto-descripcion" rows="4" required><?php echo (isset($result['Descripcion_producto'])) ? $result['Descripcion_producto'] : ''; ?></textarea>
+                    <!-- DESCRIPCION -->
+                    <div class="row mb-3 form-floating">
+                        <textarea id="producto-descripcion" class="form-control pt-5" name="producto-descripcion" placeholder="Descripción" style="height: 150px" required><?= (isset($result['Descripcion_producto'])) ? $result['Descripcion_producto'] : ''; ?></textarea>
+                        <label for="producto-descripcion" class="fs-4">Descripción:</label>
                         <div class="invalid-feedback">
                             Ingresa una descripción para el producto
                         </div>
                     </div> 
                     <?php if (empty($result['imagen'])) { ?>
-                        <div class="row mb-3"> 
-                            <label for="image" class="col-lg-2 col-form-label">Agregar Imagen:</label>
-                            <div class="col-10">
+                        <!-- IMAGEN DEFAULT -->
+                        <div class="row mb-5"> 
+                            <label for="image" class="col-lg-3 col-form-label fs-3 p-0 ">Agregar Imagen:</label>
+                            <div class="col-lg-9">
                                 <input type="file" accept=".jpeg, .png, .jpg "id="image"  name="image" class="form-control">
                                 <div class="invalid-feedback text-success">
                                     Ingresar una imagen del producto es opcional pero se recomienda
@@ -193,11 +204,12 @@ if(isset($_SESSION['producto'])){
                             </div>
                         </div>
                      <?php } else { ?>
-                        <div class="row mb-3"> 
+                        <!-- IMAGEN EDIT -->
+                        <div class="row mb-5"> 
                             <div class="col-lg-9">
                                 <div class="row">
-                                    <label for="image" class="col-lg-2 col-form-label">Cambiar Imagen:</label>
-                                    <div class="col-lg-10">
+                                    <label for="image" class="col-lg-4 col-form-label fs-4 p-0">Cambiar Imagen:</label>
+                                    <div class="col-lg-8">
                                         <input type="file" accept=".jpeg, .png, .jpg "id="image"  name="image" class="form-control border-warning inputfile-warning">
                                         <div class="valid-feedback text-warning">
                                             Al Seleccionar una imagen nueva se reemplazará la anterior

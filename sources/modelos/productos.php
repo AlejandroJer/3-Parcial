@@ -298,6 +298,20 @@ class productos extends conexion{
         return $request;
     }
 
+    public function GetMaterialesCount(){
+        $sql="SELECT COUNT(DISTINCT tipo_material) FROM productos";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
+    public function GetCategoriasCount(){
+        $sql="SELECT COUNT(DISTINCT categoria) FROM productos";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
     public function UpdateProducto(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
