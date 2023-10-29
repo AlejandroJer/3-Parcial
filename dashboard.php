@@ -15,15 +15,15 @@
     <link rel="stylesheet" href="./sources/css/root.css">
 </head>
 <body class="container-fluid bg-light">
-    <section class="index_section row vh-100">
-        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
+    <section class="index_section row">
+        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
             <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="./dashboard.php" class="nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
-                        <iconify-icon icon="bxs:dashboard" width="30" height="30"></iconify-icon>
+                    <a href="./dashboard.php" class="nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                        <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
@@ -51,14 +51,14 @@
 
         <section class="main_container col-lg-11 bg-light">
             <main class="dashboard_main container m-5">
-                <h2 class="row display-1">Dashboard</h2>
-                <h4 class="row display-6 mb-5">
+                <h2 class="row h1">Home</h2>
+                <h4 class="row h2 mb-5">
                     Bienvenido al sistema de inventario JEMAS, en esta sección podras ver las opciones que tienes disponibles para administrar.
                 </h4>
                 <section class="row">
                     <a href="./inventario/add.php" class="col link-dark text-decoration-none">
                         <div class="dashboard_options option_container card">
-                            <h3 class="display-6 card-header accordion-header" >Inventario</h3>
+                            <h3 class="h2 card-header accordion-header" >Inventario</h3>
                             <div class="card-body">
                                 <div class="card-body d-flex justify-content-center">
                                     <iconify-icon class="iconify " icon="ic:baseline-inventory" width="100" height="100"></iconify-icon>
@@ -69,7 +69,7 @@
                     </a>
                     <a href="./proveedores/add.php" class="col link-dark text-decoration-none">
                         <div class="dashboard_options option_container card">
-                            <h3 class="display-6 card-header">Proveedores</h3>
+                            <h3 class="h2 card-header">Proveedores</h3>
                             <div class="card-body">
                                 <div class="card-body d-flex justify-content-center">
                                     <iconify-icon class="iconify" icon="fa-solid:users" width="100" height="100"></iconify-icon>
@@ -81,7 +81,7 @@
                     <a href="./empleados/add.php" class="col link-dark text-decoration-none">
                         <div class="dashboard_options option_container">
                             <div class="dashboard_options option_container card">
-                                <h3 class="display-6 card-header">Empleados</h3>
+                                <h3 class="h2 card-header">Empleados</h3>
                                 <div class="card-body">
                                     <div class="card-body d-flex justify-content-center">
                                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="100" height="100"></iconify-icon>

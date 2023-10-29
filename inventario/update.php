@@ -23,16 +23,16 @@
     }
 </style>
 <body class="container-fluid">
-    <section class="index_section row vh-100">
+    <section class="index_section row">
         <!-- MAIN NAV -->
-        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
+        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
             <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
-                        <iconify-icon icon="bxs:dashboard" width="30" height="30"></iconify-icon>
+                    <a href="../dashboard.php" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                        <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">

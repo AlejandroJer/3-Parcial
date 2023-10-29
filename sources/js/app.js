@@ -58,8 +58,13 @@ function collapse() {
 
     if (collapsebtn){
       collapsebtn.textContent = allexpanded ? 'Expandir' : 'Colapsar';
+      localStorage.setItem('collapse', allexpanded ? 'false' : 'true');
     }
   }
+}
+
+if (localStorage.getItem('collapse') == 'true') {
+  collapse();
 }
 
 collapsebtn ? collapsebtn.addEventListener('click', collapse) : null;

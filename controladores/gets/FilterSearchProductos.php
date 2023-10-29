@@ -5,7 +5,7 @@
     $producto = new productos();
     $proveedores = new proveedores();
 
-    $limit = 2;
+    $limit = 7;
 
 // SEARCH BY FILTER
  if(!isset($_POST['submit'])){   
@@ -43,13 +43,6 @@
     header("location:./../../inventario/read.php");
   }
  } else {
-//    if(!isset($_POST['filter-search-proov']) && !isset($_POST['filter-search-Ubi']) // SEARCH INPUTS - proveedor y ubicacion
-//    && !isset($_POST['filter-materials']) && !isset($_POST['filter-categorias']) // CHECKBOXES - materiales y categorias
-//    && !isset($_POST['filter-peso']) && !isset($_POST['filter-cantidad']) // RANGES INPUTS - peso y cantidad
-//    && !isset($_POST['filter-precioCompra']) && !isset($_POST['filter-precioVenta']) // RANGES INPUTS - precio compra y venta
-//    ) {
-//     header("location:./../../inventario/search.php");
-//    } else {
     $proveedor = null;
     $ubicacion = null;
     $materiales = null;

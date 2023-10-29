@@ -4,7 +4,7 @@
     use modelos\productos;
     $producto = new productos();
 
-    $limit = 3;
+    $limit = 7;
  if(!isset($_POST['submitPaginated'])){
     header("location:./../../inventario/read.php");
  } else {
