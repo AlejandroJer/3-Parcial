@@ -50,22 +50,31 @@ class productos extends conexion{
         return $request;
     }
 
+    public function GetUbicaciones(){ // GROUP BY = group the rows with the same value, avoiding duplicates
+        $sql="SELECT ubicacion_almacen FROM productos GROUP BY ubicacion_almacen";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        return $request;
+    }
+
+    public function GetMateriales(){
+        $sql="SELECT tipo_material FROM productos GROUP BY tipo_material";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        return $request;
+    }
+
+    public function GetCategorias(){
+        $sql="SELECT categoria FROM productos GROUP BY categoria";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        return $request;
+    }
+
     public function GetProductoById($id){
         $sql="SELECT * FROM productos WHERE id_producto = $id";
         $execute = $this->conn->query($sql);
         $request = $execute->fetch(PDO::FETCH_ASSOC);
-        return $request;
-    }
-
-    public function GetProveedorByProductoId($id){
-        $sql="SELECT proveedores.nombre_empresa
-                FROM productos
-                INNER JOIN proveedores -- ON productos.id_proveedor = proveedores.id_proveedor
-                WHERE productos.id_producto = :id";
-        $execute = $this->conn->prepare($sql);
-        $execute->bindValue(':id', (int)$id, PDO::PARAM_INT);
-        $execute->execute();
-        $request = $execute->fetchColumn();
         return $request;
     }
 
@@ -109,7 +118,7 @@ class productos extends conexion{
     }
 
     public function GetProductoByKeyWordLimited($KeyWord, $offset, $limitQuery){
-        $sql="SELECT * FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword LIMIT :offset, :limitQuery";
+        $sql="SELECT * FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword ORDER BY id_producto DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
 
         $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
@@ -120,6 +129,137 @@ class productos extends conexion{
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
 
         return $request;
+    }
+
+    public function GetProductosByFilterIndex($proveedor, $ubicacion , $materiales, $categorias, $pesoMenig, $pesoMayig,
+        $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig){
+
+     $sql="SELECT COUNT(*) FROM productos WHERE 1=1";
+
+        if($proveedor){
+            $sql .= " AND id_proveedor = $proveedor";
+        }
+
+        if($ubicacion){
+            $sql .= " AND ubicacion_almacen = '$ubicacion'";
+        }
+
+        if($materiales && is_array($materiales)){
+            $sql .= " AND tipo_material IN ('" . implode("','", $materiales) . "')";
+        }
+
+        if($categorias && is_array($categorias)){
+            $sql .= " AND categoria IN ('" . implode("','", $categorias) . "')";
+        }
+
+        if($pesoMenig){
+            $sql .= " AND peso <= $pesoMenig";
+        }
+
+        if($pesoMayig){
+            $sql .= " AND peso >= $pesoMayig";
+        }
+
+        if($cantidadMenig){
+            $sql .= " AND cantidad_disponible <= $cantidadMenig";
+        }
+
+        if($cantidadMayig){
+            $sql .= " AND cantidad_disponible >= $cantidadMayig";
+        }
+
+        if($precioCompraMenig){
+            $sql .= " AND precio_compra <= $precioCompraMenig";
+        }
+
+        if($precioCompraMayig){
+            $sql .= " AND precio_compra >= $precioCompraMayig";
+        }
+
+        if($precioVentaMenig){
+            $sql .= " AND precio_venta <= $precioVentaMenig";
+        }
+
+        if($precioVentaMayig){
+            $sql .= " AND precio_venta >= $precioVentaMayig";
+        }
+
+    // $sql .= "GROUP BY id_producto";
+     
+        $execute = $this->conn->prepare($sql);
+        $execute->execute();
+
+        $request = $execute->fetchColumn();
+
+        return $request;
+
+    }
+
+    public function GetProductosByFilterLimited($proveedor, $ubicacion , $materiales, $categorias, $pesoMenig, $pesoMayig,
+            $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig, $offset, $limitQuery){
+
+     $sql="SELECT DISTINCT * FROM productos WHERE 1=1";
+
+        if($proveedor){
+            $sql .= " AND id_proveedor = $proveedor";
+        }
+
+        if($ubicacion){
+            $sql .= " AND ubicacion_almacen = '$ubicacion'";
+        }
+
+        if($materiales && is_array($materiales)){
+            $sql .= " AND tipo_material IN ('" . implode("','", $materiales) . "')";
+        }
+
+        if($categorias && is_array($categorias)){
+            $sql .= " AND categoria IN ('" . implode("','", $categorias) . "')";
+        }
+
+        if($pesoMenig){
+            $sql .= " AND peso <= $pesoMenig";
+        }
+
+        if($pesoMayig){
+            $sql .= " AND peso >= $pesoMayig";
+        }
+
+        if($cantidadMenig){
+            $sql .= " AND cantidad_disponible <= $cantidadMenig";
+        }
+
+        if($cantidadMayig){
+            $sql .= " AND cantidad_disponible >= $cantidadMayig";
+        }
+
+        if($precioCompraMenig){
+            $sql .= " AND precio_compra <= $precioCompraMenig";
+        }
+
+        if($precioCompraMayig){
+            $sql .= " AND precio_compra >= $precioCompraMayig";
+        }
+
+        if($precioVentaMenig){
+            $sql .= " AND precio_venta <= $precioVentaMenig";
+        }
+
+        if($precioVentaMayig){
+            $sql .= " AND precio_venta >= $precioVentaMayig";
+        }
+
+     $sql .= " ORDER BY id_producto DESC LIMIT :offset, :limitQuery";
+
+        $execute = $this->conn->prepare($sql);
+
+        $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $execute->bindValue(':limitQuery', (int)$limitQuery, PDO::PARAM_INT);
+        $execute->execute();
+
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+
+        return $request;
+
     }
 
     public function SetMovimineto(string $fecha_movimiento, int $id_usuario, int $id_producto, string $nombre_producto, int $cantidad_disponible){
@@ -155,6 +295,20 @@ class productos extends conexion{
         $sql="SELECT * FROM movimientos WHERE id_usuario = $id ORDER BY fecha_creacion DESC";
         $execute = $this->conn->query($sql);
         $request = $execute->fetch(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
+    public function GetMaterialesCount(){
+        $sql="SELECT COUNT(DISTINCT tipo_material) FROM productos";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
+    public function GetCategoriasCount(){
+        $sql="SELECT COUNT(DISTINCT categoria) FROM productos";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchColumn();
         return $request;
     }
 

@@ -25,8 +25,9 @@ https://icon-sets.iconify.design/ic/baseline-inventory/
 https://icon-sets.iconify.design/fa-solid/users/
 https://icon-sets.iconify.design/clarity/employee-solid/
 https://icon-sets.iconify.design/clarity/sign-in-solid/
-https://icon-sets.iconify.design/ic/sharp-content-paste-search/
 https://icon-sets.iconify.design/mdi/face-woman/
 https://icon-sets.iconify.design/mdi/face-man/
-https://icon-sets.iconify.design/bxs/dashboard/
 https://icon-sets.iconify.design/map/jewelry-store/
+https://icon-sets.iconify.design/mdi/filter-cog-outline/
+https://icon-sets.iconify.design/circum/search/
+https://icon-sets.iconify.design/ic/round-home/

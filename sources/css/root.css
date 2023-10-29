@@ -31,6 +31,10 @@ input[type="file"]{
     font-family: var(--font-bold);
 }
 
+.btn-check:checked + label::before{
+    content: "+ ";
+}
+
 select{
     font-family: var(--font-bold);
 }

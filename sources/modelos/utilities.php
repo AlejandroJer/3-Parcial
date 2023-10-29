@@ -24,7 +24,7 @@ namespace modelos;
             $pattern = '/' . preg_quote($trimmed_keywords, '/') . '/i';
 
             $new_string = preg_replace_callback($pattern, function ($matches) {
-                return '<span class="highlight bg-secondary">' . $matches[0] . '</span>';
+                return '<mark class="p-0">' . $matches[0] . '</mark>';
             }, $this->string);
 
         }else{

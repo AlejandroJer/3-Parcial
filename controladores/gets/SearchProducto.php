@@ -5,13 +5,15 @@
     $producto = new productos();
 
     $limit = 2;
+
+// SEARCH BY KEYWORD
  if(!isset($_POST['search']) && !isset($_POST['submit'])){
-   header("location:./../../inventario/search.php");
+   header("location:./../../inventario/read.php");
  } else {
     $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
 
     if(!$_POST['search'] || $_POST['search'] == " "){
-        header("location:./../../inventario/search.php");
+        header("location:./../../inventario/read.php");
         die();
     }
 
@@ -23,11 +25,12 @@
     $_SESSION['keyword'] = $keyword;
     $_SESSION['index'] = $index;
     $_SESSION['pageClicked'] = 0;
-    header("location:./../../inventario/search.php");
+    header("location:./../../inventario/read.php");
  }
 
+// MOVE THROUGHT PAGES IN THE SEARCH BY KEYWORD
  if(!isset($_POST['submitPaginated'])){
-      header("location:./../../inventario/search.php");
+      header("location:./../../inventario/read.php");
    } else {
       $keyword = filter_var($_POST['searchPaginated'], FILTER_SANITIZE_STRING);
       $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
@@ -40,6 +43,6 @@
       $_SESSION['keyword'] = $keyword;
       $_SESSION['index'] = $index;
       $_SESSION['pageClicked'] = $page;
-      header("location:./../../inventario/search.php");
+      header("location:./../../inventario/read.php");
  }
 ?>

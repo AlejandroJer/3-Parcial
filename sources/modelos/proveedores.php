@@ -105,6 +105,24 @@ class proveedores extends conexion {
         return $request;
     }
 
+    public function GetIdByNombreEmpresa($nombreEmpresa) {
+        $sql = "SELECT id_proveedor FROM proveedores WHERE nombre_empresa = ?";
+        $execute = $this->conn->prepare($sql);
+        $execute->execute([$nombreEmpresa]);
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function GetNombreEmpresaById($id) {
+        $sql = "SELECT nombre_empresa FROM proveedores WHERE id_proveedor = ?";
+        $execute = $this->conn->prepare($sql);
+        $execute->execute([$id]);
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
     public function UpdateProveedor($id, $nombreEmpresa, $direccionProveedor, $personaContacto, $telefono, $correoProveedor) {
         $this->nombreEmpresa = $nombreEmpresa;
         $this->direccionProveedor = $direccionProveedor;
