@@ -338,7 +338,7 @@ class productos extends conexion{
     }
 
     public function DeleteProducto(int $id){
-        $sql="DELETE FROM productos WHERE id_producto=?";
+        $sql="DELETE  FROM productos WHERE id_producto=?";
         $arrwhere =array($id);
         $delete= $this->conn->prepare($sql);
         $del = $delete->execute($arrwhere);
@@ -378,10 +378,18 @@ class productos extends conexion{
         }       
     }
 
-    public function BorrarImg($id){
+    public function BorrarImg($id,$name_images){
         $post = $this->GetProductoById($id);
         if($post['imagen']){
-            unlink("../inventario/" . $post['imagen']);
+            $image = explode("/",$post['imagen'])[1];
+            $directorio = "imagenes_respaldo/";
+            if(in_array($directorio.$image, $name_images)){
+                header("location:../../inventario/add.php");
+                die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
+            }else{
+                rename("../../inventario/".$post['imagen'],"../../inventario/".$directorio.$image);
+                return $directorio.$image;
+            }
         }
     }
 
@@ -390,6 +398,22 @@ class productos extends conexion{
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
         return $request;
+    }
+
+    public function GetDirImgRespaldo(){
+        $sql="SELECT img_r FROM respaldo_producto WHERE img_r is not null";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        return $request;
+    }
+
+    public function SetRespaldo(string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
+        $sql="INSERT INTO respaldo_producto(nom_producto_r,desc_producto_r,img_r,precio_compra_r,precio_venta_r,categoria_r,peso_r,tipo_material_r,cantidad_r,ubicacion_r,id_proveedor_r) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($nombre, $descripcion, $img, $precio_compra, $precio_venta, $categoria, $peso, $tipo_material, $cantidad_disponible, $ubicacion_almacen, $id_proveedor);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
     }
 }
 ?>
