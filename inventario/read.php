@@ -126,8 +126,8 @@ namespace controladores;
                     </form>
                 </div>
                 <!-- BTN MODAL/FILTER -->
-                <div class="col-lg-1">
-                    <button type="button" name="filter" id="filter" class="btn btn-outline-secondary border-0" data-bs-toggle="modal" data-bs-target="#modal-filter">
+                <div class="col-lg-1 d-flex justify-content-end">
+                    <button type="button" name="filter" id="filter" class="btn btn-outline-secondary border-0 " data-bs-toggle="modal" data-bs-target="#modal-filter">
                         <iconify-icon icon="mdi:filter-cog-outline" width="30" height="30"></iconify-icon>
                     </button>
                 </div>
