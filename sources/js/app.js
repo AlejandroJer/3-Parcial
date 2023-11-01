@@ -118,3 +118,20 @@ if(input){
   input.addEventListener('focus', SearchInputFocused);
   input.addEventListener('blur', SearchInputBlur);
 }
+
+function updateImage(event){
+  event.preventDefault();
+
+  var image = document.getElementById('img-image');
+  var imageInput = document.getElementById('image');
+
+  imageInput.click();
+
+  imageInput.addEventListener('change', function(){
+    var reader = new FileReader();
+    reader.onload = function(event){
+      image.src = event.target.result;
+    }
+    reader.readAsDataURL(imageInput.files[0]);
+  });
+}

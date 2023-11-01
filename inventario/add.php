@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../inventario/add.php" class="option_container active nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="../inventario/read.php" class="option_container active nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -53,10 +53,10 @@
             <!-- PRODUCTS NAV -->
             <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
-                    <a href="./add.php" class="nav-link active" aria-current="page">Agregar Inventario</a>
+                    <a href="./read.php" class="nav-link">Ver Productos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="./read.php" class="nav-link">Ver Productos</a>
+                    <a href="./add.php" class="nav-link active" aria-current="page">Agregar Inventario</a>
                 </li>
             </ul>
             <!-- MAIN CONTENT -->

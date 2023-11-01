@@ -31,3 +31,4 @@ https://icon-sets.iconify.design/map/jewelry-store/
 https://icon-sets.iconify.design/mdi/filter-cog-outline/
 https://icon-sets.iconify.design/circum/search/
 https://icon-sets.iconify.design/ic/round-home/
+https://icon-sets.iconify.design/teenyicons/file-no-access-outline/

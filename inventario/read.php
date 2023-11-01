@@ -75,7 +75,7 @@ namespace controladores;
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../inventario/add.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="../inventario/read.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -101,10 +101,10 @@ namespace controladores;
             <!-- PRODUCTS NAV -->
             <ul class="nav nav-tabs my-4">
                 <li class="nav-item">
-                    <a href="./add.php" class="nav-link">Agregar Producto</a>
+                    <a href="./read.php" class="nav-link active" aria-current="page">Ver Productos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="./read.php" class="nav-link active" aria-current="page">Ver Productos</a>
+                    <a href="./add.php" class="nav-link">Agregar Producto</a>
                 </li>
             </ul>
             <!-- SEARCH BAR AND FILTER BUTTON -->
@@ -364,13 +364,13 @@ namespace controladores;
                         <div class="readObject_Container target card mb-4">
                             <div class="readObject_header card-header">
                                 <div class="row">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
+                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
                                         <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
                                         <button  class="button btn btn-primary"> Editar</button>
                                     </form>
-                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="">
+                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
                                         <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class=""> Borrar</button>
+                                        <button  class="button btn btn-danger"> Borrar</button>
                                     </form>
                                     <div class="accordion col-auto">
                                         <div class="row accordion-header">
@@ -432,9 +432,13 @@ namespace controladores;
                         <div class="readObject_Container target card mb-4">
                             <div class="readObject_header card-header">
                                 <div class="row">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
+                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
                                         <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
                                         <button  class="button btn btn-primary"> Editar</button>
+                                    </form>
+                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
+                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
+                                        <button  class="button btn btn-danger"> Borrar</button>
                                     </form>
                                     <div class="accordion col-auto">
                                         <div class="row accordion-header">
@@ -502,9 +506,13 @@ namespace controladores;
                         <div class="readObject_Container target card mb-4">
                             <div class="readObject_header card-header">
                                 <div class="row">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
+                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
                                         <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
                                         <button  class="button btn btn-primary"> Editar</button>
+                                    </form>
+                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
+                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
+                                        <button  class="button btn btn-danger"> Borrar</button>
                                     </form>
                                     <div class="accordion col-auto">
                                         <div class="row accordion-header">

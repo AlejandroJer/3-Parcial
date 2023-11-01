@@ -3,8 +3,13 @@
     require_once("./../../autoload.php");
     use modelos\productos;
     $producto = new productos();
-   #XD
+
  if(isset($_POST['id'])){
+  $result = $producto->GetProductoById($_POST['id']);
+  $_SESSION['producto'] = $result;
+  header("location:./../../inventario/delete.php");
+}else{
+  if(isset($_POST['submit'])){
     $result = $producto->GetProductoById($_POST['id']);
     if(isset($result['imagen'])){
     $name_images = $producto->GetDirImgRespaldo();
@@ -17,5 +22,8 @@
     }
     
     header("location:./../../inventario/read.php");
+ } else {
+    header("location:./../../inventario/read.php");
  }
+}
 ?>
