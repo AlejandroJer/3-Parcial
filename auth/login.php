@@ -28,6 +28,12 @@
                     <input type="text" placeholder="Nombre" />
                     <label></label>
                 </div>
+
+                <div class="infield">
+                    <input type="text" placeholder="Apellido" />
+                    <label></label>
+
+                </div>
                 <div class="infield">
                     <input type="email" placeholder="Email" name="email"/>
                     <label></label>
@@ -36,6 +42,13 @@
                     <input type="password" placeholder="Contraseña" />
                     <label></label>
                 </div>
+                <div class="infield">
+                    <input type="sexo" placeholder="Sexo" />
+                    <label></label>
+                </div>
+
+
+
                 <button>Registrarse</button>
             </form>
         </div>
