@@ -184,7 +184,7 @@ class productos extends conexion{
             $sql .= " AND precio_venta >= $precioVentaMayig";
         }
 
-    // $sql .= "GROUP BY id_producto";
+     // $sql .= "GROUP BY id_producto";
      
         $execute = $this->conn->prepare($sql);
         $execute->execute();
@@ -259,6 +259,174 @@ class productos extends conexion{
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
 
         return $request;
+
+    }
+
+    public function GetProductosByFilterKeywordIndex($keyword, $proveedor, $ubicacion , $materiales, $categorias, $pesoMenig, $pesoMayig,
+        $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig){
+
+     $sql="SELECT COUNT(*) FROM productos WHERE 1=1";
+     $arrData = array();
+
+        if($keyword){
+            $sql .= " AND (nombre_producto like ? OR descripcion_producto LIKE ?)";
+            $arrData[] = '%' . $keyword . '%';
+            $arrData[] = '%' . $keyword . '%';
+        }
+
+        if($proveedor){
+            $sql .= " AND id_proveedor = ?";
+            $arrData[] = $proveedor;
+        }
+
+        if($ubicacion){
+            $sql .= " AND ubicacion_almacen = ?";
+            $arrData[] = $ubicacion;
+        }
+
+        if($materiales && is_array($materiales)){
+            $placeholders = implode(',', array_fill(0, count($materiales), '?'));
+            $sql .= " AND tipo_material IN ($placeholders)";
+            $arrData = array_merge($arrData, $materiales);
+        }
+
+        if($categorias && is_array($categorias)){
+            $placeholders = implode(',', array_fill(0, count($categorias), '?'));
+            $sql .= " AND categoria IN ($placeholders)";
+            $arrData = array_merge($arrData, $categorias);
+        }
+
+        if($pesoMenig){
+            $sql .= " AND peso <= ?";
+            $arrData[] = $pesoMenig;
+        }
+
+        if($pesoMayig){
+            $sql .= " AND peso >= ?";
+            $arrData[] = $pesoMayig;
+        }
+
+        if($cantidadMenig){
+            $sql .= " AND cantidad_disponible <= ?";
+            $arrData[] = $cantidadMenig;
+        }
+
+        if($cantidadMayig){
+            $sql .= " AND cantidad_disponible >= ?";
+            $arrData[] = $cantidadMayig;
+        }
+
+        if($precioCompraMenig){
+            $sql .= " AND precio_compra <= ?";
+            $arrData[] = $precioCompraMenig;
+        }
+
+        if($precioCompraMayig){
+            $sql .= " AND precio_compra >= ?";
+            $arrData[] = $precioCompraMayig;
+        }
+
+        if($precioVentaMenig){
+            $sql .= " AND precio_venta <= ?";
+            $arrData[] = $precioVentaMenig;
+        }
+
+        if($precioVentaMayig){
+            $sql .= " AND precio_venta >= ?";
+            $arrData[] = $precioVentaMayig;
+        }
+     
+    //  echo $sql . "\n" . implode(",", $arrData) . "\n";
+     $execute = $this->conn->prepare($sql);
+     $execute->execute($arrData);
+     $request = $execute->fetchColumn();
+
+     return $request;
+    }
+
+    public function GetProductosByFilterKeywordLimited($keyword, $proveedor, $ubicacion , $materiales, $categorias, $pesoMenig, $pesoMayig,
+            $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig, $offset, $limitQuery){
+
+     $sql="SELECT DISTINCT * FROM productos WHERE 1=1";
+     $arrData = array();
+
+        if($keyword){
+            $sql .= " AND (nombre_producto like ? OR descripcion_producto LIKE ?)";
+            $arrData[] = '%' . $keyword . '%';
+            $arrData[] = '%' . $keyword . '%';
+        }
+
+        if($proveedor){
+            $sql .= " AND id_proveedor = ?";
+            $arrData[] = $proveedor;
+        }
+
+        if($ubicacion){
+            $sql .= " AND ubicacion_almacen = ?";
+            $arrData[] = $ubicacion;
+        }
+
+        if($materiales && is_array($materiales)){
+            // echo json_encode($materiales) . "\t/productos.php 370\n\n\n";
+            $placeholders = implode(',', array_fill(0, count($materiales), '?'));
+            $sql .= " AND tipo_material IN ($placeholders)";
+            $arrData = array_merge($arrData, $materiales);
+        }
+
+        if($categorias && is_array($categorias)){
+            $placeholders = implode(',', array_fill(0, count($categorias), '?'));
+            $sql .= " AND categoria IN ($placeholders)";
+            $arrData = array_merge($arrData, $categorias);
+        }
+
+        if($pesoMenig){
+            $sql .= " AND peso <= ?";
+            $arrData[] = $pesoMenig;
+        }
+
+        if($pesoMayig){
+            $sql .= " AND peso >= ?";
+            $arrData[] = $pesoMayig;
+        }
+
+        if($cantidadMenig){
+            $sql .= " AND cantidad_disponible <= ?";
+            $arrData[] = $cantidadMenig;
+        }
+
+        if($cantidadMayig){
+            $sql .= " AND cantidad_disponible >= ?";
+            $arrData[] = $cantidadMayig;
+        }
+
+        if($precioCompraMenig){
+            $sql .= " AND precio_compra <= ?";
+            $arrData[] = $precioCompraMenig;
+        }
+
+        if($precioCompraMayig){
+            $sql .= " AND precio_compra >= ?";
+            $arrData[] = $precioCompraMayig;
+        }
+
+        if($precioVentaMenig){
+            $sql .= " AND precio_venta <= ?";
+            $arrData[] = $precioVentaMenig;
+        }
+
+        if($precioVentaMayig){
+            $sql .= " AND precio_venta >= ?";
+            $arrData[] = $precioVentaMayig;
+        }
+
+     $sql .= " ORDER BY id_producto DESC LIMIT $offset, $limitQuery";
+
+    //  echo $sql . "\n" . implode(",", $arrData) . "\t/productos.php 424\n\n\n";
+     $execute = $this->conn->prepare($sql);
+     $execute->execute($arrData);
+     $request = $execute->fetchall(PDO::FETCH_ASSOC);
+
+     return $request;
 
     }
 

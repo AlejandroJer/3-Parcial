@@ -1,9 +1,10 @@
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+// ENABLE BOOTSTRAP TOOLTIPS
+ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
-})
-
-document.addEventListener('DOMContentLoaded', function () {
+ })
+// ENABLE BOOTSTRAP VALIDATION
+ document.addEventListener('DOMContentLoaded', function () {
   var forms = document.getElementsByClassName('needs-validation');
   Array.prototype.filter.call(forms, function (form) {
     form.addEventListener('submit', function (event) {
@@ -23,53 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log(fileInput);
     }, false);
   });
-}, false);
-
-var collapsebtn = document.getElementById('Alternar');
-var elementaccordion = document.querySelectorAll('.accordion-button');
-var elementcollapsable = document.querySelectorAll('.card-footer.collapse');
-
-function checkExpanded() {
-  for (var i = 0; i < elementaccordion.length; i++) {
-    if (elementaccordion[i].classList.contains('collapsed')) {
-      if (collapsebtn.textContent == 'Expandir') {
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
-  return true;
-}
-
-function collapse() {
-  var allexpanded = checkExpanded()
-
-  for (var i = 0; i < elementaccordion.length; i++) {
-    if (allexpanded){
-      elementaccordion[i].classList.add('collapsed');
-      elementaccordion[i].setAttribute('aria-expanded', 'false');
-      elementcollapsable[i].classList.remove('show');
-    } else{
-      elementaccordion[i].classList.remove('collapsed');
-      elementaccordion[i].setAttribute('aria-expanded', 'true');
-      elementcollapsable[i].classList.add('show');
-    }
-
-    if (collapsebtn){
-      collapsebtn.textContent = allexpanded ? 'Expandir' : 'Colapsar';
-      localStorage.setItem('collapse', allexpanded ? 'false' : 'true');
-    }
-  }
-}
-
-if (localStorage.getItem('collapse') == 'true') {
-  collapse();
-}
-
-collapsebtn ? collapsebtn.addEventListener('click', collapse) : null;
-
-function checkAll(elementBoxes, elementAll){
+ }, false);
+// UTILS FOR MODAL CHECKBOXES AND INPUTS FOR READ FILTERS
+ function checkAll(elementBoxes, elementAll){
   var boxes = document.querySelectorAll("." + elementBoxes);
   var all = document.getElementById(elementAll);
   var allChecked = true;
@@ -88,9 +45,8 @@ function checkAll(elementBoxes, elementAll){
   } else {
     all.checked = false;
   }
-}
-
-function checkInput(id, event){
+ }
+ function checkInput(id, event){
   var input = document.getElementById(id);
   var event = document.getElementById(event.target.id);
 
@@ -99,26 +55,37 @@ function checkInput(id, event){
   } else {
     input.disabled = false;
   }
-}
+ }
+// UTILS FOR VISUAL EFFECTS IN INPUTS WITH BUTTONS
+ function InputFocused(btn, inp){
+  btn.classList.add('focused');
+  inp.classList.add('focused');
+ }
 
-var input = document.getElementById('search');
-var button = document.getElementById('search-button');
+ function InputBlur(btn, inp){
+  btn.classList.remove('focused');
+  inp.classList.remove('focused');
+ }
 
-function SearchInputFocused(){
-  button.classList.add('focused');
-  input.classList.add('focused');
-}
-
-function SearchInputBlur(){
-  button.classList.remove('focused');
-  input.classList.remove('focused');
-}
-
-if(input){
-  input.addEventListener('focus', SearchInputFocused);
-  input.addEventListener('blur', SearchInputBlur);
-}
-
+ var Searchinput = document.getElementById('search');
+ var Searchbutton = document.getElementById('search-button');
+ if(Searchinput){
+  Searchinput.addEventListener('focus', () => {InputFocused(Searchbutton, Searchinput)});
+  Searchinput.addEventListener('blur', () => {InputBlur(Searchbutton, Searchinput)});
+ }
+ var Provinput = document.getElementById('proveedor');
+ var Provbutton = document.getElementById('proveedor-button');
+  if(Provinput){
+    Provinput.addEventListener('focus', () => {InputFocused(Provbutton, Provinput)});
+    Provinput.addEventListener('blur', () => {InputBlur(Provbutton, Provinput)});
+  }
+ var Ubicinput = document.getElementById('ubicacion');
+ var Ubicbutton = document.getElementById('ubicacion-button');
+  if(Ubicinput){
+    Ubicinput.addEventListener('focus', () => {InputFocused(Ubicbutton, Ubicinput)});
+    Ubicinput.addEventListener('blur', () => {InputBlur(Ubicbutton, Ubicinput)});
+  }
+// UTILS FOR SHOW IMAGE WITH AN INPUT FILE HIDEN
 function updateImage(event){
   event.preventDefault();
 

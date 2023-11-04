@@ -8,41 +8,10 @@
     $limit = 7;
 
 // SEARCH BY FILTER
- if(!isset($_POST['submit'])){   
- // MOVE THROUGHT PAGES IN THE SEARCH BY FILTER
-  if(!isset($_POST['submitFilterPaginated'])){
-    header("location:./../../inventario/read.php");
-   } else {
-    $array = json_decode($_POST['searchFilterPaginated'], true);
-    $page = filter_var($_POST['submitFilterPaginated'], FILTER_SANITIZE_NUMBER_INT);
-
-    $index = $producto->GetProductosByFilterIndex($array['proveedor'], $array['ubicacion'], $array['materiales'], $array['categorias'], $array['pesoMenig'], $array['pesoMayig'],
-      $array['cantidadMenig'], $array['cantidadMayig'], $array['precioCompraMenig'], $array['precioCompraMayig'], $array['precioVentaMenig'], $array['precioVentaMayig']);
-    $index = ceil($index/$limit);
-    $results = $producto->GetProductosByFilterLimited($array['proveedor'], $array['ubicacion'], $array['materiales'], $array['categorias'], $array['pesoMenig'], $array['pesoMayig'],
-      $array['cantidadMenig'], $array['cantidadMayig'], $array['precioCompraMenig'], $array['precioCompraMayig'], $array['precioVentaMenig'], $array['precioVentaMayig'], $page*$limit, $limit);
-    $array = array(
-      'proveedor' => $array['proveedor'],
-      'ubicacion' => $array['ubicacion'],
-      'materiales' => $array['materiales'],
-      'categorias' => $array['categorias'],
-      'pesoMenig' => $array['pesoMenig'],
-      'pesoMayig' => $array['pesoMayig'],
-      'cantidadMenig' => $array['cantidadMenig'],
-      'cantidadMayig' => $array['cantidadMayig'],
-      'precioCompraMenig' => $array['precioCompraMenig'],
-      'precioCompraMayig' => $array['precioCompraMayig'],
-      'precioVentaMenig' => $array['precioVentaMenig'],
-      'precioVentaMayig' => $array['precioVentaMayig']
-    );
-
-    $_SESSION['results'] = $results;
-    $_SESSION['filters'] = json_encode($array);
-    $_SESSION['index'] = $index;
-    $_SESSION['pageClicked'] = $page;
-    header("location:./../../inventario/read.php");
-  }
+ if(!isset($_POST['submit']) && !isset($_POST['filter'])){   
+  header("location:./../../../inventario/read.php");
  } else {
+    $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
     $proveedor = null;
     $ubicacion = null;
     $materiales = null;
@@ -55,10 +24,15 @@
     $precioCompraMayig = null;
     $precioVentaMenig = null;
     $precioVentaMayig = null;
+    if (isset($_POST['submitPaginated'])){
+      $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
+     } else {
+      $page = 0;
+    }
  
    //Check the inputs
-    if (isset($_POST['filter-search-proov'])) {
-      $proveedor = filter_var($_POST['filter-search-proov'], FILTER_SANITIZE_STRING);
+    if (isset($_POST['proveedor'])) {
+      $proveedor = filter_var($_POST['proveedor'], FILTER_SANITIZE_STRING);
       $proveedor = $proveedores->GetIdByNombreEmpresa($proveedor);
       $proveedor = filter_var($proveedor, FILTER_SANITIZE_NUMBER_INT);
       if(empty($proveedor)){
@@ -66,74 +40,76 @@
       }
      }
 
-    if (isset($_POST['filter-search-Ubi'])) {
-      $ubicacion = filter_var($_POST['filter-search-Ubi'], FILTER_SANITIZE_STRING);
+    if (isset($_POST['ubicacion'])) {
+      $ubicacion = filter_var($_POST['ubicacion'], FILTER_SANITIZE_STRING);
         if(empty($ubicacion)){
             $ubicacion = null;
         }
      }
-
-    if (isset($_POST['filter-materials'])) {
-      foreach ($_POST['filter-materials'] as $material) {
+  // Checkboxes
+    if (isset($_POST['materiales'])) {
+      // echo json_encode($_POST['materiales']) . "\t/FilterSearchProductos.php 51\n\n\n";
+      foreach ($_POST['materiales'] as $material) {
+        // echo $material . "\t/FilterSearchProductos.php 52\n\n\n";
         $materiales[] = filter_var($material, FILTER_SANITIZE_STRING);
       }
      }
 
-    if (isset($_POST['filter-categorias'])) {
-      foreach ($_POST['filter-categorias'] as $categoria) {
+    if (isset($_POST['categorias'])) {
+      foreach ($_POST['categorias'] as $categoria) {
         $categorias[] = filter_var($categoria, FILTER_SANITIZE_STRING);
       }
      }
-
-    if (isset($_POST['filter-peso'])) {
-      if (isset($_POST['filter-peso-menig'])){
-        $pesoMenig = filter_var($_POST['filter-peso-menig'], FILTER_VALIDATE_FLOAT);
+  // Ranges
+    if (isset($_POST['peso'])) {
+      if (isset($_POST['peso-menor-a'])){
+        $pesoMenig = filter_var($_POST['peso-menor-a'], FILTER_VALIDATE_FLOAT);
       }
 
-      if (isset($_POST['filter-peso-mayig'])){
-        $pesoMayig = filter_var($_POST['filter-peso-mayig'], FILTER_VALIDATE_FLOAT);
+      if (isset($_POST['peso-mayor-a'])){
+        $pesoMayig = filter_var($_POST['peso-mayor-a'], FILTER_VALIDATE_FLOAT);
       }
      }
 
-    if (isset($_POST['filter-cantidad'])) {
-      if (isset($_POST['filter-cantidad-menig'])){
-        $cantidadMenig = filter_var($_POST['filter-cantidad-menig'], FILTER_SANITIZE_NUMBER_INT);
+    if (isset($_POST['cantidad'])) {
+      if (isset($_POST['cantidad-menor-a'])){
+        $cantidadMenig = filter_var($_POST['cantidad-menor-a'], FILTER_SANITIZE_NUMBER_INT);
       }
 
-      if (isset($_POST['filter-cantidad-mayig'])){
-        $cantidadMayig = filter_var($_POST['filter-cantidad-mayig'], FILTER_SANITIZE_NUMBER_INT);
-      }
-    }
-
-    if (isset($_POST['filter-precioCompra'])) {
-      if (isset($_POST['filter-precioCompra-menig'])){
-        $precioCompraMenig = filter_var($_POST['filter-precioCompra-menig'], FILTER_VALIDATE_FLOAT);
-      }
-
-      if (isset($_POST['filter-precioCompra-mayig'])){
-        $precioCompraMayig = filter_var($_POST['filter-precioCompra-mayig'], FILTER_VALIDATE_FLOAT);
+      if (isset($_POST['cantidad-mayor-a'])){
+        $cantidadMayig = filter_var($_POST['cantidad-mayor-a'], FILTER_SANITIZE_NUMBER_INT);
       }
     }
 
-    if (isset($_POST['filter-precioVenta'])){
-      if (isset($_POST['filter-precioVenta-menig'])){
-        $precioVentaMenig = filter_var($_POST['filter-precioVenta-menig'], FILTER_VALIDATE_FLOAT);
+    if (isset($_POST['precio-de-compra'])) {
+      if (isset($_POST['precio-de-compra-menor-a'])){
+        $precioCompraMenig = filter_var($_POST['precio-de-compra-menor-a'], FILTER_VALIDATE_FLOAT);
       }
 
-      if (isset($_POST['filter-precioVenta-mayig'])){
-        $precioVentaMayig = filter_var($_POST['filter-precioVenta-mayig'], FILTER_VALIDATE_FLOAT);
+      if (isset($_POST['precio-de-compra-mayor-a'])){
+        $precioCompraMayig = filter_var($_POST['precio-de-compra-mayor-a'], FILTER_VALIDATE_FLOAT);
+      }
+    }
+
+    if (isset($_POST['precio-de-venta'])){
+      if (isset($_POST['precio-de-venta-menor-a'])){
+        $precioVentaMenig = filter_var($_POST['precio-de-venta-menor-a'], FILTER_VALIDATE_FLOAT);
+      }
+
+      if (isset($_POST['precio-de-venta-mayor-a'])){
+        $precioVentaMayig = filter_var($_POST['precio-de-venta-mayor-a'], FILTER_VALIDATE_FLOAT);
       }
     }
   // Make the query and returning the SESSIONS values
 
-    $index = $producto->GetProductosByFilterIndex($proveedor, $ubicacion, $materiales, $categorias, $pesoMenig, $pesoMayig,
+     $index = $producto->GetProductosByFilterKeywordIndex($keyword, $proveedor, $ubicacion, $materiales, $categorias, $pesoMenig, $pesoMayig,
         $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig);
+    //  echo $index. "\t". $index . " / " . $limit . " = " . ($index/$limit) . "\t/FilterSearchProductos.php 107\n\n\n";
      $index = ceil($index/$limit);
-
-    $results = $producto->GetProductosByFilterLimited($proveedor, $ubicacion, $materiales, $categorias, $pesoMenig, $pesoMayig,
-        $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig, 0, $limit);
+     $results = $producto->GetProductosByFilterKeywordLimited($keyword, $proveedor, $ubicacion, $materiales, $categorias, $pesoMenig, $pesoMayig,
+        $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig, $page*$limit, $limit);
     
-    $array = array(
+     $filters = array(
       'proveedor' => $proveedor,
       'ubicacion' => $ubicacion,
       'materiales' => $materiales,
@@ -148,12 +124,14 @@
       'precioVentaMayig' => $precioVentaMayig
      );
 
-    $_SESSION['results'] = $results;
-    $_SESSION['filters'] = json_encode($array);
-    $_SESSION['index'] = $index;
-    $_SESSION['pageClicked'] = 0;
-    header("location:./../../inventario/read.php");
-//   }
+     $array = array(
+      "results" => $results,
+      "index" => $index,
+      "pageClicked" => $page,
+      "filters" => $filters
+     );
+
+    echo json_encode($array);
  }
  
 ?>

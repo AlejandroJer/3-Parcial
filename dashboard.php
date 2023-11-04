@@ -27,17 +27,17 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./inventario/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="./inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./proveedores/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="./proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./empleados/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="./empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -56,7 +56,7 @@
                     Bienvenido al sistema de inventario JEMAS, en esta sección podras ver las opciones que tienes disponibles para administrar.
                 </h4>
                 <section class="row">
-                    <a href="./inventario/add.php" class="col link-dark text-decoration-none">
+                    <a href="./inventario/read.php" class="col link-dark text-decoration-none">
                         <div class="dashboard_options option_container card">
                             <h3 class="h2 card-header accordion-header" >Inventario</h3>
                             <div class="card-body">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="./proveedores/add.php" class="col link-dark text-decoration-none">
+                    <a href="./proveedores/read.php" class="col link-dark text-decoration-none">
                         <div class="dashboard_options option_container card">
                             <h3 class="h2 card-header">Proveedores</h3>
                             <div class="card-body">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="./empleados/add.php" class="col link-dark text-decoration-none">
+                    <a href="./empleados/read.php" class="col link-dark text-decoration-none">
                         <div class="dashboard_options option_container">
                             <div class="dashboard_options option_container card">
                                 <h3 class="h2 card-header">Empleados</h3>

@@ -1,49 +1,15 @@
 <?php
-namespace controladores;
+ namespace controladores;
  require_once("../autoload.php");
- use modelos\{utilities, productos, proveedores};
-  $highlight = new utilities();
+ use modelos\{productos, proveedores};
    $productos = new productos();
     $proveedores = new proveedores();
+
+  //Filters Methods
   $ubicacionesResult = $productos->GetUbicaciones();
   $categoriasResult = $productos->GetCategorias();
   $materialesResult = $productos->GetMateriales();
   $proveedoresResult = $proveedores->GetNombresProveedores();
-  $materialesResultRows = $productos->GetMaterialesCount();
-  $categoriasResultRows = $productos->GetCategoriasCount();
-
-
-
- if(isset($_SESSION['results']) && isset($_SESSION['keyword'])){
-    $results = $_SESSION['results'];
-    $keyword = $_SESSION['keyword'];
-    $index = $_SESSION['index'];
-    $page = $_SESSION['pageClicked'];
-   }
-
- if(isset($_SESSION['results']) && isset($_SESSION['filters'])){
-    $results = $_SESSION['results'];
-    $filters = $_SESSION['filters'];
-    $index = $_SESSION['index'];
-    $page = $_SESSION['pageClicked'];
-
-    $filtersdecode = json_decode($filters, true);
-    $filtersdecodeproveedor = $proveedores->GetNombreEmpresaById($filtersdecode['proveedor']);
- }
-
- if(!isset($_SESSION['keyword']) || !isset($_SESSION['filters'])){
-    if(isset($_SESSION['results'])){
-        $main = $_SESSION['results'];
-        $index = $_SESSION['index'];
-        $page = $_SESSION['pageClicked'];
-    } else {
-        $limit = 7;
-        $main = $productos->GetproductosLimited(0, $limit);
-        $index = $productos->GetproductosIndex();
-        $index = ceil($index/$limit);
-        $page = 0;
-    }
- }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +21,14 @@ namespace controladores;
     <link rel="stylesheet" href="../sources/css/root.css">
 </head>
 <style>
- .focused{
+ .focused.search{
     border-color: #86b7fe !important;
+    box-shadow: none !important;
+    outline: 0 none !important;
+ }
+
+ .focused.filter{
+    border-color: rgb(33,37,41) !important;
     box-shadow: none !important;
     outline: 0 none !important;
  }
@@ -96,7 +68,7 @@ namespace controladores;
                 </a>
             </div>
         </nav>
-
+        <!-- MAIN CONTAINER -->
         <section class="main_container col-lg-11 ms-3">
             <!-- PRODUCTS NAV -->
             <ul class="nav nav-tabs my-4">
@@ -111,19 +83,15 @@ namespace controladores;
             <div class="read_header row my-4 align-items-center">
                 <!-- SEARCH BAR -->
                 <div class="col-lg-11">
-                    <form method="POST" action="../controladores/gets/SearchProducto.php" class="search_bar input-group">
-                        <button type="submit" name="submit" id="search-button" class="btn border border-end-0" style="background-color: #FFF">
+                    <div class="search_bar input-group">
+                        <button type="button" name="submit" id="search-button" class="btn border border-end-0 search" style="background-color: #FFF">
                             <iconify-icon icon="circum:search" width="30" height="30"></iconify-icon>
                         </button>
                         <div class="form-floating flex-grow-1">
-                            <input type="text" name="search" id="search" placeholder="Buscar" class="form-control border-start-0">
-                        <?php if(!empty($keyword)){?>
-                            <label for="search">Resultados para: "<?= $keyword; ?>"</label>
-                        <?php } else { ?>
-                            <label for="search">Buscar </label>
-                        <?php } ?>
+                            <input type="text" name="search" id="search" placeholder="Buscar" class="form-control border-start-0 search">
+                            <label for="search" id="keyword">Buscar</label>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <!-- BTN MODAL/FILTER -->
                 <div class="col-lg-1 d-flex justify-content-end">
@@ -132,7 +100,7 @@ namespace controladores;
                     </button>
                 </div>
                 <!-- FILTER MODAL -->
-                <form method="POST" action="../controladores/gets/FilterSearchProductos.php" class="search_bar">
+                <form class="search_bar" id="AplicarFiltros">
                     <div class="modal fade" id="modal-filter"  tabindex="-1">
                         <div class="modal-dialog modal-xl modal-dialog-centered">
                             <div class="modal-content">
@@ -146,11 +114,11 @@ namespace controladores;
                                         <div class="col-lg-6">
                                             <h5>Proveedor</h5>
                                             <div class="input-group">
-                                                <btn type="btn" class="btn btn-outline-dark border-end-0">
-                                                    <iconify-icon icon="fa-solid:search" width="15" height="15"></iconify-icon>
+                                                <btn type="btn" class="btn border border-end-0 filter" id="proveedor-button">
+                                                    <iconify-icon icon="circum:search" width="20" height="20"></iconify-icon>
                                                 </btn>
-                                                <input list="datalist-proveedores" name="filter-search-proov" id="filter-search-proov" placeholder="Buscar Proveedor"
-                                                class="form-control border-dark px-2 border-start-0 rounded-end" value="<?= (isset($filtersdecode['proveedor'])) ? $filtersdecodeproveedor : '';?>">
+                                                <input list="datalist-proveedores" name="proveedor" id="proveedor" placeholder="Buscar Proveedor"
+                                                class="form-control border-start-0 rounded-end filter">
                                                 <datalist id="datalist-proveedores">
                                                     <?php foreach($proveedoresResult as $proveedor) { ?>
                                                         <option value="<?= $proveedor['nombre_empresa']; ?>"></option>
@@ -161,11 +129,11 @@ namespace controladores;
                                         <div class="col-lg-6">
                                             <h5>Ubicacion</h5>
                                             <div class="input-group">
-                                                <btn type="btn" class="btn btn-outline-dark border-end-0">
-                                                    <iconify-icon icon="fa-solid:search" width="15" height="15"></iconify-icon>
+                                                <btn type="btn" class="btn border border-end-0 filter" id="ubicacion-button">
+                                                    <iconify-icon icon="circum:search" width="20" height="20"></iconify-icon>
                                                 </btn>
-                                                <input type="text" list="datalist-ubicaciones" name="filter-search-Ubi" id="filter-search-Ubi" placeholder="Buscar Ubicacion"
-                                                class="form-control border-dark px-2 border-start-0 rounded-end" value="<?= (isset($filtersdecode['ubicacion'])) ? $filtersdecode['ubicacion'] : '';?>">
+                                                <input type="text" list="datalist-ubicaciones" name="ubicacion" id="ubicacion" placeholder="Buscar Ubicacion"
+                                                class="form-control border-start-0 rounded-end filter">
                                                 <datalist id="datalist-ubicaciones">
                                                     <?php foreach($ubicacionesResult as $ubicacion) { ?>
                                                         <option value="<?= $ubicacion ?>">
@@ -181,16 +149,14 @@ namespace controladores;
                                             <div class="row">
                                                 <?php foreach($materialesResult as $material) { ?>
                                                     <div class="col-auto">
-                                                        <input type="checkbox" name="filter-materials[]" value="<?= $material ?>" id="<?= $material ?>"
-                                                        class="btn-check materials-check" autocomplete="off" onclick="checkAll('materials-check', 'All-Materials')"
-                                                        <?php if(isset($filtersdecode['materiales']) && in_array($material, $filtersdecode['materiales'])) { echo 'checked'; } ?>>
+                                                        <input type="checkbox" name="materiales[]" value="<?= $material ?>" id="<?= $material ?>"
+                                                        class="btn-check materials-check" autocomplete="off" onclick="checkAll('materials-check', 'All-Materials')">
                                                         <label for="<?= $material ?>" class="btn btn-outline-secondary btn-sm"><?= $material ?></label>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="col-auto">
-                                                    <input type="checkbox" name="" id="All-Materials" class="btn-check" autocomplete="off" 
-                                                    <?php if(!isset($filtersdecode['materiales']) || count($filtersdecode['materiales']) == $materialesResultRows) { echo 'checked'; } else { ''; } ?> disable>
-                                                    <label for="filter-materials" class="btn btn-outline-secondary btn-sm">Todos</label>
+                                                    <input type="checkbox" name="" id="All-Materials" class="btn-check" autocomplete="off" checked disable>
+                                                    <label for="All-Materials" class="btn btn-outline-secondary btn-sm">Todos</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,16 +165,14 @@ namespace controladores;
                                             <div class="row">
                                                 <?php foreach($categoriasResult as $categoria) { ?>
                                                     <div class="col-auto">
-                                                        <input type="checkbox" name="filter-categorias[]" value="<?= $categoria ?>" id="<?= $categoria ?>"
-                                                        class="btn-check categories-check" autocomplete="off" onclick="checkAll('categories-check', 'All-Categorias')"
-                                                        <?php if(isset($filtersdecode['categorias']) && in_array($categoria, $filtersdecode['categorias'])) { echo 'checked'; } ?>>
+                                                        <input type="checkbox" name="categorias[]" value="<?= $categoria ?>" id="<?= $categoria ?>"
+                                                        class="btn-check categories-check" autocomplete="off" onclick="checkAll('categories-check', 'All-Categorias')">
                                                         <label for="<?= $categoria ?>" class="btn btn-outline-secondary btn-sm"><?= $categoria ?></label>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="col-auto">
-                                                    <input type="checkbox" name="" id="All-Categorias" class="btn-check" autocomplete="off"
-                                                    <?php if(!isset($filtersdecode['categorias']) || count($filtersdecode['categorias']) == $categoriasResultRows) { echo 'checked'; } else { ''; } ?> disable>
-                                                    <label for="filter-categorias" class="btn btn-outline-secondary btn-sm">Todos</label>
+                                                    <input type="checkbox" name="" id="All-Categorias" class="btn-check" autocomplete="off" checked disable>
+                                                    <label for="All-Categorias" class="btn btn-outline-secondary btn-sm">Todos</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,29 +182,26 @@ namespace controladores;
                                         <!-- WEIGHT -->
                                         <div class="row mb-4">
                                             <div class="row">
-                                                <label for="filter-peso" class="h5 form-check-label w-auto">Peso</label>
+                                                <label for="peso" class="h5 form-check-label w-auto">Peso</label>
                                                 <div class="form-check form-switch w-auto">
-                                                    <input type="checkbox" name="filter-peso" id="filter-peso" value="filter-peso"
-                                                            class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#filter-peso-inputs"
-                                                            <?php if(isset($filtersdecode['pesoMenig']) || isset($filtersdecode['pesoMayig'])) { echo 'checked'; } ?>>
+                                                    <input type="checkbox" name="peso" id="peso"
+                                                        class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#peso-inputs">
                                                 </div>
                                             </div>
-                                            <div class="row collapse <?php if(isset($filtersdecode['pesoMenig']) || isset($filtersdecode['pesoMayig'])) { echo 'show'; } ?>" id="filter-peso-inputs">
+                                            <div class="row collapse" id="peso-inputs">
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">menor a</span>
-                                                        <input type="number" min="0" step="0.01"  class="form-control" name="filter-peso-menig" id="filter-peso-menig"
-                                                        placeholder="Gramos" oninput="checkInput('filter-peso-mayig',event)" value="<?= (isset($filtersdecode['pesoMenig'])) ? $filtersdecode['pesoMenig'] : '';?>"
-                                                        <?= (isset($filtersdecode['pesoMayig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0" step="0.01"  class="form-control" name="peso-menor-a" id="peso-menor-a"
+                                                        placeholder="Gramos" oninput="checkInput('peso-mayor-a',event)" value="">
                                                         <span class="input-group-text">gr</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">mayor a</span>
-                                                        <input type="number" min="0" step="0.01"  class="form-control" name="filter-peso-mayig" id="filter-peso-mayig"
-                                                        placeholder="Gramos" oninput="checkInput('filter-peso-menig',event)" value="<?= (isset($filtersdecode['pesoMayig'])) ? $filtersdecode['pesoMayig'] : '';?>"
-                                                        <?= (isset($filtersdecode['pesoMenig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0" step="0.01"  class="form-control" name="peso-mayor-a" id="peso-mayor-a"
+                                                        placeholder="Gramos" oninput="checkInput('peso-menor-a',event)" value="">
                                                         <span class="input-group-text">gr</span>
                                                     </div>
                                                 </div>
@@ -249,29 +210,26 @@ namespace controladores;
                                         <!-- QUANTITY -->
                                         <div class="row mb-4">
                                             <div class="row">
-                                                <label for="filter-cantidad" class="h5 form-check-label w-auto">Cantidad</label>
+                                                <label for="cantidad" class="h5 form-check-label w-auto">Cantidad</label>
                                                 <div class="form-check form-switch w-auto">
-                                                    <input type="checkbox" name="filter-cantidad" id="filter-cantidad" value="filter-cantidad"
-                                                            class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#filter-cantidad-inputs"
-                                                            <?php if(isset($filtersdecode['cantidadMenig']) || isset($filtersdecode['cantidadMayig'])) { echo 'checked'; } ?>>
+                                                    <input type="checkbox" name="cantidad" id="cantidad" value="cantidad"
+                                                        class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#cantidad-inputs">
                                                 </div>
                                             </div>
-                                            <div class="row collapse <?php if(isset($filtersdecode['cantidadMenig']) || isset($filtersdecode['cantidadMayig'])) { echo 'show'; } ?>" id="filter-cantidad-inputs">
+                                            <div class="row collapse" id="cantidad-inputs">
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">menor a</span>
-                                                        <input type="number" min="0"  class="form-control" name="filter-cantidad-menig" id="filter-cantidad-menig"
-                                                        placeholder="Cantidad" oninput="checkInput('filter-cantidad-mayig',event)" value="<?= (isset($filtersdecode['cantidadMenig'])) ? $filtersdecode['cantidadMenig'] : '';?>"
-                                                        <?= (isset($filtersdecode['cantidadMayig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0"  class="form-control" name="cantidad-menor-a" id="cantidad-menor-a"
+                                                        placeholder="Cantidad" oninput="checkInput('cantidad-mayor-a',event)" value="">
                                                         <span class="input-group-text">en existencia</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">mayor a</span>
-                                                        <input type="number" min="0"  class="form-control" name="filter-cantidad-mayig" id="filter-cantidad-mayig"
-                                                        placeholder="Cantidad" oninput="checkInput('filter-cantidad-menig',event)" value="<?= (isset($filtersdecode['cantidadMayig'])) ? $filtersdecode['cantidadMayig'] : '';?>"
-                                                        <?= (isset($filtersdecode['cantidadMenig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0"  class="form-control" name="cantidad-mayor-a" id="cantidad-mayor-a"
+                                                        placeholder="Cantidad" oninput="checkInput('cantidad-menor-a',event)" value="">
                                                         <span class="input-group-text">en existencia</span>
                                                     </div>
                                                 </div>
@@ -280,29 +238,26 @@ namespace controladores;
                                         <!-- PRICE COST -->
                                         <div class="row mb-4">
                                             <div class="row">
-                                                <label for="filter-precioCompra" class="h5 form-check-label w-auto">Precio de Compra</label>
+                                                <label for="precio-de-compra" class="h5 form-check-label w-auto">Precio de Compra</label>
                                                 <div class="form-check form-switch w-auto">
-                                                    <input type="checkbox" name="filter-precioCompra" id="filter-precioCompra" value="filter-precioCompra"
-                                                            class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#filter-precioCompra-inputs"
-                                                            <?php if(isset($filtersdecode['precioCompraMenig']) || isset($filtersdecode['precioCompraMayig'])) { echo 'checked'; } ?>>
+                                                    <input type="checkbox" name="precio-de-compra" id="precio-de-compra" value="precio-de-compra"
+                                                        class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#precio-de-compra-inputs">
                                                 </div>
                                             </div>
-                                            <div class="row collapse <?php if(isset($filtersdecode['precioCompraMenig']) || isset($filtersdecode['precioCompraMayig'])) { echo 'show'; } ?>" id="filter-precioCompra-inputs">
+                                            <div class="row collapse" id="precio-de-compra-inputs">
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">menor a $</span>
-                                                        <input type="number" min="0" step="0.01"  class="form-control" name="filter-precioCompra-menig" id="filter-precioCompra-menig"
-                                                        placeholder="mayor que" oninput="checkInput('filter-precioCompra-mayig',event)" value="<?= (isset($filtersdecode['precioCompraMenig'])) ? $filtersdecode['precioCompraMenig'] : '';?>"
-                                                        <?= (isset($filtersdecode['precioCompraMayig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0" step="0.01"  class="form-control" name="precio-de-compra-menor-a" id="precio-de-compra-menor-a"
+                                                        placeholder="mayor que" oninput="checkInput('precio-de-compra-mayor-a',event)" value="">
                                                         <span class="input-group-text">MX</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">mayor a $</span>
-                                                        <input type="number" min="0" step="0.01"  class="form-control" name="filter-precioCompra-mayig" id="filter-precioCompra-mayig"
-                                                        placeholder="pesos" oninput="checkInput('filter-precioCompra-menig',event)" value="<?= (isset($filtersdecode['precioCompraMayig'])) ? $filtersdecode['precioCompraMayig'] : '';?>"
-                                                        <?= (isset($filtersdecode['precioCompraMenig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0" step="0.01"  class="form-control" name="precio-de-compra-mayor-a" id="precio-de-compra-mayor-a"
+                                                        placeholder="pesos" oninput="checkInput('precio-de-compra-menor-a',event)" value="">
                                                         <span class="input-group-text">MX</span>
                                                     </div>
                                                 </div>
@@ -311,29 +266,26 @@ namespace controladores;
                                         <!-- PRICE SALE -->
                                         <div class="row mb-4">
                                             <div class="row">
-                                                <label for="filter-precioVenta" class="h5 form-check-label w-auto">Precio de Venta</label>
+                                                <label for="precio-de-venta" class="h5 form-check-label w-auto">Precio de Venta</label>
                                                 <div class="form-check form-switch w-auto">
-                                                    <input type="checkbox" name="filter-precioVenta" id="filter-precioVenta" value="filter-precioVenta"
-                                                            class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#filter-precioVenta-inputs"
-                                                            <?php if(isset($filtersdecode['precioVentaMenig']) || isset($filtersdecode['precioVentaMayig'])) { echo 'checked'; } ?>>
+                                                    <input type="checkbox" name="precio-de-venta" id="precio-de-venta" value="precio-de-venta"
+                                                        class="form-check-input bg-secondary border-secondary" data-bs-toggle="collapse" data-bs-target="#precio-de-venta-inputs">
                                                 </div>
                                             </div>
-                                            <div class="row collapse <?php if(isset($filtersdecode['precioVentaMenig']) || isset($filtersdecode['precioVentaMayig'])) { echo 'show'; } ?>" id="filter-precioVenta-inputs">
+                                            <div class="row collapse" id="precio-de-venta-inputs">
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">menor a $</span>
-                                                        <input type="number" min="0" step="0.01"  class="form-control" name="filter-precioVenta-menig" id="filter-precioVenta-menig"
-                                                        placeholder="mayor que" oninput="checkInput('filter-precioVenta-mayig',event)" value="<?= (isset($filtersdecode['precioVentaMenig'])) ? $filtersdecode['precioVentaMenig'] : '';?>"
-                                                        <?= (isset($filtersdecode['precioVentaMayig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0" step="0.01"  class="form-control" name="precio-de-venta-menor-a" id="precio-de-venta-menor-a"
+                                                        placeholder="mayor que" oninput="checkInput('precio-de-venta-mayor-a',event)" value="">
                                                         <span class="input-group-text">MX</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group col-lg-6">
                                                         <span class="input-group-text">mayor a $</span>
-                                                        <input type="number" min="0" step="0.01"  class="form-control" name="filter-precioVenta-mayig" id="filter-precioVenta-mayig"
-                                                        placeholder="pesos" oninput="checkInput('filter-precioVenta-menig',event)" value="<?= (isset($filtersdecode['precioVentaMayig'])) ? $filtersdecode['precioVentaMayig'] : '';?>"
-                                                        <?= (isset($filtersdecode['precioVentaMenig'])) ? 'disabled' : '';?>>
+                                                        <input type="number" min="0" step="0.01"  class="form-control" name="precio-de-venta-mayor-a" id="precio-de-venta-mayor-a"
+                                                        placeholder="pesos" oninput="checkInput('precio-de-venta-menor-a',event)" value="">
                                                         <span class="input-group-text">MX</span>
                                                     </div>
                                                 </div>
@@ -350,286 +302,32 @@ namespace controladores;
                     </div>
                 </form>
             </div>
-            <!-- MAIN CONTENT -->
-            <main class="dashboard_container container">
-                <?php if(!empty($results) && empty($filters)){ ?>
-                    <!-- COLLAPSE BUTTON -->
-                    <div class="row mx-1 my-3">
-                        <div class="d-flex">
-                            <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
-                        </div>
+            <!-- PRODUCTS RESULT -->
+            <section class="dashboard_container container" id="mainContainer">
+                <!-- COLLAPSE BUTTON -->
+                <div class="row mx-1 my-3">
+                    <div class="d-flex">
+                        <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
                     </div>
-                    <!-- PRODUCTS CARD LOOP -->
-                    <?php foreach ($results as $result) { ?>
-                        <div class="readObject_Container target card mb-4">
-                            <div class="readObject_header card-header">
-                                <div class="row">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
-                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class="button btn btn-primary"> Editar</button>
-                                    </form>
-                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
-                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class="button btn btn-danger"> Borrar</button>
-                                    </form>
-                                    <div class="accordion col-auto">
-                                        <div class="row accordion-header">
-                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
-                                            data-bs-toggle="collapse" data-bs-target="#Accordion<?= $result['id_producto']; ?>">
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="principal_data card-body row">
-                                <div class="row">
-                                    <div class="image_container col-lg-2">
-                                        <?php if($result['imagen'] != null) {?>
-                                            <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="img-fluid rounded-start">
-                                        <?php } ?>
-                                    </div>
-                                    <div class="data_container col-lg-10">
-                                        <div class="row">
-                                            <h2><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['nombre_producto']); ?></h2>
-                                            <h4><?= $highlight->HighlightKeyword($_SESSION['keyword'],$result['Descripcion_producto']); ?></h4>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <h6 class="ingreso col-auto me-auto">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h6>
-                                            <h6 class="gasto col-auto me-auto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="data_container hidde card-footer collapse" id="Accordion<?= $result['id_producto']; ?>">
-                                <div class="row">
-                                    <div class="product_tags col-lg-3">
-                                        <h5>TAGS</h5>
-                                        <div>
-                                            <h6>Categoría: <?php echo $result['categoria'];?></h6>
-                                            <h6>Material: <?php echo $result['tipo_material'];?></h6>
-                                        </div>
-                                    </div>
-                                    <div class="product_info col-lg-9">
-                                        <h5>Datos del producto</h5>
-                                        <h6>Peso: <?= $result['peso'];?> g</h6>
-                                        <h6>Cantidad disponible: <?= $result['cantidad_disponible'];?></h6>
-                                        <h6>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h6>
-                                        <h6>Proveedor: <?= $proveedores->GetNombreEmpresaById($result['id_proveedor']); ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                <?php } elseif(!empty($results) && empty($keyword)){ ?>
-                    <!-- COLLAPSE BUTTON -->
-                    <div class="row mx-1 my-3">
-                        <div class="d-flex">
-                            <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
-                        </div>
-                    </div>
-                    <!-- PRODUCTS CARD LOOP -->
-                    <?php foreach ($results as $result) { ?>
-                        <div class="readObject_Container target card mb-4">
-                            <div class="readObject_header card-header">
-                                <div class="row">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
-                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class="button btn btn-primary"> Editar</button>
-                                    </form>
-                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
-                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class="button btn btn-danger"> Borrar</button>
-                                    </form>
-                                    <div class="accordion col-auto">
-                                        <div class="row accordion-header">
-                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
-                                            data-bs-toggle="collapse" data-bs-target="#Accordion<?= $result['id_producto']; ?>">
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="principal_data card-body row">
-                                <div class="row">
-                                    <div class="image_container col-lg-2">
-                                        <?php if($result['imagen'] != null) {?>
-                                            <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="img-fluid rounded-start">
-                                        <?php } ?>
-                                    </div>
-                                    <div class="data_container col-lg-10">
-                                        <div class="row">
-                                            <h2><?= $result['nombre_producto']; ?></h2>
-                                            <h4><?= $result['Descripcion_producto']; ?></h4>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <h6 class="ingreso col-auto me-auto">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h6>
-                                            <h6 class="gasto col-auto me-auto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="data_container hidde card-footer collapse" id="Accordion<?= $result['id_producto']; ?>">
-                                <div class="row">
-                                    <div class="product_tags col-lg-3">
-                                        <h5>TAGS</h5>
-                                        <div>
-                                            <h6>Categoría: <?php echo $result['categoria'];?></h6>
-                                            <h6>Material: <?php echo $result['tipo_material'];?></h6>
-                                        </div>
-                                    </div>
-                                    <div class="product_info col-lg-9">
-                                        <h5>Datos del producto</h5>
-                                        <h6>Peso: <?= $result['peso'];?> g</h6>
-                                        <h6>Cantidad disponible: <?= $result['cantidad_disponible'];?></h6>
-                                        <h6>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h6>
-                                        <h6>Proveedor: <?= $proveedores->GetNombreEmpresaById($result['id_proveedor']); ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                <?php } elseif(!empty($_SESSION['keyword']) || !empty($_SESSION['filters'])){ ?>
-                    <div class="row mx-1 my-3">
-                        <div class="d-flex justify-content-center">
-                            <h3>No se encontraron resultados</h3>
-                        </div>
-                    </div>
-                <?php } else {?>
-                    <!-- COLLAPSE BUTTON -->
-                    <div class="row mx-1 my-3">
-                        <div class="d-flex">
-                            <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
-                        </div>
-                    </div>
-                    <!-- PRODUCTS CARD LOOP -->
-                    <?php foreach ($main as $result) { ?>
-                        <div class="readObject_Container target card mb-4">
-                            <div class="readObject_header card-header">
-                                <div class="row">
-                                    <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
-                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class="button btn btn-primary"> Editar</button>
-                                    </form>
-                                    <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
-                                        <input class="" type="hidden" name="id" value=<?php echo $result['id_producto']; ?>>
-                                        <button  class="button btn btn-danger"> Borrar</button>
-                                    </form>
-                                    <div class="accordion col-auto">
-                                        <div class="row accordion-header">
-                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
-                                            data-bs-toggle="collapse" data-bs-target="#Accordion<?= $result['id_producto']; ?>">
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="principal_data card-body row">
-                                <div class="row">
-                                    <div class="image_container col-lg-2">
-                                        <?php if($result['imagen'] != null) {?>
-                                            <img src="<?php echo $result['imagen']; ?>" alt="imagen de producto" class="img-fluid rounded-start">
-                                        <?php } ?>
-                                    </div>
-                                    <div class="data_container col-lg-10">
-                                        <div class="row">
-                                            <h2><?= $result['nombre_producto'];?></h2>
-                                            <h4><?=$result['Descripcion_producto'];?></h4>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <h6 class="ingreso col-auto me-auto">Precio Venta <br> $<?= $result['precio_venta'];?> pesos</h6>
-                                            <h6 class="gasto col-auto me-auto">Precio Compra <br> $<?= $result['precio_compra'];?> pesos</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="data_container hidde card-footer collapse" id="Accordion<?= $result['id_producto']; ?>">
-                                <div class="row">
-                                    <div class="product_tags col-lg-3">
-                                        <h5>TAGS</h5>
-                                        <div>
-                                            <h6>Categoría: <?php echo $result['categoria'];?></h6>
-                                            <h6>Material: <?php echo $result['tipo_material'];?></h6>
-                                        </div>
-                                    </div>
-                                    <div class="product_info col-lg-9">
-                                        <h5>Datos del producto</h5>
-                                        <h6>Peso: <?= $result['peso'];?> g</h6>
-                                        <h6>Cantidad disponible: <?= $result['cantidad_disponible'];?></h6>
-                                        <h6>Ubicación Almancen: <?= $result['ubicacion_almacen'];?></h6>
-                                        <h6>Proveedor: <?= $proveedores->GetNombreEmpresaById($result['id_proveedor']); ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                <?php } ?>
-            </main>
-            <!-- PAGINATION -->
-            <?php if(!empty($index)) {?>
-                <nav>
-                    <?php if(!empty($keyword)){ ?>
-                        <form action="../controladores/gets/SearchProducto.php" method="POST" class="form_pages">
-                            <ul class="pagination justify-content-center">
-                                <?php for($i = 0; $i < $index; $i++): ?>
-                                    <?php if($i == $page){ ?>
-                                        <li class="page-item active">
-                                            <button type="submit" class="btn_page target page-link" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                        </li>
-                                    <?php } else { ?>
-                                        <li class="page-item">
-                                            <button type="submit" class="btn_page page-link" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                        </li>
-                                    <?php } ?>
-                                <?php endfor; ?>
-                            </ul>
-                            <input type="hidden" name="searchPaginated" value="<?= $keyword ?>">
-                        </form>
-                    <?php } elseif(!empty($filters)){ ?>
-                        <form action="../controladores/gets/FilterSearchProductos.php" method="POST" class="form_pages">
-                            <ul class="pagination justify-content-center">
-                                <?php for($i = 0; $i < $index; $i++): ?>
-                                    <?php if($i == $page){ ?>
-                                        <li class="page-item active">
-                                            <button type="submit" class="btn_page target page-link" name="submitFilterPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                        </li>
-                                    <?php } else { ?>
-                                        <li class="page-item">
-                                            <button type="submit" class="btn_page page-link" name="submitFilterPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                        </li>
-                                    <?php } ?>
-                                <?php endfor; ?>
-                            </ul>
-                            <input type="hidden" name="searchFilterPaginated" value="<?= htmlspecialchars($filters) ?>">
-                        </form>
-                    <?php } else { ?>
-                    <form action="../controladores/gets/ReadProductos.php" method="POST" class="form_pages">
-                        <ul class="pagination justify-content-center">
-                            <?php for($i = 0; $i < $index; $i++): ?>
-                                <?php if($i == $page){ ?>
-                                    <li class="page-item active">
-                                        <button type="submit" class="btn_page target page-link" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                    </li>
-                                <?php } else { ?>
-                                    <li class="page-item">
-                                        <button type="submit" class="btn_page page-link" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                    </li>
-                                <?php } ?>
-                            <?php endfor; ?>
+                </div>
+
+                <!-- <section id="read"> -->
+                    <main class="dashboard_container container" id="main">
+
+                    </main>
+                    <nav>
+                        <ul class="pagination justify-content-center" id="index">
+
                         </ul>
-                    </form>
-                    <?php } ?>
-                </nav>
-            <?php } ?>
+                    </nav>
+                <!-- </section> -->
+            </section>
         </section>
     </section>
-    <!-- DISSBLE THE SESSIONS - to reset the search when fresh the page -->
-    <?php unset($_SESSION['results']);
-            unset($_SESSION['keyword']); 
-              unset($_SESSION['index']);
-                 unset($_SESSION['filters']);
-              ?>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="../sources/js/app.js"></script>
+<script src="../sources/js/read.js"></script>
 </html>
