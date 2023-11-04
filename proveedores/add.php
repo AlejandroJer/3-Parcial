@@ -56,9 +56,6 @@ if(isset($_SESSION['proveedores'])){
                 <li class="nav-item">
                     <a href="./read.php" class="nav-link">Ver Proveedores</a>
                 </li>
-                <li class="nav-item">
-                    <a href="./search.php" class="nav-link">Buscar Proveedor</a>
-                </li>
             </ul>
             <main class="dashboard_container">
 
