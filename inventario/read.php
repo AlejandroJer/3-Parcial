@@ -47,17 +47,17 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../inventario/read.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="./read.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../proveedores/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="../proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -311,16 +311,14 @@
                     </div>
                 </div>
 
-                <!-- <section id="read"> -->
-                    <main class="dashboard_container container" id="main">
+                <main class="dashboard_container container" id="main">
 
-                    </main>
-                    <nav>
-                        <ul class="pagination justify-content-center" id="index">
+                </main>
+                <nav>
+                    <ul class="pagination justify-content-center" id="index">
 
-                        </ul>
-                    </nav>
-                <!-- </section> -->
+                    </ul>
+                </nav>
             </section>
         </section>
     </section>
@@ -329,5 +327,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="../sources/js/app.js"></script>
-<script src="../sources/js/read.js"></script>
+<script src="../sources/js/readInventario.js"></script>
 </html>

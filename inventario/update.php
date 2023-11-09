@@ -36,12 +36,12 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../proveedores/add.php" class="option_container nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="../proveedores/read.php" class="option_container nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/add.php" class="option_container nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -64,7 +64,7 @@
             </ul>
             <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
-                <!-- FORM - to add products -->
+                <!-- FORM - to update products -->
                 <form action="../controladores/edits/UpdateProductos.php" method="post" enctype="multipart/form-data" class="my-4 needs-validation was-validated" novalidate>
                     <input type="hidden" name="id_inv" value="null">
                     <!-- IMAGEN EDIT -->

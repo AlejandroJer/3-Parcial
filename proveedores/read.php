@@ -24,11 +24,11 @@ if(isset($_SESSION['results'])){
     outline: 0 none !important;
  }
 
- .focused.filter{
+ /* .focused.filter{
     border-color: rgb(33,37,41) !important;
     box-shadow: none !important;
     outline: 0 none !important;
- }
+ } */
 </style>
 
 <body class="container-fluid">
@@ -45,17 +45,17 @@ if(isset($_SESSION['results'])){
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../inventario/add.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="../inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="./read.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/add.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -80,7 +80,7 @@ if(isset($_SESSION['results'])){
             <!-- SEARCH BAR AND FILTER BUTTON -->
             <div class="read_header row my-4 align-items-center">
                 <!-- SEARCH BAR -->
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                     <div class="search_bar input-group">
                         <button type="button" name="submit" id="search-button" class="btn border border-end-0 search" style="background-color: #FFF">
                             <iconify-icon icon="circum:search" width="30" height="30"></iconify-icon>
@@ -91,6 +91,24 @@ if(isset($_SESSION['results'])){
                         </div>
                     </div>
                 </div>
+            </div>
+            <section class="dashboard_container container" id="mainContainer">
+                <!-- COLLAPSE BUTTON -->
+                <div class="row mx-1 my-3">
+                    <div class="d-flex">
+                        <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
+                    </div>
+                </div>
+                
+
+                <main class="dashboard_container container" id="main">
+
+                </main>
+                <nav>
+                    <ul class="pagination justify-content-center" id="index">
+
+                    </ul>
+                </nav>
             </section>
         </section>
 </body>
@@ -98,5 +116,5 @@ if(isset($_SESSION['results'])){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="../sources/js/app.js"></script>
-<script src="../sources/js/read.js"></script>
+<script src="../sources/js/readProveedores.js"></script>
 </html>

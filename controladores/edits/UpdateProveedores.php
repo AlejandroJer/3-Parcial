@@ -7,7 +7,7 @@
  if(isset($_POST['id'])){
     $result = $proveedor->GetProveedorById($_POST['id']);
     $_SESSION['proveedores'] = $result;
-    header("location:./../../proveedores/add.php");
+    header("location:./../../proveedores/update.php");
  }else{
     if(isset($_POST['submit'])){
         if(!isset($_POST['nombre-empresa']) or !isset($_POST['direccion-proveedor']) or !isset($_POST['persona-contacto']) or !isset($_POST['telefono']) or !isset($_POST['correo-proveedor'])){

@@ -1,3 +1,9 @@
+<?php
+ require_once("../autoload.php");
+
+    // catch the id of the product to update
+    $result = $_SESSION['proveedores'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +15,7 @@
 </head>
 <body class="container-fluid">
     <section class="index_section row vh-100">
+        <!-- MAIN NAV -->
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
             <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
@@ -41,76 +48,105 @@
                 </a>
             </div>
         </nav>
-
         <section class="main_container col-lg-11">
-        <ul class="nav nav-tabs mt-4">
+            <!-- PROVEED NAV -->
+            <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
                     <a href="./read.php" class="nav-link" aria-current="page">Ver Proveedores</a>
                 </li>
                 <li class="nav-item">
-                    <a href="./add.php" class="nav-link active">Agregar Proveedor</a>
+                    <a href="./add.php" class="nav-link active">Actualizar Proveedor</a>
                 </li>
             </ul>
+            <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
-                <form action="../controladores/SetProveedor.php" method="POST" enctype="multipart/form-data" class="my-4 needs-validation" novalidate>
+                <!-- FORM - to update supliers -->
+                <form action="../controladores/edits/UpdateProveedores.php" method="POST" enctype="multipart/form-data" class="my-4 needs-validation was-validated" novalidate>
+                    <!-- NOMBRE -->
                     <div class="row my-3">
                         <div class="col-lg-2">
                             <label for="nombre-empresa" class="d-flex justify-content-end col-form-label fs-4">Empresa:</label>
                         </div>
                         <div class="col-lg-10 ">
-                            <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Nombre de la Empresa" value="" required>
+                            <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Nombre de la Empresa" value="<?= $result['nombre_empresa']; ?>" required>
                             <div class="invalid-feedback">
                                 Ingrese el nombre de la Empresa
                             </div>
                         </div>
                     </div>
+                    <!-- DIRECCION -->
                     <div class="row mb-3">
                         <div class="col-lg-2">
                             <label for="direccion-proveedor" class="d-flex justify-content-end col-form-label fs-4">Dirección:</label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" value="" required>
+                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" value="<?= $result['direccion']; ?>" required>
                             <div class="invalid-feedback">
                                 Ingrese la direccion de la Empresa
                             </div>
                         </div>
                     </div>
+                    <!-- CONTACTO -->
                     <div class="row my-3">
                         <div class="col-lg-2">
                             <label for="persona-contacto" class="d-flex justify-content-end col-form-label fs-4">Contacto:</label>
                         </div> 
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Nombre de contacto" value="" required>
+                            <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Nombre de contacto" value="<?= $result['persona_contacto']; ?>" required>
                             <div class="invalid-feedback">
                                 Ingrese el nombre de la Persona de contacto
                             </div>
                         </div>
                     </div>
+                    <!-- TELEFONO -->
                     <div class="row mb-3">
                         <div class="col-lg-2">
                             <label for="telefono" class="d-flex justify-content-end col-form-label fs-4">Teléfono:</label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="" required>
+                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="<?= $result['num_telefono']; ?>" required>
                             <div class="invalid-feedback">
                                 Ingrese el Teléfono de la Empresa
                             </div>
                         </div>
                     </div>
+                    <!-- CORREO -->
                     <div class="row my-3">
                         <div class="col-lg-2">
                             <label for="correo-proveedor" class="d-flex justify-content-end col-form-label fs-4">Correo:</label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor"  placeholder="Correo" value="" required>
+                            <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor"  placeholder="Correo" value="<?= $result['email_proveedor']; ?>" required>
                             <div class="invalid-feedback">
                                 Ingrese el Correo de la Empresa
                             </div>
                         </div>
                         
                     </div>
+                    <!-- FORMS BTNS -->
                     <div class="row mb-3 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit" >Guardar</button>
+                        <input type="hidden" name="id_proveedor" value="<?= $result['id_proveedor'] ?>">
+                        <button type="button" class="btn btn-secondary col-auto me-3" data-bs-toggle="modal" data-bs-target="#modal-submit">Actualizar</button>
+                        <!-- MODAL TO UPDATE THE PRODUCT -->
+                        <div class="modal fade" id="modal-submit"  tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3>Actualizar Proveedor</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>¿Estas seguro de actualizar este proveedor?</h5>
+                                        <p>Al actualizar este proveedor se reemplazará la información actual por la nueva, siendo una accion irreversible</p>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <!-- SUBMIT/CANCEL BTN - to submit/cancel the update -->
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-warning" name="submit" id="submit">Actualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <div>
                 </form>
             </main>

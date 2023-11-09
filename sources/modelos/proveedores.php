@@ -147,5 +147,14 @@ class proveedores extends conexion {
         $del = $delete->execute($arrwhere);
 
         return $del;
+    } 
+
+    public function SetRespaldo(string $nombre, string $p_contacto, string $dir, int $tel, string $email){
+        $sql="INSERT INTO respaldo_proveedor(nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r) VALUES(?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($nombre,$p_contacto,$dir,$tel,$email);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
     }
 }

@@ -9,7 +9,7 @@
 
  // SEARCH BY KEYWORD
  if(!isset($_POST['search']) && !isset($_POST['submit'])){
-   header("location:./../../../inventario/read.php");
+   header("location:./../../inventario/read.php");
  } else {
       $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
       if (isset($_POST['submitPaginated'])){
@@ -20,7 +20,6 @@
 
       $index = $producto->GetProductoByKeyWordIndex($keyword);
       $index = ceil($index/$limit);
-
       $results = $producto->GetProductoByKeyWordLimited($keyword, $page*$limit, $limit);
 
       foreach ($results as &$result){

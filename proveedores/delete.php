@@ -1,3 +1,9 @@
+<?php
+ require_once("../autoload.php");
+
+    // catch the id of the product to update
+    $result = $_SESSION['proveedores'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +15,7 @@
 </head>
 <body class="container-fluid">
     <section class="index_section row vh-100">
+        <!-- MAIN NAV -->
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
             <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
@@ -41,9 +48,9 @@
                 </a>
             </div>
         </nav>
-
         <section class="main_container col-lg-11">
-        <ul class="nav nav-tabs mt-4">
+            <!-- PRODUCTS NAV -->
+            <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
                     <a href="./read.php" class="nav-link" aria-current="page">Ver Proveedores</a>
                 </li>
@@ -52,66 +59,78 @@
                 </li>
             </ul>
             <main class="dashboard_container container">
-                <form action="../controladores/SetProveedor.php" method="POST" enctype="multipart/form-data" class="my-4 needs-validation" novalidate>
+                <!-- FORM - to delete supliers -->
+                <form action="../controladores/deletes/DeleteProveedor.php" method="POST" enctype="multipart/form-data" class="my-4 needs-validation" novalidate>
+                    <!-- NOMBRE -->
                     <div class="row my-3">
                         <div class="col-lg-2">
                             <label for="nombre-empresa" class="d-flex justify-content-end col-form-label fs-4">Empresa:</label>
                         </div>
                         <div class="col-lg-10 ">
-                            <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Nombre de la Empresa" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el nombre de la Empresa
-                            </div>
+                            <input type="text" class="form-control" name="nombre-empresa" id="nombre-empresa" placeholder="Nombre de la Empresa" value="<?= $result['nombre_empresa']; ?>" disabled>
                         </div>
                     </div>
+                    <!-- DIRECCION -->
                     <div class="row mb-3">
                         <div class="col-lg-2">
                             <label for="direccion-proveedor" class="d-flex justify-content-end col-form-label fs-4">Dirección:</label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese la direccion de la Empresa
-                            </div>
+                            <input type="text" class="form-control" name="direccion-proveedor" id="direccion-proveedor" placeholder="Dirección del proveedor" value="<?= $result['direccion']; ?>" disabled>
                         </div>
                     </div>
+                    <!-- CONTACTO -->
                     <div class="row my-3">
                         <div class="col-lg-2">
                             <label for="persona-contacto" class="d-flex justify-content-end col-form-label fs-4">Contacto:</label>
                         </div> 
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Nombre de contacto" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el nombre de la Persona de contacto
-                            </div>
+                            <input type="text" class="form-control" name="persona-contacto" id="persona-contacto" placeholder="Nombre de contacto" value="<?= $result['persona_contacto']; ?>" disabled>
                         </div>
                     </div>
+                    <!-- TELEFONO -->
                     <div class="row mb-3">
                         <div class="col-lg-2">
                             <label for="telefono" class="d-flex justify-content-end col-form-label fs-4">Teléfono:</label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el Teléfono de la Empresa
-                            </div>
+                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="<?= $result['num_telefono']; ?>" disabled>
                         </div>
                     </div>
+                    <!-- CORREO -->
                     <div class="row my-3">
                         <div class="col-lg-2">
                             <label for="correo-proveedor" class="d-flex justify-content-end col-form-label fs-4">Correo:</label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor"  placeholder="Correo" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el Correo de la Empresa
+                            <input type="email" class="form-control" name="correo-proveedor" id="correo-proveedor"  placeholder="Correo" value="<?= $result['email_proveedor']; ?>" disabled>
+                        </div>
+                    </div>
+                    <!-- FORMS BTNS -->
+                    <div class="row mb-3 d-flex justify-content-end">
+                        <input type="hidden" name="id_proveedor" value="<?= $result['id_proveedor'] ?>">
+                        <button type="button" class="btn btn-danger col-auto me-3" data-bs-toggle="modal" data-bs-target="#modal-submit">Borrar</button>
+                    </div>
+                        <!-- MODAL TO UPDATE THE PRODUCT -->
+                        <div class="modal fade" id="modal-submit"  tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3>Borrar Proveedor</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>¿Estás seguro de borrar este proveedor?</h5>
+                                        <p>Esta acción no se puede deshacer.</p>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <!-- SUBMIT/CANCEL BTN - to submit/cancel the update -->
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger" name="submit" id="submit">Borrar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                    </div>
-                    <div class="row mb-3 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit" >Guardar</button>
-                    <div>
                 </form>
             </main>
         </section>

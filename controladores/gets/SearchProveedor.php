@@ -1,46 +1,48 @@
 <?php
-    namespace controladores;
-    require_once("./../../autoload.php");
-    use modelos\proveedores; 
-    $proveedor = new proveedores();
+ namespace controladores;
+ require_once("./../../autoload.php");
+ use modelos\proveedores; 
+  $proveedor = new proveedores();
 
-    $limit = 2;
+ $limit = 7;
 
-    if (!isset($_POST['search']) && !isset($_POST['submit'])) {
-        header("location:./../../proveedores/search.php");
+ if (!isset($_POST['search']) && !isset($_POST['submit'])) {
+  header("location:./../../proveedores/search.php");
+ } else {
+  $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
+  if (isset($_POST['submitPaginated'])){
+     $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
     } else {
-        $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
+     $page = 0;
+  }
 
-        if (!$_POST['search'] || $_POST['search'] == " ") {
-            header("location:./../../proveedores/search.php");
-            die();
-        }
+  $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
+  $index = ceil($index / $limit);
+  $results = $proveedor->GetProveedorByKeywordLimited($keyword, $page*$limit, $limit);
 
-        $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
-        $index = ceil($index / $limit);
-        $results = $proveedor->GetProveedorByKeywordLimited($keyword, 0, $limit); 
+  $array = array(
+        "results" => $results,
+        "index" => $index,
+        "pageClicked" => $page
+    );
 
-        $_SESSION['results'] = $results;
-        $_SESSION['keyword'] = $keyword;
-        $_SESSION['index'] = $index;
-        $_SESSION['pageClicked'] = 0;
-        header("location:./../../proveedores/search.php");
-    }
+  echo json_encode($array);
+ }
 
-    if (!isset($_POST['submitPaginated'])) {
-        header("location:./../../proveedores/search.php");
-    } else {
-        $keyword = filter_var($_POST['searchPaginated'], FILTER_SANITIZE_STRING);
-        $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
+    // if (!isset($_POST['submitPaginated'])) {
+    //     header("location:./../../proveedores/search.php");
+    // } else {
+    //     $keyword = filter_var($_POST['searchPaginated'], FILTER_SANITIZE_STRING);
+    //     $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
 
-        $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
-        $index = ceil($index / $limit);
-        $results = $proveedor->GetProveedorByKeywordLimited($keyword, $page * $limit, $limit);
+    //     $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
+    //     $index = ceil($index / $limit);
+    //     $results = $proveedor->GetProveedorByKeywordLimited($keyword, $page * $limit, $limit);
 
-        $_SESSION['results'] = $results;
-        $_SESSION['keyword'] = $keyword;
-        $_SESSION['index'] = $index;
-        $_SESSION['pageClicked'] = $page;
-        header("location:./../../proveedores/search.php");
-    }
+    //     $_SESSION['results'] = $results;
+    //     $_SESSION['keyword'] = $keyword;
+    //     $_SESSION['index'] = $index;
+    //     $_SESSION['pageClicked'] = $page;
+    //     header("location:./../../proveedores/search.php");
+    // }
 ?>
