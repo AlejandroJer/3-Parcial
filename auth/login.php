@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="../sources/css/nav.css">
 </head>
 <body>
-    <header class="main_header">
+    <!-- <header class="main_header">
        
         <span id="NavArrow"></span>
         <div class="header_login" data-messages="Dashboard">
             <a href="../dashboard.php">Dashboard</a>
         </div>
-    </header>
+    </header> -->
     
     <div class="container" id="container">
         <div class="form-container sign-up-container">
