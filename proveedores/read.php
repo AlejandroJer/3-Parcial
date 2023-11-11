@@ -1,10 +1,15 @@
 <?php
-require_once("../autoload.php");
+ namespace controladores;
+ require_once("../autoload.php");
+ use modelos\usuarios;
+    $empleados = new usuarios();
 
-if(isset($_SESSION['results'])){
-    $results = $_SESSION['results'];
-    $index = $_SESSION['index'];
-    $page = $_SESSION['pageClicked'];
+if (!isset($_SESSION['logged_usr'])) {
+    header('Location: ./../auth/login.php');
+    exit;
+} else {
+    $user_id = $_SESSION['logged_usr'];
+    $user = $empleados->GetUsuarioById($user_id);
 }
 ?>
 
@@ -60,10 +65,16 @@ if(isset($_SESSION['results'])){
                     </a>
                 </li>
             </ul>
-            <div class="border-top">
-                <a href="../auth/login.php" class="d-flex align-items-center justify-content-center p-3 link-primary text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="Iniciar Sesion">
-                    <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
+            <div class="border-top dropup">
+                <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown"  data-bs-offset="10,0">
+                    <iconify-icon class="iconify" icon="mingcute:user-4-fill" width="30" height="30"></iconify-icon>
                 </a>
+                <ul class="dropdown-menu" style="z-index: 9999;">
+                    <li><a href="#" class="dropdown-item">Mensages</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
+                </ul>
             </div>
         </nav>
 

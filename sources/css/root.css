@@ -35,6 +35,8 @@ input[type="file"]{
     content: "+ ";
 }
 
+
+
 select{
     font-family: var(--font-bold);
 }

@@ -24,11 +24,8 @@ Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra 
 https://icon-sets.iconify.design/ic/baseline-inventory/
 https://icon-sets.iconify.design/fa-solid/users/
 https://icon-sets.iconify.design/clarity/employee-solid/
-https://icon-sets.iconify.design/clarity/sign-in-solid/
-https://icon-sets.iconify.design/mdi/face-woman/
-https://icon-sets.iconify.design/mdi/face-man/
 https://icon-sets.iconify.design/map/jewelry-store/
 https://icon-sets.iconify.design/mdi/filter-cog-outline/
 https://icon-sets.iconify.design/circum/search/
 https://icon-sets.iconify.design/ic/round-home/
-https://icon-sets.iconify.design/teenyicons/file-no-access-outline/
+https://icon-sets.iconify.design/mingcute/user-4-fill/
