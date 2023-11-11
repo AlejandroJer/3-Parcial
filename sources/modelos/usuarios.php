@@ -167,34 +167,34 @@ class usuarios extends conexion{
     }
 
     
-//register y login
+ //register y login
     public function RegistrarUsuario(string $nombre, string $apellido, string $email, string $sexo, string $password, int $id_rol){
-    $this->nombre = $nombre;
-    $this->apellido = $apellido;
-    $this->email = $email;
-    $this->sexo = $sexo;
-    $this->password = password_hash($password, PASSWORD_DEFAULT); // Hashing
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->email = $email;
+        $this->sexo = $sexo;
+        $this->password = password_hash($password, PASSWORD_DEFAULT); // Hashing
 
-    $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
-    $insert= $this->conn->prepare($sql);
-    $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$id_rol);
-    $resInsert = $insert->execute($arrData);
-    $idInsert = $this->conn->lastInsertId();
-    return $idInsert;
-}
+        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$id_rol);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
+    }
 
     public function IniciarSesion(string $email, string $password){
-    $sql = "SELECT id_usr, contraseña FROM usuarios WHERE email_usr = ?";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
+        $sql = "SELECT id_usr, contraseña FROM usuarios WHERE email_usr = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['contraseña'])) {
-        return $user['id_usr'];
-    } else {
-        return false;
+        if ($user && password_verify($password, $user['contraseña'])) {
+            return $user['id_usr'];
+        } else {
+            return false;
+        }
     }
-}
 
 
 

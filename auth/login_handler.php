@@ -1,43 +1,31 @@
 <?php
+ namespace controladores;
+ require_once("../autoload.php");
+ use modelos\usuarios;
+  $usuario = new usuarios();
 
-namespace controladores;
-require_once("../autoload.php");
+ // Inicio de sesión
+ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
+  $user_id = $usuario->IniciarSesion($email, $password);
 
-// Registro de usuario
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registro'])) {
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $email = $_POST['email'];
-    $sexo = $_POST['sexo'];
-    $password = $_POST['password'];
-    $id_rol = 1; //rol 
-
-    $usuario = new modelos\usuarios();
-    $usuario->RegistrarUsuario($nombre, $apellido, $email, $sexo, $password, $id_rol);
-
-    
-    header('Location: login.php');
+  if ($user_id) {
+    // Iniciar sesión exitosamente, redirigir a la página de inicio o al panel de control
+    $_SESSION['logged_usr'] = $user_id;
+    header("location: ./../dashboard.php");
     exit;
-}
-
-// Inicio de sesión
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $usuario = new modelos\usuarios();
-    $user_id = $usuario->IniciarSesion($email, $password);
-
-    if ($user_id) {
-        // Iniciar sesión exitosamente, redirigir a la página de inicio o al panel de control
-        session_start();
-        $_SESSION['user_id'] = $user_id;
-        header('Location: dashboard.php');
-        exit;
-    } else {
-       
-        echo 'Credenciales inválidas. Inténtalo de nuevo.';
-    }
-}
+    // echo "<script>console.log('Inicio de sesión exitoso')</script>";
+  } else {
+    // Iniciar sesión fallida, redirigir a la página de inicio de sesión con un mensaje de error
+    header('Location: ./login.php');
+    exit;
+    // echo "<script>console.log('Error al iniciar sesión')</script>";
+  }
+ } else {
+   header('Location: ./login.php');
+    exit;
+    // echo "<script>console.log('Error al entrar al login')</script>";
+ }
 ?>

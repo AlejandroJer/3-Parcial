@@ -14,7 +14,7 @@
 
 body {
     height: 100vh;
-    background: #3c363c;
+    /* background: #3c363c; */
     display: grid;
     place-content: center;
     font-family: 'Poppins', sans-serif;
@@ -144,7 +144,7 @@ button{
 }
 .overlay{
     position : absolute;
-    background: var(--linear-grad);
+    /* background: var(--linear-grad); */
     color: #fff;
     left: -150%;
     height: 100%;
