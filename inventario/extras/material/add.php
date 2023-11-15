@@ -1,10 +1,8 @@
 <?php
  namespace controladores;
  require_once("../autoload.php");
- use modelos\{proveedores, usuarios};
-    $proveedores = new proveedores();
+ use modelos\usuarios;
     $empleados = new usuarios();
-    $proveedoresResults = $proveedores->GetNombresProveedores();
     if (!isset($_SESSION['logged_usr'])) {
         header('Location: ./../auth/login.php');
         exit;
@@ -31,22 +29,22 @@
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
                         <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./add.php" class="option_container active nav-link py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="./add.php" class="option_container active nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark  link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="../proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark  link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -78,95 +76,33 @@
                 <!-- FORM - to edit products -->
                 <form action="../controladores/SetProducto.php" method="post" enctype="multipart/form-data" class="my-4 needs-validation" novalidate>
                     <input type="hidden" name="id_inv" value="null">
-                    <input type="file" accept=".jpeg, .png, .jpg" id="image"  name="image" class="form-control border-warning inputfile-warning visually-hidden">
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <!-- NOMBRE -->
-                            <div class="row my-3">
-                                <div class="col-lg-2">
-                                    <label for="producto-nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
-                                </div>
-                                <div class="col-lg-10 ">
-                                    <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="" required>
-                                    <div class="invalid-feedback">
-                                        Ingresa un nombre para el producto
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- PROVEEDOR -->
-                            <div class="row mb-3">
-                                <div class="col-lg-2">
-                                    <label for="producto-proveedor" class="d-flex justify-content-end col-form-label fs-4">Proveedor:</label>
-                                </div>
-                                <div class="col-lg-10 ">
-                                    <select name="producto-proveedor" id="producto-proveedor" class="form-select" required>
-                                        <option value="" selected>Proveedor del producto</option>
-                                        <?php if(!empty($proveedoresResults)) ?>
-                                            <?php foreach ($proveedoresResults as $proveedoresResult) { ?>
-                                                <option value="<?= $proveedoresResult['id_proveedor']; ?>"><?= $proveedoresResult['nombre_empresa'];?></option>
-                                            <?php } ?>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Selecciona el proveedor del producto
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- CATEGORIA -->
-                            <div class="row mb-3">
-                                <div class="col-lg-2">
-                                    <label for="producto-categoria" class="d-flex justify-content-end col-form-label fs-4">Categoría:</label>
-                                </div>
-                                <div class="col-lg-10">
-                                    <select name="categoria" id="producto-categoria" class="form-select" required>
-                                        <option value="" selected>Categoria del producto</option>
-                                        <option value="Anillo">Anillos</option>
-                                        <option value="Collar">Collares y Colgantes</option>
-                                        <option value="Pulsera">Pulseras</option>
-                                        <option value="Pendiente">Pendientes</option>
-                                        <option value="Reloj">Relojes</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Selecciona la categoria del producto
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- MATERIAL -->
-                            <div class="row mb-3">
-                                <div class="col-lg-2">
-                                    <label for="tipo-material" class="d-flex justify-content-end col-form-label fs-4">Material:</label>
-                                </div>
-                                <div class="col-lg-10 ">
-                                    <select name="tipo-material" id="tipo-material" class="form-select" required>
-                                        <option value="" selected>Material del producto</option>
-                                        <option value="Oro">Oro</option>
-                                        <option value="Plata">Plata</option>
-                                        <option value="Platino">Platino</option>    
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Selecciona el material del producto
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- NOMBRE -->
+                    <div class="row my-3">
                         <div class="col-lg-2">
-                            <!-- IMAGEN -->
-                            <div class="card col-lg-12 ">
-                                <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
-                                    <img src="../sources/imgs/defaultImg.jpeg" alt="imagen-actual-del-producto" class="card-img-top" id="img-image">
-                                </button>
-                                <label for="update-image" class="col-form-label text-center">Agregar</label>
+                            <label for="producto-nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
+                        </div>
+                        <div class="col-lg-10 ">
+                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa un nombre para el producto
                             </div>
                         </div>
                     </div>
-                    <!-- PESO -->
+                    <!-- PROVEEDOR -->
                     <div class="row mb-3">
                         <div class="col-lg-2">
-                            <label for="peso" class="d-flex justify-content-end col-form-label fs-4">Peso:</label>
+                            <label for="producto-proveedor" class="d-flex justify-content-end col-form-label fs-4">Proveedor:</label>
                         </div>
                         <div class="col-lg-10 ">
-                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Gramos" value="" required>
+                            <select name="producto-proveedor" id="producto-proveedor" class="form-select" required>
+                                <option value="" selected>Proveedor del producto</option>
+                                <?php if(!empty($proveedoresResults)) ?>
+                                    <?php foreach ($proveedoresResults as $proveedoresResult) { ?>
+                                        <option value="<?= $proveedoresResult['id_proveedor']; ?>"><?= $proveedoresResult['nombre_empresa'];?></option>
+                                    <?php } ?>
+                            </select>
                             <div class="invalid-feedback">
-                                Ingresa el peso en gramos del producto
+                                Selecciona el proveedor del producto
                             </div>
                         </div>
                     </div>
@@ -191,6 +127,54 @@
                             <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio MXN compra" value="" required>
                             <div class="invalid-feedback">
                                 Ingresa el precio de compra del producto
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CATEGORIA -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="producto-categoria" class="d-flex justify-content-end col-form-label fs-4">Categoría:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <select name="categoria" id="producto-categoria" class="form-select" required>
+                                <option value="" selected>Categoria del producto</option>
+                                <option value="Anillo">Anillos</option>
+                                <option value="Collar">Collares y Colgantes</option>
+                                <option value="Pulsera">Pulseras</option>
+                                <option value="Pendiente">Pendientes</option>
+                                <option value="Reloj">Relojes</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Selecciona la categoria del producto
+                            </div>
+                        </div>
+                    </div>
+                    <!-- MATERIAL -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="tipo-material" class="d-flex justify-content-end col-form-label fs-4">Material:</label>
+                        </div>
+                        <div class="col-lg-10 ">
+                            <select name="tipo-material" id="tipo-material" class="form-select" required>
+                                <option value="" selected>Material del producto</option>
+                                <option value="Oro">Oro</option>
+                                <option value="Plata">Plata</option>
+                                <option value="Platino">Platino</option>    
+                            </select>
+                            <div class="invalid-feedback">
+                                Selecciona el material del producto
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PESO -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="peso" class="d-flex justify-content-end col-form-label fs-4">Peso:</label>
+                        </div>
+                        <div class="col-lg-10 ">
+                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Gramos" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa el peso en gramos del producto
                             </div>
                         </div>
                     </div>
@@ -230,6 +214,18 @@
                             </div>
                         </div>
                     </div> 
+                    <!-- IMAGEN -->
+                    <div class="row mb-5"> 
+                        <div class="col-lg-2">
+                            <label for="image" class="d-flex justify-content-end col-form-label fs-4 p-0">Imagen:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="file" accept=".jpeg, .png, .jpg "id="image"  name="image" class="form-control">
+                            <div class="invalid-feedback text-success">
+                                Ingresar una imagen del producto es opcional pero se recomienda
+                            </div>
+                        </div>
+                    </div>
                     <!-- FORMS BTNS -->
                     <div class="row mb-3 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit">Guardar</button>

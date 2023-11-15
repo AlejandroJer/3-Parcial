@@ -21,39 +21,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./sources/css/root.css">
 </head>
-<style>
-    #logo{
-        background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAyNC4wMDAwMDBwdCIgaGVpZ2h0PSIxMDI0LjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTAyNC4wMDAwMDAgMTAyNC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDEwMjQuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIgpmaWxsPSIjMDAwMDAwIiBzdHJva2U9Im5vbmUiPgo8cGF0aCBkPSJNNjM4OCAyOTIzIGM3IC0zIDE2IC0yIDE5IDEgNCAzIC0yIDYgLTEzIDUgLTExIDAgLTE0IC0zIC02IC02eiIvPgo8cGF0aCBkPSJNMzcxOCAyNDgzIGM3IC0zIDE2IC0yIDE5IDEgNCAzIC0yIDYgLTEzIDUgLTExIDAgLTE0IC0zIC02IC02eiIvPgo8cGF0aCBkPSJNNjYxOCAyNDgzIGMxMiAtMiAzMiAtMiA0NSAwIDEyIDIgMiA0IC0yMyA0IC0yNSAwIC0zNSAtMiAtMjIgLTR6Ii8+CjwvZz4KPC9zdmc+Cg==");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-</style>
 <body class="container-fluid bg-light">
     <section class="index_section row">
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
-            <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
-                <!-- <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon> -->
-                <span id="logo"></span>
+            <a href="#" class="d-block py-3 text-decoration-none mx-auto border-bottom" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
+                <img src="./sources/imgs/logo.png" alt="" srcset="" style="width: 45px;">
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="./dashboard.php" class="nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                    <a href="./dashboard.php" class="nav-link active py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
                         <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="./inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="./proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="./empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -78,7 +69,7 @@
                     Bienvenido al sistema de inventario JEMAS, en esta sección podras ver las opciones que tienes disponibles para administrar.
                 </h4>
                 <section class="row">
-                    <a href="./inventario/read.php" class="col link-dark text-decoration-none">
+                    <a href="./inventario/read.php" class="col text-decoration-none">
                         <div class="dashboard_options option_container card">
                             <h3 class="h2 card-header accordion-header" >Inventario</h3>
                             <div class="card-body">
@@ -89,7 +80,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="./proveedores/read.php" class="col link-dark text-decoration-none">
+                    <a href="./proveedores/read.php" class="col  text-decoration-none">
                         <div class="dashboard_options option_container card">
                             <h3 class="h2 card-header">Proveedores</h3>
                             <div class="card-body">
@@ -100,7 +91,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="./empleados/read.php" class="col link-dark text-decoration-none">
+                    <a href="./empleados/read.php" class="col text-decoration-none">
                         <div class="dashboard_options option_container">
                             <div class="dashboard_options option_container card">
                                 <h3 class="h2 card-header">Empleados</h3>

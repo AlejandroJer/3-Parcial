@@ -24,27 +24,27 @@
 <body class="container-fluid">
     <section class="index_section row vh-100">
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem">
-            <a href="#" class="d-block p-3 link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
-                <iconify-icon icon="map:jewelry-store" width="40" height="40"></iconify-icon>
+            <a href="#" class="d-block py-3 text-decoration-none mx-auto" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
+                <img src="../sources/imgs/logo.png" alt="" srcset="" style="width: 45px;">
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
-                        <iconify-icon icon="bxs:dashboard" width="30" height="30"></iconify-icon>
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                        <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                    <a href="../inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
                         <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./add.php" class="option_container nav-link active py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="./add.php" class="option_container nav-link active py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>

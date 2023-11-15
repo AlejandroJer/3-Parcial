@@ -35,7 +35,7 @@ class productos extends conexion{
         $this->id_proveedor = $id_proveedor;
         $this->dir_img= $img;
 
-        $sql="INSERT INTO productos(nombre_producto,descripcion_producto,imagen,precio_compra,precio_venta,categoria,peso,tipo_material,cantidad_disponible,ubicacion_almacen,id_proveedor) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO productos(nombre_producto,descripcion_producto,imagen,precio_compra,precio_venta,id_categoria,peso,id_material,cantidad_disponible,ubicacion_almacen,id_proveedor) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
         $arrData= array($this->nombre,$this->descripcion,$this->dir_img, $this->precio_compra, $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor);
         $resInsert = $insert->execute($arrData);
@@ -58,14 +58,14 @@ class productos extends conexion{
     }
 
     public function GetMateriales(){
-        $sql="SELECT tipo_material FROM productos GROUP BY tipo_material";
+        $sql="SELECT id_material FROM productos GROUP BY id_material";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
         return $request;
     }
 
     public function GetCategorias(){
-        $sql="SELECT categoria FROM productos GROUP BY categoria";
+        $sql="SELECT id_categoria FROM productos GROUP BY id_categoria";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
         return $request;
@@ -145,11 +145,11 @@ class productos extends conexion{
         }
 
         if($materiales && is_array($materiales)){
-            $sql .= " AND tipo_material IN ('" . implode("','", $materiales) . "')";
+            $sql .= " AND id_material IN ('" . implode("','", $materiales) . "')";
         }
 
         if($categorias && is_array($categorias)){
-            $sql .= " AND categoria IN ('" . implode("','", $categorias) . "')";
+            $sql .= " AND id_categoria IN ('" . implode("','", $categorias) . "')";
         }
 
         if($pesoMenig){
@@ -209,11 +209,11 @@ class productos extends conexion{
         }
 
         if($materiales && is_array($materiales)){
-            $sql .= " AND tipo_material IN ('" . implode("','", $materiales) . "')";
+            $sql .= " AND id_material IN ('" . implode("','", $materiales) . "')";
         }
 
         if($categorias && is_array($categorias)){
-            $sql .= " AND categoria IN ('" . implode("','", $categorias) . "')";
+            $sql .= " AND id_categoria IN ('" . implode("','", $categorias) . "')";
         }
 
         if($pesoMenig){
@@ -286,13 +286,13 @@ class productos extends conexion{
 
         if($materiales && is_array($materiales)){
             $placeholders = implode(',', array_fill(0, count($materiales), '?'));
-            $sql .= " AND tipo_material IN ($placeholders)";
+            $sql .= " AND id_material IN ($placeholders)";
             $arrData = array_merge($arrData, $materiales);
         }
 
         if($categorias && is_array($categorias)){
             $placeholders = implode(',', array_fill(0, count($categorias), '?'));
-            $sql .= " AND categoria IN ($placeholders)";
+            $sql .= " AND id_categoria IN ($placeholders)";
             $arrData = array_merge($arrData, $categorias);
         }
 
@@ -369,13 +369,13 @@ class productos extends conexion{
         if($materiales && is_array($materiales)){
             // echo json_encode($materiales) . "\t/productos.php 370\n\n\n";
             $placeholders = implode(',', array_fill(0, count($materiales), '?'));
-            $sql .= " AND tipo_material IN ($placeholders)";
+            $sql .= " AND id_material IN ($placeholders)";
             $arrData = array_merge($arrData, $materiales);
         }
 
         if($categorias && is_array($categorias)){
             $placeholders = implode(',', array_fill(0, count($categorias), '?'));
-            $sql .= " AND categoria IN ($placeholders)";
+            $sql .= " AND id_categoria IN ($placeholders)";
             $arrData = array_merge($arrData, $categorias);
         }
 
@@ -467,14 +467,14 @@ class productos extends conexion{
     }
 
     public function GetMaterialesCount(){
-        $sql="SELECT COUNT(DISTINCT tipo_material) FROM productos";
+        $sql="SELECT COUNT(DISTINCT id_material) FROM productos";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchColumn();
         return $request;
     }
 
     public function GetCategoriasCount(){
-        $sql="SELECT COUNT(DISTINCT categoria) FROM productos";
+        $sql="SELECT COUNT(DISTINCT id_categoria) FROM productos";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchColumn();
         return $request;
@@ -493,11 +493,11 @@ class productos extends conexion{
         $this->id_proveedor = $id_proveedor;
         $this->dir_img= $img;
         if($img){
-            $sql="UPDATE productos SET nombre_producto=?,descripcion_producto=?,imagen=?,precio_compra=?,precio_venta=?,categoria=?,peso=?,tipo_material=?,cantidad_disponible=?,ubicacion_almacen=?,id_proveedor=?  WHERE id_producto=$id";
+            $sql="UPDATE productos SET nombre_producto=?,descripcion_producto=?,imagen=?,precio_compra=?,precio_venta=?,id_categoria=?,peso=?,id_material=?,cantidad_disponible=?,ubicacion_almacen=?,id_proveedor=?  WHERE id_producto=$id";
             $update= $this->conn->prepare($sql);
             $arrdatos= array($this->nombre,$this->descripcion,$this->dir_img, $this->precio_compra, $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor);
         } else{
-            $sql="UPDATE productos SET nombre_producto=?,descripcion_producto=?,precio_compra=?,precio_venta=?,categoria=?,peso=?,tipo_material=?,cantidad_disponible=?,ubicacion_almacen=?,id_proveedor=?  WHERE id_producto=$id";
+            $sql="UPDATE productos SET nombre_producto=?,descripcion_producto=?,precio_compra=?,precio_venta=?,id_categoria=?,peso=?,id_material=?,cantidad_disponible=?,ubicacion_almacen=?,id_proveedor=?  WHERE id_producto=$id";
             $update= $this->conn->prepare($sql);
             $arrdatos= array($this->nombre,$this->descripcion, $this->precio_compra, $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor);
         }
@@ -576,7 +576,7 @@ class productos extends conexion{
     }
 
     public function SetRespaldo(string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
-        $sql="INSERT INTO respaldo_producto(nom_producto_r,desc_producto_r,img_r,precio_compra_r,precio_venta_r,categoria_r,peso_r,tipo_material_r,cantidad_r,ubicacion_r,id_proveedor_r) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO respaldo_producto(nom_producto_r,desc_producto_r,img_r,precio_compra_r,precio_venta_r,id_categoria_r,peso_r,id_material_r,cantidad_r,ubicacion_r,id_proveedor_r) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
         $arrData= array($nombre, $descripcion, $img, $precio_compra, $precio_venta, $categoria, $peso, $tipo_material, $cantidad_disponible, $ubicacion_almacen, $id_proveedor);
         $resInsert = $insert->execute($arrData);
