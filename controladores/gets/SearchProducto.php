@@ -24,6 +24,8 @@
 
       foreach ($results as &$result){
         $result['id_proveedor'] = $proveedores->GetNombreEmpresaById($result['id_proveedor']);
+        $result['id_categoria'] = $producto->GetNombreCategoriaById($result['id_categoria']);
+        $result['id_material'] = $producto->GetNombreMaterialById($result['id_material']);
       }
       unset($result);
 

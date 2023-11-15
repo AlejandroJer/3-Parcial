@@ -1,10 +1,13 @@
 <?php
  namespace controladores;
  require_once("../autoload.php");
- use modelos\{proveedores, usuarios};
+ use modelos\{proveedores, productos, usuarios};
     $proveedores = new proveedores();
     $empleados = new usuarios();
+    $productos = new productos();
     $proveedoresResults = $proveedores->GetNombresProveedores();
+    $productosResultsCategoria = $productos->GetCategorias();
+    $productosResultsMaterial = $productos->GetMateriales();
     if (!isset($_SESSION['logged_usr'])) {
         header('Location: ./../auth/login.php');
         exit;
@@ -72,6 +75,9 @@
                 <li class="nav-item">
                     <a href="./add.php" class="nav-link active" aria-current="page">Agregar Inventario</a>
                 </li>
+                <li class="nav-item">
+                    <a href="./extras/add.php" class="nav-link" aria-current="page">Agregar Tags</a>
+                </li>
             </ul>
             <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
@@ -101,10 +107,11 @@
                                 <div class="col-lg-10 ">
                                     <select name="producto-proveedor" id="producto-proveedor" class="form-select" required>
                                         <option value="" selected>Proveedor del producto</option>
-                                        <?php if(!empty($proveedoresResults)) ?>
+                                        <?php if(!empty($proveedoresResults)): ?>
                                             <?php foreach ($proveedoresResults as $proveedoresResult) { ?>
                                                 <option value="<?= $proveedoresResult['id_proveedor']; ?>"><?= $proveedoresResult['nombre_empresa'];?></option>
                                             <?php } ?>
+                                        <?php endif; ?>
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecciona el proveedor del producto
@@ -119,11 +126,11 @@
                                 <div class="col-lg-10">
                                     <select name="categoria" id="producto-categoria" class="form-select" required>
                                         <option value="" selected>Categoria del producto</option>
-                                        <option value="Anillo">Anillos</option>
-                                        <option value="Collar">Collares y Colgantes</option>
-                                        <option value="Pulsera">Pulseras</option>
-                                        <option value="Pendiente">Pendientes</option>
-                                        <option value="Reloj">Relojes</option>
+                                        <?php if(!empty($productosResultsCategoria)): ?>
+                                            <?php foreach ($productosResultsCategoria as $categoria) { ?>
+                                                <option value="<?= $categoria['id'] ?>"><?= $categoria['categoria'] ?></option>
+                                            <?php } ?>
+                                        <?php endif; ?>
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecciona la categoria del producto
@@ -138,9 +145,11 @@
                                 <div class="col-lg-10 ">
                                     <select name="tipo-material" id="tipo-material" class="form-select" required>
                                         <option value="" selected>Material del producto</option>
-                                        <option value="Oro">Oro</option>
-                                        <option value="Plata">Plata</option>
-                                        <option value="Platino">Platino</option>    
+                                        <?php if(!empty($productosResultsMaterial)): ?>
+                                            <?php foreach ($productosResultsMaterial as $material) { ?>
+                                                <option value="<?= $material['id'] ?>"><?= $material['material'] ?></option>
+                                            <?php } ?>
+                                        <?php endif; ?> 
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecciona el material del producto

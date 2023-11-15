@@ -92,6 +92,9 @@
                 <li class="nav-item">
                     <a href="./add.php" class="nav-link">Agregar Producto</a>
                 </li>
+                <li class="nav-item">
+                    <a href="./extras/add.php" class="nav-link" aria-current="page">Agregar Tags</a>
+                </li>
             </ul>
             <!-- SEARCH BAR AND FILTER BUTTON -->
             <div class="read_header row my-4 align-items-center">
@@ -163,9 +166,9 @@
                                             <div class="row">
                                                 <?php foreach($materialesResult as $material) { ?>
                                                     <div class="col-auto">
-                                                        <input type="checkbox" name="materiales[]" value="<?= $material ?>" id="<?= $material ?>"
+                                                        <input type="checkbox" name="materiales[]" value="<?= $material['id'] ?>" id="<?= $material['material'] ?>"
                                                         class="btn-check materials-check" autocomplete="off" onclick="checkAll('materials-check', 'All-Materials')">
-                                                        <label for="<?= $material ?>" class="btn btn-outline-secondary btn-sm"><?= $material ?></label>
+                                                        <label for="<?= $material['material'] ?>" class="btn btn-outline-secondary btn-sm"><?= $material['material'] ?></label>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="col-auto">
@@ -179,9 +182,9 @@
                                             <div class="row">
                                                 <?php foreach($categoriasResult as $categoria) { ?>
                                                     <div class="col-auto">
-                                                        <input type="checkbox" name="categorias[]" value="<?= $categoria ?>" id="<?= $categoria ?>"
+                                                        <input type="checkbox" name="categorias[]" value="<?= $categoria['id'] ?>" id="<?= $categoria['categoria'] ?>"
                                                         class="btn-check categories-check" autocomplete="off" onclick="checkAll('categories-check', 'All-Categorias')">
-                                                        <label for="<?= $categoria ?>" class="btn btn-outline-secondary btn-sm"><?= $categoria ?></label>
+                                                        <label for="<?= $categoria['categoria'] ?>" class="btn btn-outline-secondary btn-sm"><?= $categoria['categoria'] ?></label>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="col-auto">

@@ -1,10 +1,13 @@
 <?php
  namespace controladores;
  require_once("../autoload.php");
- use modelos\{proveedores, usuarios};
+ use modelos\{proveedores, productos, usuarios};
     $proveedores = new proveedores();
     $empleados = new usuarios();
+    $productos = new productos();
     $proveedoresResults = $proveedores->GetNombresProveedores();
+    $productosResultsCategoria = $productos->GetCategorias();
+    $productosResultsMaterial = $productos->GetMateriales();
     if (!isset($_SESSION['logged_usr'])) {
         header('Location: ./../auth/login.php');
         exit;
@@ -75,6 +78,9 @@
                 <li class="nav-item">
                     <a href="./add.php" class="nav-link active" aria-current="page">Actualizar Inventario</a>
                 </li>
+                <li class="nav-item">
+                    <a href="./extras/add.php" class="nav-link" aria-current="page">Agregar Tags</a>
+                </li>
             </ul>
             <!-- MAIN CONTENT -->
             <main class="dashboard_container container">
@@ -123,11 +129,11 @@
                                 <div class="col-lg-10 ">
                                     <select name="categoria" id="producto-categoria" class="form-select" required>
                                         <option value="" selected>Categoria del producto</option>
-                                        <option value="Anillo" <?php if($result['categoria'] == 'Anillo') { echo 'selected'; } ?>>Anillos</option>
-                                        <option value="Collar" <?php if($result['categoria'] == 'Collar') { echo 'selected'; } ?>>Collares y Colgantes</option>
-                                        <option value="Pulsera" <?php if($result['categoria'] == 'Pulsera') { echo 'selected'; } ?>>Pulseras</option>
-                                        <option value="Pendiente" <?php if($result['categoria'] == 'Pendiente') { echo 'selected'; } ?>>Pendientes</option>
-                                        <option value="Reloj" <?php if($result['categoria'] == 'Reloj') { echo 'selected'; } ?>>Relojes</option>
+                                        <?php if(!empty($productosResultsCategoria)): ?>
+                                            <?php foreach ($productosResultsCategoria as $categoria) { ?>
+                                                <option value="<?= $categoria['id'] ?>" <?php if($result['id_categoria'] == $categoria['id']) { echo 'selected'; } ?>><?= $categoria['categoria'] ?></option>
+                                            <?php } ?>
+                                        <?php endif; ?>
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecciona la categoria del producto
@@ -142,9 +148,11 @@
                                 <div class="col-lg-10 ">
                                     <select name="tipo-material" id="tipo-material" class="form-select" required>
                                         <option value="" selected>Material del producto</option>
-                                        <option value="Oro" <?php if($result['tipo_material'] == 'Oro') { echo 'selected'; } ?>>Oro</option>
-                                        <option value="Plata" <?php if($result['tipo_material'] == 'Plata') { echo 'selected'; } ?>>Plata</option>
-                                        <option value="Platino" <?php if($result['tipo_material'] == 'Platino') { echo 'selected'; } ?>>Platino</option>    
+                                        <?php if(!empty($productosResultsMaterial)): ?>
+                                            <?php foreach ($productosResultsMaterial as $material) { ?>
+                                                <option value="<?= $material['id'] ?>" <?php if($result['id_material'] == $material['id']) { echo 'selected'; } ?>><?= $material['material'] ?></option>
+                                            <?php } ?>
+                                        <?php endif; ?>  
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecciona el material del producto

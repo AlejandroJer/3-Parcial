@@ -6,7 +6,7 @@
 
  // Inicio de sesión
  if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['password'])) {
-  $email = $_POST['email'];
+  $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
   $password = $_POST['password'];
 
   $user_id = $usuario->IniciarSesion($email, $password);

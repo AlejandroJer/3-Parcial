@@ -104,10 +104,16 @@
 
      $index = $producto->GetProductosByFilterKeywordIndex($keyword, $proveedor, $ubicacion, $materiales, $categorias, $pesoMenig, $pesoMayig,
         $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig);
-    //  echo $index. "\t". $index . " / " . $limit . " = " . ($index/$limit) . "\t/FilterSearchProductos.php 107\n\n\n";
      $index = ceil($index/$limit);
      $results = $producto->GetProductosByFilterKeywordLimited($keyword, $proveedor, $ubicacion, $materiales, $categorias, $pesoMenig, $pesoMayig,
         $cantidadMenig, $cantidadMayig, $precioCompraMenig, $precioCompraMayig, $precioVentaMenig, $precioVentaMayig, $page*$limit, $limit);
+
+        foreach ($results as &$result){
+          $result['id_proveedor'] = $proveedores->GetNombreEmpresaById($result['id_proveedor']);
+          $result['id_categoria'] = $producto->GetNombreCategoriaById($result['id_categoria']);
+          $result['id_material'] = $producto->GetNombreMaterialById($result['id_material']);
+        }
+        unset($result);
     
      $filters = array(
       'proveedor' => $proveedor,

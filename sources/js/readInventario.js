@@ -85,11 +85,11 @@
                         <div class="row">
                             <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center">
                                 <input class="" type="hidden" name="id" value="${result.id_producto}">
-                                <button  class="button btn btn-primary"> Editar</button>
+                                <button class="button btn btn-primary"> Editar</button>
                             </form>
                             <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto me-auto d-flex align-items-center">
                                 <input class="" type="hidden" name="id" value="${result.id_producto}">
-                                <button  class="button btn btn-danger"> Borrar</button>
+                                <button class="button btn btn-danger"> Borrar</button>
                             </form>
                             <div class="accordion col-auto">
                                 <div class="row accordion-header">
@@ -122,8 +122,8 @@
                             <div class="product_tags col-lg-3">
                                 <h5>TAGS</h5>
                                 <div>
-                                    <h6>Categoría: ${result.categoria}</h6>
-                                    <h6>Material: ${result.tipo_material}</h6>
+                                    <h6>Categoría: ${result.id_categoria}</h6>
+                                    <h6>Material: ${result.id_material}</h6>
                                 </div>
                             </div>
                             <div class="product_info col-lg-9">

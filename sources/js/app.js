@@ -102,3 +102,12 @@ function updateImage(event){
     reader.readAsDataURL(imageInput.files[0]);
   });
 }
+// UTILS FOR GET THE VALUE ON A DATA ATTRIBUTE IN A BOTTON WHEN CLICK AND SET IT IN A INPUT
+function passValue(event, inputName, inputId){
+  var target = event.target;
+  var valueName = target.dataset.valuename;
+  var valueId = target.dataset.valueid;
+
+  document.getElementById(inputName).value = valueName;
+  document.getElementById(inputId).value = valueId;
+}

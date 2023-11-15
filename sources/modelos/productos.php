@@ -43,6 +43,28 @@ class productos extends conexion{
         return $idInsert;
     }
 
+    public function InsertarMaterial(string $nombre){
+        $this->nombre = $nombre;
+
+        $sql="INSERT INTO material(material) VALUES(?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->nombre);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
+    }
+
+    public function InsertarCategoria(string $nombre){
+        $this->nombre = $nombre;
+
+        $sql="INSERT INTO categoria(categoria) VALUES(?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->nombre);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
+    }
+
     public function Getproductos(){
         $sql="SELECT * FROM productos ORDER BY id_producto DESC";
         $execute = $this->conn->query($sql);
@@ -58,16 +80,16 @@ class productos extends conexion{
     }
 
     public function GetMateriales(){
-        $sql="SELECT id_material FROM productos GROUP BY id_material";
+        $sql="SELECT * FROM material ORDER BY id ASC";
         $execute = $this->conn->query($sql);
-        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
         return $request;
     }
 
     public function GetCategorias(){
-        $sql="SELECT id_categoria FROM productos GROUP BY id_categoria";
+        $sql="SELECT * FROM categoria ORDER BY id ASC";
         $execute = $this->conn->query($sql);
-        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
         return $request;
     }
 
@@ -480,7 +502,25 @@ class productos extends conexion{
         return $request;
     }
 
-    public function UpdateProducto(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
+    public function GetNombreCategoriaById($id) {
+        $sql = "SELECT categoria FROM categoria WHERE id = ?";
+        $execute = $this->conn->prepare($sql);
+        $execute->execute([$id]);
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function GetNombreMaterialById($id) {
+        $sql = "SELECT material FROM material WHERE id = ?";
+        $execute = $this->conn->prepare($sql);
+        $execute->execute([$id]);
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function UpdateProducto(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, int $categoria, float $peso, int $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->precio_compra = $precio_compra;
@@ -503,6 +543,40 @@ class productos extends conexion{
         }
         $resexecute = $update->execute($arrdatos);
         return $resexecute;
+    }
+
+    public function UpdateCategoria(int $id, string $nombre){
+        $this->nombre = $nombre;
+        $sql="UPDATE categoria SET categoria=? WHERE id=$id";
+        $update= $this->conn->prepare($sql);
+        $arrdatos= array($this->nombre);
+        $resexecute = $update->execute($arrdatos);
+        return $resexecute;
+    }
+
+    public function UpdateMaterial(int $id, string $nombre){
+        $this->nombre = $nombre;
+        $sql="UPDATE material SET material=? WHERE id=$id";
+        $update= $this->conn->prepare($sql);
+        $arrdatos= array($this->nombre);
+        $resexecute = $update->execute($arrdatos);
+        return $resexecute;
+    }
+
+    public function DeleteMaterial(int $id){
+        $sql="DELETE FROM material WHERE id=?";
+        $arrwhere =array($id);
+        $delete= $this->conn->prepare($sql);
+        $del = $delete->execute($arrwhere);
+        return $del;
+    }
+
+    public function DeleteCategoria(int $id){
+        $sql="DELETE  FROM categoria WHERE id=?";
+        $arrwhere =array($id);
+        $delete= $this->conn->prepare($sql);
+        $del = $delete->execute($arrwhere);
+        return $del;
     }
 
     public function DeleteProducto(int $id){

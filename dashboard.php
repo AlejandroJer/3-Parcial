@@ -24,7 +24,7 @@
 <body class="container-fluid bg-light">
     <section class="index_section row">
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
-            <a href="#" class="d-block py-3 text-decoration-none mx-auto border-bottom" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
+            <a href="#" class="d-block py-3 text-decoration-none mx-auto" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
                 <img src="./sources/imgs/logo.png" alt="" srcset="" style="width: 45px;">
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
