@@ -71,7 +71,7 @@
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>¡Hola!</h1>
-                    <p>Al continuar, aceptas nuestros <a href="#">Términos de Servicio</a>, Política de <a href="#">Privacidad y Condiciones</a> de Uso. Te invitamos a leerlos detenidamente antes de proceder</p>
+                    <p>Al continuar, aceptas nuestros <a href="..\TerminosDeServicioJEMAS.pdf" download="TerminosDeServicioJEMAS.pdf">Términos de Servicio</a>, Política de <a href="..\PrivacidadYCondicionesJEMAS.pdf" download="PrivacidadYCondicionesJEMAS.pdf">Privacidad y Condiciones</a> de Uso. Te invitamos a leerlos detenidamente antes de proceder</p>
                     <!-- <button>Registrarse</button> -->
                 </div>
             </div>
