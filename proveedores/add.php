@@ -29,7 +29,7 @@
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
                         <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
@@ -63,7 +63,7 @@
         </nav>
 
         <section class="main_container col-lg-11">
-        <ul class="nav nav-tabs mt-4">
+            <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
                     <a href="./read.php" class="nav-link" aria-current="page">Ver Proveedores</a>
                 </li>

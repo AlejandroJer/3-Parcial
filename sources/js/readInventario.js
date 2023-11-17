@@ -141,6 +141,58 @@
 
     return cards;
  } // create the cards with the results
+ function resultBlocks(results){
+    var cards = "";
+    results.forEach(result => {
+        cards += `
+                <div class="readObject_Container target card mb-4 me-2 col-2 p-0">
+                    <div class="readObject_header card-header">
+                        <div class="row justify-content-between">
+                            <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
+                                <input class="" type="hidden" name="id" value="${result.id_producto}">
+                                <button class="button btn btn-primary px-1"> Editar</button>
+                            </form>
+                            <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
+                                <input class="" type="hidden" name="id" value="${result.id_producto}">
+                                <button class="button btn btn-danger px-1"> Borrar</button>
+                            </form>
+                            <div class="accordion col-auto pe-0">
+                                <div class="row accordion-header">
+                                    <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
+                                    data-bs-toggle="collapse" data-bs-target="#Accordion${result.id_producto}">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="principal_data card-body row justify-content-center" style="flex: none;">
+                        <img src="${result.imagen}" alt="imagen de producto" class="img-fluid rounded-start col-10">
+                        <div class="row mt-2">
+                            <h6 class="ingreso col-6 pe-0"><small>Venta</small></h6>
+                            <h6 class="gasto col-6 pe-0"><small>Compra</small></h6>
+                        </div>
+                        <div class="row">
+                            <h6 class="ingreso col-6 pe-0"><small>$${result.precio_venta}</small></h6>
+                            <h6 class="gasto col-6 pe-0"><small>$${result.precio_compra}</small></h6>
+                        </div>
+                    </div>
+                    <div class="data_container hidde card-footer collapse" id="Accordion${result.id_producto}">
+                        <div class="row">
+                            <div class="product_info col-lg-9">
+                                <h5>Datos</h5>
+                                <h6><small>Peso: ${result.peso} g</small></h6>
+                                <h6><small>Cantidad: ${result.cantidad_disponible}</small></h6>
+                                <h6 class="text-truncate"><small>Ubicación: ${result.ubicacion_almacen}</small></h6>
+                                <h6 class="text-truncate"><small>Proveedor: ${result.id_proveedor}</small></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `;
+    });
+
+    return cards;
+ } // create the cards with the results
  function resultindex(index, pageClicked, data, datastatus=true){
     var buttons = "";
 

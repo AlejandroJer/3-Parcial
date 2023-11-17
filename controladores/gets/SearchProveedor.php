@@ -28,21 +28,4 @@
 
   echo json_encode($array);
  }
-
-    // if (!isset($_POST['submitPaginated'])) {
-    //     header("location:./../../proveedores/search.php");
-    // } else {
-    //     $keyword = filter_var($_POST['searchPaginated'], FILTER_SANITIZE_STRING);
-    //     $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
-
-    //     $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
-    //     $index = ceil($index / $limit);
-    //     $results = $proveedor->GetProveedorByKeywordLimited($keyword, $page * $limit, $limit);
-
-    //     $_SESSION['results'] = $results;
-    //     $_SESSION['keyword'] = $keyword;
-    //     $_SESSION['index'] = $index;
-    //     $_SESSION['pageClicked'] = $page;
-    //     header("location:./../../proveedores/search.php");
-    // }
 ?>

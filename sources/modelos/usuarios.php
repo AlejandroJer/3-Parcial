@@ -6,6 +6,7 @@ class usuarios extends conexion{
     private $nombre;
     private $apellido;
     private $email;
+    private $tel;
     private $sexo;
     private $password;
     private $id_usuario;
@@ -114,6 +115,13 @@ class usuarios extends conexion{
         return $request;
     }
 
+    public function GetUsuariosPassAdmin(){
+        $sql="SELECT contraseña FROM usuarios WHERE id_perfil = 1";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
     public function SetMovimineto(string $fecha_movimiento, int $id_usuario_movimiento, int $id_usuario, string $nombre, string $apellido){
         $this->fecha_movimiento = $fecha_movimiento;
         $this->id_usuario_movimiento = $id_usuario_movimiento;
@@ -143,17 +151,18 @@ class usuarios extends conexion{
         return $request;
     }
 
-    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, string $sexo, string $password, int $id_rol){
+    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, int $tel, string $sexo, string $password, int $id_rol){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->tel = $tel;
         $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
 
-        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, sexo=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
+        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, tel=?, sexo=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
         $update= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->tel,$this->sexo,$this->password,$this->id_rol);
         $resExecute = $update->execute($arrData);
         return $resExecute;
     }
@@ -164,6 +173,23 @@ class usuarios extends conexion{
         $delete = $this->conn->prepare($sql);
         $del = $delete->execute($arrWhere);
         return $del;
+    }
+
+    public function SetRespaldo(string $nombre, string $apellido, string $email, int $tel, string $sexo, string $password, int $id_rol){
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->email = $email;
+        $this->tel = $tel;
+        $this->sexo = $sexo;
+        $this->password = $password;
+        $this->id_rol = $id_rol;
+
+        $sql="INSERT INTO usuarios_respaldo(nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r) VALUES(?,?,?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->nombre,$this->password,$this->apellido,$this->email,$this->tel,$this->sexo,$this->id_rol);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
     }
 
     

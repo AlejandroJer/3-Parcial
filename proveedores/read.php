@@ -45,7 +45,7 @@ if (!isset($_SESSION['logged_usr'])) {
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
                         <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>
@@ -108,9 +108,16 @@ if (!isset($_SESSION['logged_usr'])) {
                 <div class="row mx-1 my-3">
                     <div class="d-flex">
                         <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
+                        <button type="button" id="block" class="btn btn-outline-secondary btn-sm ms-2 p-1 active"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="block">
+                            <iconify-icon icon="circum:grid-2-h" width="25" height="25"></iconify-icon>
+                        </button>
+                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2 p-1"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="flex">
+                            <iconify-icon icon="circum:grid-4-1" width="25" height="25"></iconify-icon>
+                        </button>
                     </div>
                 </div>
-                
 
                 <main class="dashboard_container container" id="main">
 

@@ -32,7 +32,7 @@
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
-                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
                         <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
                     </a>
                 </li>

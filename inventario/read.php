@@ -111,11 +111,12 @@
                     </div>
                 </div>
                 <!-- BTN MODAL/FILTER -->
-                <div class="col-lg-1 d-flex justify-content-end">
-                    <button type="button" name="filter" id="filter" class="btn btn-outline-secondary border-0 " data-bs-toggle="modal" data-bs-target="#modal-filter">
-                        <iconify-icon icon="mdi:filter-cog-outline" width="30" height="30"></iconify-icon>
-                    </button>
-                </div>
+                <div class="col-lg-1 d-flex justify-content-end" >
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-filter">
+                        <button type="button" name="filter" id="filter" class="btn btn-outline-secondary border-0 " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filtros">
+                            <iconify-icon icon="mdi:filter-cog-outline" width="30" height="30"></iconify-icon>
+                        </button>
+                    </a>
                 <!-- FILTER MODAL -->
                 <form class="search_bar" id="AplicarFiltros">
                     <div class="modal fade" id="modal-filter"  tabindex="-1">
@@ -325,6 +326,14 @@
                 <div class="row mx-1 my-3">
                     <div class="d-flex">
                         <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
+                        <button type="button" id="block" class="btn btn-outline-secondary btn-sm ms-2 p-1 active"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="block">
+                            <iconify-icon icon="circum:grid-2-h" width="25" height="25"></iconify-icon>
+                        </button>
+                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2 p-1"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="flex">
+                            <iconify-icon icon="circum:grid-4-1" width="25" height="25"></iconify-icon>
+                        </button>
                     </div>
                 </div>
 

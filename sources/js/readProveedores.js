@@ -122,38 +122,22 @@
 
     return cards;
  } // create the cards with the results
- function resultindex(index, pageClicked, data, datastatus=true){
+ function resultindex(index, pageClicked, data){
     var buttons = "";
 
     for (var i = 0; i < index; i++){
         if (i == pageClicked){
-            if (datastatus){
-                buttons += `
-                    <li class="page-item active">
-                        <button class="page-link submitPaginatedSearch" type="button" data-hidden="${data}" value="${i}">${i + 1}</button>
-                    </li>
-                `;
-            } else {
-                buttons += `
-                    <li class="page-item active">
-                        <button class="page-link submitPaginatedFilter" type="button" data-hidden="${data}" value="${i}">${i + 1}</button>
-                    </li>
-                `;
-            }
+            buttons += `
+                <li class="page-item active">
+                    <button class="page-link submitPaginatedSearch" type="button" data-hidden="${data}" value="${i}">${i + 1}</button>
+                </li>
+            `;
         } else {
-            if (datastatus){
-                buttons += `
-                    <li class="page-item">
-                        <button class="page-link submitPaginatedSearch" type="button" data-hidden="${data}" value="${i}">${i + 1}</button>
-                    </li>
-                `;
-            } else {
-                buttons += `
-                    <li class="page-item">
-                        <button class="page-link submitPaginatedFilter" type="button" data-hidden="${data}" value="${i}">${i + 1}</button>
-                    </li>
-                `;
-            }
+            buttons += `
+                <li class="page-item">
+                    <button class="page-link submitPaginatedSearch" type="button" data-hidden="${data}" value="${i}">${i + 1}</button>
+                </li>
+            `;
         }
     };
 
