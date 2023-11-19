@@ -4,7 +4,7 @@
     var trimmedKeyword = keyword.trim();
 
     // Normalize string and keyword
-    var normalizedString = string.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    var normalizedString = String(string).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     var normalizedKeyword = trimmedKeyword.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
     var startPos = normalizedString.indexOf(normalizedKeyword);
@@ -22,6 +22,7 @@
     }
 
     return newString;
+
  } // highlight the keywords in the string
  function checkExpanded() {
   let collapsebtn = document.getElementById('Alternar');
@@ -122,8 +123,8 @@
             <div class="data_container hidde card-footer collapse" id="Accordion${result.id_usr}">
                 <div class="product_tags row">
                     <h5>Datos del Usuario</h5>
-                    <h6>Email: ${result.email_usr}</h6>
-                    <h6>Teléfono: ${result.tel}</h6>
+                    <h6>Email: ${highlightKeyword(keyword, result.email_usr)}</h6>
+                    <h6>Teléfono: ${highlightKeyword(keyword, result.tel.toString())}</h6>
                 </div>
             </div>
         </div>

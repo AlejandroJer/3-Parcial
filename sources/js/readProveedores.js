@@ -4,7 +4,7 @@
     var trimmedKeyword = keyword.trim();
 
     // Normalize string and keyword
-    var normalizedString = string.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    var normalizedString = String(string).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     var normalizedKeyword = trimmedKeyword.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
     var startPos = normalizedString.indexOf(normalizedKeyword);
@@ -111,9 +111,9 @@
             <div class="data_container hidde card-footer collapse" id="Accordion${result.id_proveedor}">
                 <div class="product_tags row">
                     <h5>Datos del proveedor</h5>
-                    <h6>Persona de Contacto: ${result.persona_contacto}</h6>
-                    <h6>Teléfono: ${result.num_telefono}</h6>
-                    <h6>Correo: ${result.email_proveedor}</h6>
+                    <h6>Persona de Contacto: ${highlightKeyword(keyword, result.persona_contacto)}</h6>
+                    <h6>Teléfono: ${highlightKeyword(keyword, result.num_telefono.toString())}</h6>
+                    <h6>Correo: ${highlightKeyword(keyword, result.email_proveedor)}</h6>
                 </div>
             </div>
         </div>
