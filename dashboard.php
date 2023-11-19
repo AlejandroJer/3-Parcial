@@ -48,6 +48,11 @@
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
+                <li class="option">
+                    <a href="./movimientos/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
+                        <iconify-icon class="iconify" icon="bi:arrow-left-right" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
             </ul>
             <div class="border-top dropup">
                 <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
@@ -100,6 +105,19 @@
                                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="100" height="100"></iconify-icon>
                                     </div>
                                     <h4 class="card-title"><?= $empleados->GetusuariosIndex(); ?> Empleados</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./movimientos/read.php" class="col text-decoration-none">
+                        <div class="dashboard_options option_container">
+                            <div class="dashboard_options option_container card">
+                                <h3 class="h2 card-header">Movimientos</h3>
+                                <div class="card-body">
+                                    <div class="card-body d-flex justify-content-center">
+                                    <iconify-icon class="iconify" icon="bi:arrow-left-right" width="100" height="100"></iconify-icon>
+                                    </div>
+                                    <h4 class="card-title">Movimientos</h4>
                                 </div>
                             </div>
                         </div>
