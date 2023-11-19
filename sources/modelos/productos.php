@@ -121,14 +121,14 @@ class productos extends conexion{
     }
 
     public function GetProductoByKeyWord($KeyWord){
-        $sql="SELECT * FROM productos WHERE nombre_producto like '%$KeyWord%' OR descripcion_producto LIKE '%$KeyWord%'";
+        $sql="SELECT * FROM productos WHERE nombre_producto like '%$KeyWord%' OR descripcion_producto LIKE '%$KeyWord%' OR precio_compra LIKE '%$KeyWord%' OR precio_venta LIKE '%KeyWord%' OR id_categoria LIKE '%$KeyWord%' OR peso LIKE '%$KeyWord%' OR id_material LIKE '%$KeyWord%' OR cantidad_disponible LIKE '%$KeyWord%' OR ubicacion_almacen LIKE '%$KeyWord%' OR id_proveedor LIKE '%$KeyWord%'";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchall(PDO::FETCH_ASSOC);
         return $request;
     }
 
     public function GetProductoByKeyWordIndex($KeyWord){
-        $sql="SELECT COUNT(*) FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword";
+        $sql="SELECT COUNT(*) FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword OR precio_compra LIKE :keyword OR precio_venta LIKE :keyword OR id_categoria LIKE :keyword OR peso LIKE :keyword OR id_material LIKE :keyword OR cantidad_disponible LIKE :keyword OR ubicacion_almacen LIKE :keyword OR id_proveedor LIKE :keyword";
         $execute = $this->conn->prepare($sql);
 
         $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);
@@ -140,7 +140,8 @@ class productos extends conexion{
     }
 
     public function GetProductoByKeyWordLimited($KeyWord, $offset, $limitQuery){
-        $sql="SELECT * FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword ORDER BY id_producto DESC LIMIT :offset, :limitQuery";
+        $sql="SELECT * FROM productos WHERE nombre_producto like :keyword OR descripcion_producto LIKE :keyword OR precio_compra LIKE :keyword OR precio_venta LIKE :keyword OR id_categoria LIKE :keyword OR peso LIKE :keyword OR id_material LIKE :keyword OR cantidad_disponible LIKE :keyword OR ubicacion_almacen LIKE :keyword OR id_proveedor LIKE :keyword ORDER BY id_producto DESC LIMIT :offset, :limitQuery";
+        
         $execute = $this->conn->prepare($sql);
 
         $execute->bindValue(':keyword', '%' . $KeyWord . '%', PDO::PARAM_STR);

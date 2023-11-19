@@ -62,7 +62,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeyword($keyword){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%'";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR tel LIKE '%$keyword%'";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchAll(PDO::FETCH_ASSOC);
 
@@ -70,7 +70,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordIndex($keyword){
-        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword";
+        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR tel LIKE :keyword";
         $execute = $this->conn->prepare($sql);
         
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
@@ -82,7 +82,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordLimited($keyword, $offset, $limitQuery){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword LIMIT :offset, :limitQuery";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR tel LIKE :keyword ORDER BY id_usr DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
 
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
