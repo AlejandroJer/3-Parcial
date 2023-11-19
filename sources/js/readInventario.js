@@ -77,6 +77,8 @@
     }
  } // collapse all accordions when page refreshes
  function result(results, keyword){
+    var main = document.getElementById('main');
+    main.classList.remove('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
         cards += `
@@ -141,7 +143,9 @@
 
     return cards;
  } // create the cards with the results
- function resultBlocks(results){
+ function resultFlex(results){
+    var main = document.getElementById('main');
+    main.classList.add('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
         cards += `
@@ -250,6 +254,7 @@
                 } else {
                     $('#keyword').html('Buscar: "' + search + '"');
                 }
+
                 $('#main').html(result(data.results, search));
                 $('#index').html(resultindex(data.index, data.pageClicked, search));
 
@@ -340,7 +345,7 @@
             }
         }
     });
- };
+ }; // filter the products
  function filterPage(){
     var formInputs = $('#AplicarFiltros').serializeArray();
     var dataInputs = {};
@@ -388,7 +393,36 @@
             }
         }
     });
- }
+ }; // filter the products in a specific page
+ function searchFlex(){
+    var search = $(this).val();
+
+    if ($('#index').children().first().children().first().hasClass('submitPaginatedFilter')){
+        $('#AplicarFiltros').submit();
+    } else {
+        $.ajax({
+            url: '../controladores/gets/SearchProducto.php',
+            type: 'POST',
+            data: {search: search, submit: 'submit', limit : 100},
+            success: function(data){
+                data = JSON.parse(data);
+
+                if (search == ""){
+                    $('#keyword').html('Buscar');
+                } else {
+                    $('#keyword').html('Buscar: "' + search + '"');
+                }
+
+                $('#main').html(resultFlex(data.results, search, 'flex'));
+                $('#index').html(resultindex(data.index, data.pageClicked, search));
+
+                var event = new CustomEvent('contentLoaded');
+                document.dispatchEvent(event);
+            }
+        });
+    }
+ }; // search for a product in flex
+ 
 
 // EVENT LISTENERS
 $(document).ready(search);
@@ -396,6 +430,7 @@ $('#search').on('input', search);
 $('#index').on('click', '.submitPaginatedSearch', searchPage);
 $('#AplicarFiltros').on('submit', filter);
 $('#index').on('click', '.submitPaginatedFilter', filterPage);
+$('#flex').on('click', searchFlex);
 
 document.addEventListener('contentLoaded', () => {
  var collapsebtn = document.getElementById('Alternar');

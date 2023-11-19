@@ -5,13 +5,17 @@
     $producto = new productos();
       $proveedores = new proveedores();
 
-    $limit = 7;
-
  // SEARCH BY KEYWORD
  if(!isset($_POST['search']) && !isset($_POST['submit'])){
    header("location:./../../inventario/read.php");
  } else {
       $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
+      if (isset($_POST['limit'])){
+        $limit = filter_var($_POST['limit'], FILTER_SANITIZE_NUMBER_INT);
+       } else {
+        $limit = 7;
+      }
+      
       if (isset($_POST['submitPaginated'])){
         $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
        } else {
