@@ -4,7 +4,7 @@
     var trimmedKeyword = keyword.trim();
 
     // Normalize string and keyword
-    var normalizedString = string.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    var normalizedString = String(string).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     var normalizedKeyword = trimmedKeyword.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
     var startPos = normalizedString.indexOf(normalizedKeyword);
@@ -22,7 +22,9 @@
     }
 
     return newString;
- } // highlight the keywords in the string
+ }
+ 
+ // highlight the keywords in the string
  function checkExpanded() {
   let collapsebtn = document.getElementById('Alternar');
   let elementaccordion = document.querySelectorAll('.accordion-button');
@@ -111,8 +113,8 @@
                                     <h4>${highlightKeyword(keyword, result.Descripcion_producto)}</h4>
                                 </div>
                                 <div class="row mt-2">
-                                    <h6 class="ingreso col-auto me-auto">Precio Venta <br> ${result.precio_venta} pesos</h6>
-                                    <h6 class="gasto col-auto me-auto">Precio Compra <br> ${result.precio_compra} pesos</h6>
+                                    <h6 class="ingreso col-auto me-auto">Precio Venta <br> ${highlightKeyword(keyword, result.precio_venta)} pesos</h6>
+                                    <h6 class="gasto col-auto me-auto">Precio Compra <br> ${highlightKeyword(keyword, result.precio_compra)} pesos</h6>
                                 </div>
                             </div>
                         </div>
@@ -122,16 +124,16 @@
                             <div class="product_tags col-lg-3">
                                 <h5>TAGS</h5>
                                 <div>
-                                    <h6>Categoría: ${result.id_categoria}</h6>
-                                    <h6>Material: ${result.id_material}</h6>
+                                    <h6>Categoría: ${highlightKeyword(keyword, result.id_categoria)}</h6>
+                                    <h6>Material: ${highlightKeyword(keyword, result.id_material)}</h6>
                                 </div>
                             </div>
                             <div class="product_info col-lg-9">
                                 <h5>Datos del producto</h5>
-                                <h6>Peso: ${result.peso} g</h6>
-                                <h6>Cantidad disponible: ${result.cantidad_disponible}</h6>
-                                <h6>Ubicación Almancen: ${result.ubicacion_almacen}</h6>
-                                <h6>Proveedor: ${result.id_proveedor}</h6>
+                                <h6>Peso: ${highlightKeyword(keyword, result.peso.toString())} g</h6>
+                                <h6>Cantidad disponible: ${highlightKeyword(keyword, result.cantidad_disponible.toString())}</h6>
+                                <h6>Ubicación Almancen: ${highlightKeyword(keyword, result.ubicacion_almacen)}</h6>
+                                <h6>Proveedor: ${highlightKeyword(keyword, result.id_proveedor)}</h6>
                             </div>
                         </div>
                     </div>
