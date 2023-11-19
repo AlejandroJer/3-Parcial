@@ -78,6 +78,31 @@
       }
     }
  } // collapse all accordions when page refreshes
+ function checkFlex(event = null) {
+    // console.log('checkFlex');
+    var flex = event.target;
+
+    if (event.type == 'click' || localStorage.getItem('flex')) {
+        // console.log('click');
+        if (localStorage.getItem('flex') !== null) {
+            // console.log('localStorage exist');
+            if (localStorage.getItem('flex') == 'false') {
+                localStorage.setItem('flex', true);
+                flex.textContent = 'Limitar'
+                return true;
+            } else {
+                localStorage.setItem('flex', false);
+                flex.textContent = 'Todo'
+                return false;
+            }
+        } else {
+            // console.log('localStorage not exist');
+            localStorage.setItem('flex', true);
+            flex.textContent = 'Limitar'
+            return true;
+        }
+    }
+ } // check if the flex is active or not
  function result(results, keyword){
     var main = document.getElementById('main');
     main.classList.remove('d-flex', 'flex-wrap', 'justify-content-center');
@@ -156,11 +181,11 @@
                         <div class="row justify-content-between">
                             <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
                                 <input class="" type="hidden" name="id" value="${result.id_producto}">
-                                <button class="button btn btn-primary px-1"> Editar</button>
+                                <button class="button btn btn-primary btn-sm px-1"> Editar</button>
                             </form>
                             <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
                                 <input class="" type="hidden" name="id" value="${result.id_producto}">
-                                <button class="button btn btn-danger px-1"> Borrar</button>
+                                <button class="button btn btn-danger btn-sm px-1"> Borrar</button>
                             </form>
                             <div class="accordion col-auto pe-0">
                                 <div class="row accordion-header">
@@ -184,7 +209,7 @@
                     </div>
                     <div class="data_container hidde card-footer collapse" id="Accordion${result.id_producto}">
                         <div class="row">
-                            <div class="product_info col-lg-9">
+                            <div class="product_info col-lg-12">
                                 <h5>Datos</h5>
                                 <h6><small>Peso: ${result.peso} g</small></h6>
                                 <h6><small>Cantidad: ${result.cantidad_disponible}</small></h6>
@@ -239,7 +264,7 @@
 
 // AJAX CALLS
  function search(){
-    var search = $(this).val();
+    var search = $('#search').val();
 
     if ($('#index').children().first().children().first().hasClass('submitPaginatedFilter')){
         $('#AplicarFiltros').submit();
@@ -266,6 +291,11 @@
                 // Check localStorage and call collapse if necessary
                 if (localStorage.getItem('collapse') == 'true') {
                     collapseRefresh();
+                }
+
+                // Check localStorage and call flex if necessary
+                if (localStorage.getItem('flex') == 'true') {
+                    checkFlex({target: flex});
                 }
             }
         });
@@ -296,6 +326,11 @@
             // Check localStorage and call collapse if necessary
             if (localStorage.getItem('collapse') == 'true') {
                 collapseRefresh();
+            }
+
+            // Check localStorage and call flex if necessary
+            if (localStorage.getItem('flex') == 'true') {
+                checkFlex({target: flex});
             }
         }
     });
@@ -345,6 +380,11 @@
             if (localStorage.getItem('collapse') == 'true') {
                 collapseRefresh();
             }
+
+            // Check localStorage and call flex if necessary
+            if (localStorage.getItem('flex') == 'true') {
+                checkFlex({target: flex});
+            }
         }
     });
  }; // filter the products
@@ -393,36 +433,42 @@
             if (localStorage.getItem('collapse') == 'true') {
                 collapseRefresh();
             }
+
+            // Check localStorage and call flex if necessary
+            if (localStorage.getItem('flex') == 'true') {
+                checkFlex({target: flex});
+            }
         }
     });
  }; // filter the products in a specific page
  function searchFlex(){
-    var search = $(this).val();
+    var search = '';
 
-    if ($('#index').children().first().children().first().hasClass('submitPaginatedFilter')){
-        $('#AplicarFiltros').submit();
-    } else {
-        $.ajax({
-            url: '../controladores/gets/SearchProducto.php',
-            type: 'POST',
-            data: {search: search, submit: 'submit', limit : 100},
-            success: function(data){
-                data = JSON.parse(data);
+    $.ajax({
+        url: '../controladores/gets/SearchProducto.php',
+        type: 'POST',
+        data: {search: search, submit: 'submit', limit : 1000},
+        success: function(data){
+            data = JSON.parse(data);
 
-                if (search == ""){
-                    $('#keyword').html('Buscar');
-                } else {
-                    $('#keyword').html('Buscar: "' + search + '"');
-                }
-
-                $('#main').html(resultFlex(data.results, search, 'flex'));
-                $('#index').html(resultindex(data.index, data.pageClicked, search));
-
-                var event = new CustomEvent('contentLoaded');
-                document.dispatchEvent(event);
+            if (search == ""){
+                $('#keyword').html('Buscar');
+            } else {
+                $('#keyword').html('Buscar: "' + search + '"');
             }
-        });
-    }
+
+            $('#main').html(resultFlex(data.results, search, 'flex'));
+            $('#index').html(resultindex(data.index, data.pageClicked, search));
+
+            var event = new CustomEvent('contentLoaded');
+            document.dispatchEvent(event);
+
+            // Check localStorage and call collapse if necessary
+            if (localStorage.getItem('collapse') == 'true') {
+                collapseRefresh();
+            }
+        }
+    });
  }; // search for a product in flex
  
 
@@ -432,7 +478,17 @@ $('#search').on('input', search);
 $('#index').on('click', '.submitPaginatedSearch', searchPage);
 $('#AplicarFiltros').on('submit', filter);
 $('#index').on('click', '.submitPaginatedFilter', filterPage);
-$('#flex').on('click', searchFlex);
+$('#flex').on('click', () => {
+    if (localStorage.getItem('flex') !== null) {
+        if (localStorage.getItem('flex') == 'false') {
+            search();
+        } else {
+            searchFlex();
+        }
+    } else {
+        searchFlex();
+    }
+});
 
 document.addEventListener('contentLoaded', () => {
  var collapsebtn = document.getElementById('Alternar');

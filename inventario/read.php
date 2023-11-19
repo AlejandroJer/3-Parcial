@@ -326,7 +326,7 @@
                 <div class="row mx-1 my-3">
                     <div class="d-flex">
                         <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
-                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2">Todo</button>
+                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2" onclick="checkFlex(event)">Todo</button>
                     </div>
                 </div>
 

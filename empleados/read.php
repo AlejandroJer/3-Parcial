@@ -94,14 +94,7 @@
                 <div class="row mx-1 my-3">
                     <div class="d-flex">
                         <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
-                        <button type="button" id="block" class="btn btn-outline-secondary btn-sm ms-2 p-1 active"
-                          data-bs-toggle="tooltip" data-bs-placement="top" title="block">
-                            <iconify-icon icon="circum:grid-2-h" width="25" height="25"></iconify-icon>
-                        </button>
-                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2 p-1"
-                          data-bs-toggle="tooltip" data-bs-placement="top" title="flex">
-                            <iconify-icon icon="circum:grid-4-1" width="25" height="25"></iconify-icon>
-                        </button>
+                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2" onclick="checkFlex(event)">Todo</button>
                     </div>
                 </div>
                 </div>
