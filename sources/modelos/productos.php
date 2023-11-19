@@ -612,7 +612,7 @@ class productos extends conexion{
             }
             if(in_array($directorio.$file_name, $name_images)){
             }else{
-            move_uploaded_file($file['tmp_name'],"../inventario/".$directorio.$file_name);
+                move_uploaded_file($file['tmp_name'],"../inventario/".$directorio.$file_name);
             }
             return $directorio.$file_name;
 

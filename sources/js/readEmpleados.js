@@ -77,7 +77,34 @@
       }
     }
  } // collapse all accordions when page refreshes
+ function checkFlex(event = null) {
+    // console.log('checkFlex');
+    var flex = event.target;
+
+    if (event.type == 'click' || localStorage.getItem('flex')) {
+        // console.log('click');
+        if (localStorage.getItem('flex') !== null) {
+            // console.log('localStorage exist');
+            if (localStorage.getItem('flex') == 'false') {
+                localStorage.setItem('flex', true);
+                flex.textContent = 'Limitar'
+                return true;
+            } else {
+                localStorage.setItem('flex', false);
+                flex.textContent = 'Todo'
+                return false;
+            }
+        } else {
+            // console.log('localStorage not exist');
+            localStorage.setItem('flex', true);
+            flex.textContent = 'Limitar'
+            return true;
+        }
+    }
+ } // check if the flex is active or not
  function result(results, keyword){
+    var main = document.getElementById('main');
+    main.classList.remove('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
         if (result.sexo == 'f'){
@@ -133,6 +160,61 @@
 
     return cards;
  } // create the cards with the results
+ function resultFlex(results){
+    var main = document.getElementById('main');
+    main.classList.add('d-flex', 'flex-wrap', 'justify-content-center');
+    var cards = "";
+    results.forEach(result => {
+        if (result.sexo == 'f'){
+            var sexo = '<iconify-icon icon="mdi:face-woman" width="100" height="100"></iconify-icon>';
+        }
+        else if (result.sexo == 'm'){
+            var sexo = '<iconify-icon icon="mdi:face-man" width="100" height="100"></iconify-icon>';
+        }
+        cards += `
+                <div class="readObject_Container target card mb-4 me-2 col-2 p-0">
+                    <div class="readObject_header card-header">
+                        <div class="row justify-content-between">
+                            <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
+                                <input class="" type="hidden" name="id" value="${result.id_usr}">
+                                <button class="button btn btn-primary btn-sm px-1"> Editar</button>
+                            </form>
+                            <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
+                                <input class="" type="hidden" name="id" value="${result.id_usr}">
+                                <button class="button btn btn-danger btn-sm px-1"> Borrar</button>
+                            </form>
+                            <div class="accordion col-auto pe-0">
+                                <div class="row accordion-header">
+                                    <button type="button" class="accordion-button collapsed bg-transparent shadow-none"
+                                    data-bs-toggle="collapse" data-bs-target="#Accordion${result.id_usr}">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="principal_data card-body justify-content-center" style="flex: none;">
+                        <img src="" alt="imagen de producto" class="img-fluid rounded-start col-10">
+                        ${sexo}
+                        <div class="row mt-2">
+                            <h4 class="pe-0">${result.apellido_usr}</h4>
+                            <h6 class="pe-0">${result.nombre_usr}</h6>
+                        </div>
+                    </div>
+                    <div class="data_container hidde card-footer collapse" id="Accordion${result.id_usr}">
+                        <div class="row">
+                            <div class="product_info col-lg-12">
+                                <h5>Datos</h5>
+                                <h6><small>Teléfono: ${result.tel}</small></h6>
+                                <h6 class="text-truncate"><small>Correo: ${result.email_usr}</small></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `;
+    });
+
+    return cards;
+ } // create the cards with the results
  function resultindex(index, pageClicked, data){
    var buttons = "";
 
@@ -157,37 +239,38 @@
 
 // AJAX CALLS
  function search(){
-    var search = $(this).val();
+    var search = $('#search').val();
 
-    if ($('#index').children().first().children().first().hasClass('submitPaginatedFilter')){
-        $('#AplicarFiltros').submit();
-    } else {    
-        $.ajax({
-            url: '../controladores/gets/SearchUsuario.php',
-            type: 'POST',
-            data: {search: search, submit: 'submit'},
-            success: function(data){
-                // console.log(data);
-                data = JSON.parse(data);
+    $.ajax({
+        url: '../controladores/gets/SearchUsuario.php',
+        type: 'POST',
+        data: {search: search, submit: 'submit'},
+        success: function(data){
+            // console.log(data);
+            data = JSON.parse(data);
 
-                if (search == ""){
-                    $('#keyword').html('Buscar');
-                } else {
-                    $('#keyword').html('Buscar: "' + search + '"');
-                }
-                $('#main').html(result(data.results, search));
-                $('#index').html(resultindex(data.index, data.pageClicked, search));
-
-                var event = new CustomEvent('contentLoaded');
-                document.dispatchEvent(event);
-
-                // Check localStorage and call collapse if necessary
-                if (localStorage.getItem('collapse') == 'true') {
-                    collapseRefresh();
-                }
+            if (search == ""){
+                $('#keyword').html('Buscar');
+            } else {
+                $('#keyword').html('Buscar: "' + search + '"');
             }
-        });
-    }
+            $('#main').html(result(data.results, search));
+            $('#index').html(resultindex(data.index, data.pageClicked, search));
+
+            var event = new CustomEvent('contentLoaded');
+            document.dispatchEvent(event);
+
+            // Check localStorage and call collapse if necessary
+            if (localStorage.getItem('collapse') == 'true') {
+                collapseRefresh();
+            }
+
+            // Check localStorage and call flex if necessary
+            if (localStorage.getItem('flex') == 'true') {
+                checkFlex({target: flex});
+            }
+        }
+    });
  }; // search for a product
  function searchPage(){
     var pageClicked = $(this).val();
@@ -215,14 +298,59 @@
             if (localStorage.getItem('collapse') == 'true') {
                 collapseRefresh();
             }
+
+            // Check localStorage and call flex if necessary
+            if (localStorage.getItem('flex') == 'true') {
+                checkFlex({target: flex});
+            }
         }
     });
 }; // search for a product in a specific page // read all the products in a specific page
+function searchFlex(){
+    var search = '';
+
+   $.ajax({
+       url: '../controladores/gets/SearchUsuario.php',
+       type: 'POST',
+       data: {search: search, submit: 'submit', limit : 1000},
+       success: function(data){
+           // console.log(data);
+           data = JSON.parse(data);
+
+           if (search == ""){
+               $('#keyword').html('Buscar');
+           } else {
+               $('#keyword').html('Buscar: "' + search + '"');
+           }
+           $('#main').html(resultFlex(data.results, search));
+           $('#index').html(resultindex(data.index, data.pageClicked, search));
+
+           var event = new CustomEvent('contentLoaded');
+           document.dispatchEvent(event);
+
+           // Check localStorage and call collapse if necessary
+           if (localStorage.getItem('collapse') == 'true') {
+               collapseRefresh();
+           }
+       }
+   });
+}; // search for a product
 
 // EVENT LISTENERS
 $(document).ready(search);
 $('#search').on('input', search);
 $('#index').on('click', '.submitPaginatedSearch', searchPage);
+$('#flex').on('click', () => {
+    if (localStorage.getItem('flex') !== null) {
+        if (localStorage.getItem('flex') == 'false') {
+            search();
+        } else {
+            searchFlex();
+        }
+    } else {
+        searchFlex();
+    }
+});
 
 document.addEventListener('contentLoaded', () => {
  var collapsebtn = document.getElementById('Alternar');
