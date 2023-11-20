@@ -17,6 +17,8 @@ class productos extends conexion{
     private $id_producto;
     private $fecha_movimiento; // no pertenece a la tabla
     private $dir_img;
+    private $movimiento;
+
 
     public function __construct(){
         parent::__construct();
@@ -34,14 +36,15 @@ class productos extends conexion{
         $this->ubicacion_almacen = $ubicacion_almacen;
         $this->id_proveedor = $id_proveedor;
         $this->dir_img= $img;
-
-        $sql="INSERT INTO productos(nombre_producto,descripcion_producto,imagen,precio_compra,precio_venta,id_categoria,peso,id_material,cantidad_disponible,ubicacion_almacen,id_proveedor) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-        $insert= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->descripcion,$this->dir_img, $this->precio_compra, $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor);
+    
+        $sql = "INSERT INTO productos (nombre_producto, descripcion_producto, imagen, precio_compra, precio_venta, id_categoria, peso, id_material, cantidad_disponible, ubicacion_almacen, id_proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert = $this->conn->prepare($sql);
+        $arrData = array($this->nombre, $this->descripcion, $this->dir_img, $this->precio_compra, $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
     }
+    
 
     public function InsertarMaterial(string $nombre){
         $this->nombre = $nombre;
@@ -650,13 +653,78 @@ class productos extends conexion{
         return $request;
     }
 
-    public function SetRespaldo(string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null){
-        $sql="INSERT INTO respaldo_producto(nom_producto_r,desc_producto_r,img_r,precio_compra_r,precio_venta_r,id_categoria_r,peso_r,id_material_r,cantidad_r,ubicacion_r,id_proveedor_r) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-        $insert= $this->conn->prepare($sql);
-        $arrData= array($nombre, $descripcion, $img, $precio_compra, $precio_venta, $categoria, $peso, $tipo_material, $cantidad_disponible, $ubicacion_almacen, $id_proveedor);
+    public function SetRespaldo(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor, $img = null, int $movimiento){
+        $this->id_producto = $id;
+        $this->movimiento = $movimiento;
+    
+        $sql = "SELECT * FROM productos WHERE id_producto = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $this->id_producto, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+    
+        $this->nombreProducto_backup = $request['nombre_producto'];
+        $this->descripcion_backup = $request['Descripcion_producto'];
+        $this->img_backup = $request['imagen'];
+        $this->precio_compra_backup = $request['precio_compra'];
+        $this->precio_venta_backup = $request['precio_venta'];
+        $this->categoria_backup = $request['id_categoria'];
+        $this->peso_backup = $request['peso'];
+        $this->tipo_material_backup = $request['id_material'];
+        $this->cantidad_disponible_backup = $request['cantidad_disponible'];
+        $this->ubicacion_almacen_backup = $request['ubicacion_almacen'];
+        $this->id_proveedor_backup = $request['id_proveedor'];
+    
+        $this->nombre = json_encode(array($this->nombreProducto_backup, $nombre));
+        $this->descripcion = json_encode(array($this->descripcion_backup, $descripcion));
+        $this->img = json_encode(array($this->img_backup, $img));
+        $this->precio_compra = json_encode(array($this->precio_compra_backup, $precio_compra));
+        $this->precio_venta = json_encode(array($this->precio_venta_backup, $precio_venta));
+        $this->categoria = json_encode(array($this->categoria_backup, $categoria));
+        $this->peso = json_encode(array($this->peso_backup, $peso));
+        $this->tipo_material = json_encode(array($this->tipo_material_backup, $tipo_material));
+        $this->cantidad_disponible = json_encode(array($this->cantidad_disponible_backup, $cantidad_disponible));
+        $this->ubicacion_almacen = json_encode(array($this->ubicacion_almacen_backup, $ubicacion_almacen));
+        $this->id_proveedor = json_encode(array($this->id_proveedor_backup, $id_proveedor));
+    
+        $sql = "INSERT INTO respaldo_producto(id_producto_r, nom_producto_r, desc_producto_r, img_r, precio_compra_r, precio_venta_r, categoria_r, peso_r, tipo_material_r, cantidad_r, ubicacion_r, id_proveedor_r, mov) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert = $this->conn->prepare($sql);
+        $arrData = array(
+            $this->id_producto, $this->nombre, $this->descripcion, $this->img, $this->precio_compra, 
+            $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, 
+            $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor, $this->movimiento
+        );
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
     }
+
+    public function GetRespaldoProducto($id) {
+        $sql = "SELECT * FROM respaldo_producto WHERE id_producto_r = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+    
+        $Array = array(
+            'id_producto' => $request['id_producto_r'],
+            'nombre' => json_decode($request['nom_producto_r']),
+            'Descripcion_producto' => json_decode($request['desc_producto_r']),
+            'imagen' => json_decode($request['img_r']),
+            'precio_compra' => json_decode($request['precio_compra_r']),
+            'precio_venta' => json_decode($request['precio_venta_r']),
+            'id_categoria' => json_decode($request['categoria_r']),
+            'peso' => json_decode($request['peso_r']),
+            'id_material' => json_decode($request['tipo_material_r']),
+            'cantidad_disponible' => json_decode($request['cantidad_r']),
+            'ubicacion_almacen' => json_decode($request['ubicacion_r']),
+            'id_proveedor' => json_decode($request['id_proveedor_r']),
+        );
+    
+        return $Array;
+    }
+    
+    
+    
 }
 ?>
