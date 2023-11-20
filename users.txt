@@ -73,3 +73,8 @@ EMPLEADOS:
     Apellidos: Herrera
     Email: raul.herrera@email.com
     Contraseña: 65432
+
+16. Nombre: Pedro
+    Apellidos: Velazquez
+    Email: pedro.velazquez@email.com
+    Contraseña: lkjhg

@@ -149,10 +149,12 @@ class proveedores extends conexion {
         return $del;
     } 
 
-    public function SetRespaldo(string $nombre, string $p_contacto, string $dir, int $tel, string $email){
-        $sql="INSERT INTO respaldo_proveedor(nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r) VALUES(?,?,?,?,?)";
+    public function SetRespaldo(int $id){
+        $this->id_proveedor = $id;
+
+        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r) SELECT * FROM proveedores WHERE id_proveedor = ?";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($nombre,$p_contacto,$dir,$tel,$email);
+        $arrData= array($this->id_proveedor);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;

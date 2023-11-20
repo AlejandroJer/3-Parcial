@@ -175,18 +175,12 @@ class usuarios extends conexion{
         return $del;
     }
 
-    public function SetRespaldo(string $nombre, string $apellido, string $email, int $tel, string $sexo, string $password, int $id_rol){
-        $this->nombre = $nombre;
-        $this->apellido = $apellido;
-        $this->email = $email;
-        $this->tel = $tel;
-        $this->sexo = $sexo;
-        $this->password = $password;
-        $this->id_rol = $id_rol;
+    public function SetRespaldo(int $id){
+        $this->id_usuario = $id;
 
-        $sql="INSERT INTO usuarios_respaldo(nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r) VALUES(?,?,?,?,?,?,?)";
+        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r) SELECT * FROM usuarios WHERE id_usr = ?";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->password,$this->apellido,$this->email,$this->tel,$this->sexo,$this->id_rol);
+        $arrData= array($this->id_usuario);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;

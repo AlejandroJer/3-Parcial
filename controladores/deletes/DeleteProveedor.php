@@ -10,9 +10,10 @@
   header("location:./../../proveedores/delete.php");
 }else{
   if(isset($_POST['submit'])){
-    $result = $proveedores->GetProveedorById($_POST['id_proveedor']);
-    $proveedores->DeleteProveedor($_POST['id_proveedor']);
-    $proveedores->SetRespaldo($result['nombre_empresa'], $result['persona_contacto'], $result['direccion'], $result['num_telefono'], $result['email_proveedor']);
+    $id = filter_var($_POST['id_proveedor'], FILTER_SANITIZE_NUMBER_INT);
+    $result = $proveedores->GetProveedorById($id);
+    $proveedores->SetRespaldo($result['id_proveedor']);
+    $proveedores->DeleteProveedor($result['id_proveedor']);
     
     header("location:./../../proveedores/read.php");
  } else {

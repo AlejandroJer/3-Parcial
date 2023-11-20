@@ -87,7 +87,19 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
         </nav>
 
         <section class="main_container col-lg-11 ms-3">
-            <div>
+            <!-- PRODUCTS NAV -->
+            <ul class="nav nav-tabs my-4">
+                <li class="nav-item">
+                    <a href="./readProductos.php" class="nav-link active" aria-current="page">Ver Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./readProveedores.php" class="nav-link">Ver Proveedor</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./readUsuarios.php" class="nav-link">Ver Usuarios</a>
+                </li>
+            </ul>
+            <section class="dashboard_container container" id="mainContainer">
                 <h2>Historial de movimientos</h2>
                 <!-- Puedes mostrar la información del historial de movimientos aquí -->
                 <table class="table">
@@ -122,7 +134,7 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
                         <?php } ?>
                     </tbody>
                 </table>
-            </div>
+            </section>
         </section>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

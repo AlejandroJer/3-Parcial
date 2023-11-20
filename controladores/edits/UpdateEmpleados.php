@@ -43,7 +43,8 @@
                     $pass_saved_db = password_hash($_POST['usuario-password'], PASSWORD_DEFAULT);
                     // echo "diferentes";
                 }
-
+                
+                $empleado->SetRespaldo($id);
                 $empleado->UpdateUsuario($id, $usr_name, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $pass_saved_db, $usr_perfil);
                 // echo "actualizado";
                 header("location:./../../empleados/read.php");

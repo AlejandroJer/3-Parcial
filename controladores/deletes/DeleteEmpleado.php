@@ -10,9 +10,10 @@
   header("location:./../../empleados/delete.php");
 }else{
   if(isset($_POST['submit'])){
-    $result = $empleado->GetUsuarioById($_POST['id_usuario']);
-    $empleado->DeleteUsuario($_POST['id_usuario']);
-    $empleado->SetRespaldo($result['nombre_usr'], $result['apellido_usr'], $result['email_usr'], $result['tel'], $result['sexo'], $result['contraseña'], $result['id_perfil']);
+    $id = filter_var($_POST['id_usuario'], FILTER_SANITIZE_NUMBER_INT);
+    $result = $empleado->GetUsuarioById($id);
+    $empleado->SetRespaldo($result['id_usr']);
+    $empleado->DeleteUsuario($result['id_usr']);
     
     header("location:./../../empleados/read.php");
  } else {
