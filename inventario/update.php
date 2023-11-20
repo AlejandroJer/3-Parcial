@@ -169,7 +169,7 @@
                         <div class="col-lg-2">
                             <div class="card col-lg-12 ">
                                 <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
-                                    <img src="<?='./' . $result['imagen']?>" alt="imagen-actual-del-producto" class="card-img-top" id="img-image">
+                                    <img src="<?= empty($result['imagen']) ? '../sources/imgs/defaultImg.jpg' : './' . $result['imagen'] ?>" alt="imagen-actual-del-producto" class="card-img-top" id="img-image">
                                 </button>
                                 <label for="update-image" class="col-form-label text-center">Editar</label>
                             </div>
