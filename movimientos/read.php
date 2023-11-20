@@ -88,7 +88,7 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
 
         <section class="main_container col-lg-11 ms-3">
             <div>
-                <h2>Hist. de movimientos</h2>
+                <h2>Historial de movimientos</h2>
                 <!-- Puedes mostrar la información del historial de movimientos aquí -->
                 <table class="table">
                     <thead>
@@ -101,6 +101,7 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
                             <th>Cantidad Disponible</th>
                             <th>Categoria</th>
                             <th>Material</th>
+                            <th>Tipo de Movimiento</th>
                             <!-- Agrega más encabezados según tus necesidades -->
                         </tr>
                     </thead>
@@ -108,11 +109,14 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
                         <?php foreach ($historialMovimientos as $movimiento) { ?>
                             <tr>
                                 <td><?= $movimiento['id_movimiento'] ?></td>
-                                <td><?= date('Y-m-d H:i:s', strtotime($movimiento['fecha_movimiento'])) ?></td>
+                                <td><?= $movimiento['fecha_movimiento'] ?></td>
                                 <td><?= $movimiento['id_usuario'] ?></td>
                                 <td><?= $movimiento['id_producto'] ?></td>
                                 <td><?= $movimiento['nombre_producto'] ?></td>
                                 <td><?= $movimiento['cantidad_disponible'] ?></td>
+                                <td><?= $movimiento['id_categoria'] ?></td>
+                                <td><?= $movimiento['id_material'] ?></td>
+                                <td><?= $movimiento['tipo_movimiento'] ?></td>
                                 <!-- Agrega más celdas según tus necesidades -->
                             </tr>
                         <?php } ?>
