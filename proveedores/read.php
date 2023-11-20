@@ -65,7 +65,7 @@ if (!isset($_SESSION['logged_usr'])) {
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../movimientos/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
+                    <a href="../movimientos/readProveedores.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
                         <iconify-icon class="iconify" icon="bi:arrow-left-right" width="30" height="30"></iconify-icon>
                     </a>
                 </li>

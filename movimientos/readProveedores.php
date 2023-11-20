@@ -1,19 +1,21 @@
 <?php
  namespace controladores;
  require_once("../autoload.php");
- use modelos\{movimientos, usuarios, productos};
+ use modelos\{usuarios, movimientos, proveedores};
     $empleados = new usuarios();
     $movimientos = new movimientos();
-    $productos = new productos();
+    $proveedores = new proveedores();
 
-if (!isset($_SESSION['logged_usr'])) {
+ if (!isset($_SESSION['logged_usr'])) {
     header('Location: ./../auth/login.php');
     exit;
-} else {
+ } else {
     $user_id = $_SESSION['logged_usr'];
     $user = $empleados->GetUsuarioById($user_id);
-}
-$historialMovimientos = $movimientos->obtenerHistorialMovimientos(); 
+ }
+
+ $results = $movimientos->GetMovByTable('proveedores');
+ $dictionary = $movimientos->DiccMov();
 ?>
 
 <!DOCTYPE html>
@@ -25,20 +27,6 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/root.css">
 </head>
-<style>
- .focused.search{
-    border-color: #86b7fe !important;
-    box-shadow: none !important;
-    outline: 0 none !important;
- }
-
- /* .focused.filter{
-    border-color: rgb(33,37,41) !important;
-    box-shadow: none !important;
-    outline: 0 none !important;
- } */
-</style>
-
 <body class="container-fluid">
     <section class="index_section row">
         <!-- MAIN NAV -->
@@ -102,36 +90,94 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
             <section class="dashboard_container container" id="mainContainer">
                 <h2>Historial de movimientos</h2>
                 <!-- Puedes mostrar la información del historial de movimientos aquí -->
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Fecha</th>
-                            <th>ID de Usuario</th>
-                            <th>ID de Producto</th>
-                            <th>Nombre del Producto</th>
-                            <th>Cantidad Disponible</th>
-                            <th>Categoria</th>
-                            <th>Material</th>
-                            <th>Tipo de Movimiento</th>
-                            <!-- Agrega más encabezados según tus necesidades -->
+                            <th>Cambios En:</th>
+                            <th>Movimiento</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($historialMovimientos as $movimiento) { ?>
-                            <tr>
-                                <td><?= $movimiento['id_movimiento'] ?></td>
-                                <td><?= $movimiento['fecha_movimiento'] ?></td>
-                                <td><?= $movimiento['id_usuario'] ?></td>
-                                <td><?= $movimiento['id_producto'] ?></td>
-                                <td><?= $movimiento['nombre_producto'] ?></td>
-                                <td><?= $movimiento['cantidad_disponible'] ?></td>
-                                <td><?= $movimiento['id_categoria'] ?></td>
-                                <td><?= $movimiento['id_material'] ?></td>
-                                <td><?= $movimiento['tipo_movimiento'] ?></td>
-                                <!-- Agrega más celdas según tus necesidades -->
-                            </tr>
-                        <?php } ?>
+                        <?php foreach($results as $index => $result): ?>
+                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                <td><?= $index + 1 ?></td>
+                                <td><?= $result['fecha_movimiento'] ?></td>
+                                <td>Proveedor #<?= $result['id_tabla_PK'] ?></td>
+                                <td>
+                                    <div class="row">
+                                        <p class="col-lg-10"><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></p>
+                                        <div class="accordion col-2">
+                                        <!-- <div class="row accordion-header"> -->
+                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none p-1" data-bs-toggle="collapse" data-bs-target="#dropdownTableButton<?= $result['id_movimiento'] ?>"></button>
+                                        <!-- </div> -->
+                                        </div>
+                                    </div>
+                                </td>
+                             <tr>
+                                <td colspan="4" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th> ----- </th>
+                                                <th>Nombre</th>
+                                                <th>Persona de Contacto</th>
+                                                <th>Direccion</th>
+                                                <th>Teléfono</th>
+                                                <th>Correo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if ($result['tipo_movimiento'] == 1){ ?>
+                                            <?php $results_backup = $proveedores->GetRespaldo($result['id_tabla_r_PK']); ?>
+                                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                <td><strong>Antes:</strong></td>
+                                                <td><?= $results_backup['nombre_empresa'][0] ?></td>
+                                                <td><?= $results_backup['persona_contacto'][0] ?></td>
+                                                <td><?= $results_backup['direccion'][0] ?></td>
+                                                <td><?= $results_backup['num_telefono'][0] ?></td>
+                                                <td><?= $results_backup['email_proveedor'][0] ?></td>
+                                            </tr>
+                                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                <td><strong>Despues:</strong></td>
+                                                <td><?= $results_backup['nombre_empresa'][1] ?></td>
+                                                <td><?= $results_backup['persona_contacto'][1] ?></td>
+                                                <td><?= $results_backup['direccion'][1] ?></td>
+                                                <td><?= $results_backup['num_telefono'][1] ?></td>
+                                                <td><?= $results_backup['email_proveedor'][1] ?></td>
+                                            </tr>
+                                        <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
+                                            <?php $results_backup = $proveedores->GetRespaldo($result['id_tabla_r_PK']); ?>
+                                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                <td><strong>Eliminado x</strong></td>
+                                                <td><?= $results_backup['nombre_empresa'][0] ?></td>
+                                                <td><?= $results_backup['persona_contacto'][0] ?></td>
+                                                <td><?= $results_backup['direccion'][0] ?></td>
+                                                <td><?= $results_backup['num_telefono'][0] ?></td>
+                                                <td><?= $results_backup['email_proveedor'][0] ?></td>
+                                            </tr>
+                                        <?php } elseif ($result['tipo_movimiento'] == 2) { ?>
+                                            <?php $results_backup = $proveedores->GetProveedorById($result['id_tabla_PK']); ?>
+                                            <?php if (!empty($results_backup)) { ?>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td><strong>Agregado ✓</strong></td>
+                                                    <td><?= $results_backup['nombre_empresa'] ?></td>
+                                                    <td><?= $results_backup['persona_contacto'] ?></td>
+                                                    <td><?= $results_backup['direccion'] ?></td>
+                                                    <td><?= $results_backup['num_telefono'] ?></td>
+                                                    <td><?= $results_backup['email_proveedor'] ?></td>
+                                                </tr>
+                                            <?php } else { ?>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td colspan="6" class="justify-content-center"><strong>Este elemento ya ha sido eliminado</strong></td>
+                                                </tr>
+                                            <?php } ?>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </section>
@@ -141,5 +187,4 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="../sources/js/app.js"></script>
-<script src="../sources/js/readProveedores.js"></script>
 </html>

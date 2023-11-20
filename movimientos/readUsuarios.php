@@ -1,19 +1,20 @@
 <?php
  namespace controladores;
  require_once("../autoload.php");
- use modelos\{movimientos, usuarios, productos};
-    $empleados = new usuarios();
+ use modelos\{movimientos, usuarios};
+    $usuarios = new usuarios();
     $movimientos = new movimientos();
-    $productos = new productos();
 
-if (!isset($_SESSION['logged_usr'])) {
+ if (!isset($_SESSION['logged_usr'])) {
     header('Location: ./../auth/login.php');
     exit;
-} else {
+ } else {
     $user_id = $_SESSION['logged_usr'];
-    $user = $empleados->GetUsuarioById($user_id);
-}
-$historialMovimientos = $movimientos->obtenerHistorialMovimientos(); 
+    $user = $usuarios->GetUsuarioById($user_id);
+ }
+
+ $results = $movimientos->GetMovByTable('usuarios');
+ $dictionary = $movimientos->DiccMov();
 ?>
 
 <!DOCTYPE html>
@@ -25,20 +26,6 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/root.css">
 </head>
-<style>
- .focused.search{
-    border-color: #86b7fe !important;
-    box-shadow: none !important;
-    outline: 0 none !important;
- }
-
- /* .focused.filter{
-    border-color: rgb(33,37,41) !important;
-    box-shadow: none !important;
-    outline: 0 none !important;
- } */
-</style>
-
 <body class="container-fluid">
     <section class="index_section row">
         <!-- MAIN NAV -->
@@ -102,36 +89,98 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
             <section class="dashboard_container container" id="mainContainer">
                 <h2>Historial de movimientos</h2>
                 <!-- Puedes mostrar la información del historial de movimientos aquí -->
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Fecha</th>
-                            <th>ID de Usuario</th>
-                            <th>ID de Producto</th>
-                            <th>Nombre del Producto</th>
-                            <th>Cantidad Disponible</th>
-                            <th>Categoria</th>
-                            <th>Material</th>
-                            <th>Tipo de Movimiento</th>
-                            <!-- Agrega más encabezados según tus necesidades -->
+                            <th>Cambios en:</th>
+                            <th>Movimiento</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($historialMovimientos as $movimiento) { ?>
-                            <tr>
-                                <td><?= $movimiento['id_movimiento'] ?></td>
-                                <td><?= $movimiento['fecha_movimiento'] ?></td>
-                                <td><?= $movimiento['id_usuario'] ?></td>
-                                <td><?= $movimiento['id_producto'] ?></td>
-                                <td><?= $movimiento['nombre_producto'] ?></td>
-                                <td><?= $movimiento['cantidad_disponible'] ?></td>
-                                <td><?= $movimiento['id_categoria'] ?></td>
-                                <td><?= $movimiento['id_material'] ?></td>
-                                <td><?= $movimiento['tipo_movimiento'] ?></td>
-                                <!-- Agrega más celdas según tus necesidades -->
-                            </tr>
-                        <?php } ?>
+                        <?php foreach($results as $index => $result): ?>
+                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                <td><?= $index + 1 ?></td>
+                                <td><?= $result['fecha_movimiento'] ?></td>
+                                <td>Usuario #<?= $result['id_tabla_PK'] ?></td>
+                                <td>
+                                    <div class="row">
+                                        <p class="col-lg-10"><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></p>
+                                        <div class="accordion col-2">
+                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none p-1" data-bs-toggle="collapse" data-bs-target="#dropdownTableButton<?= $result['id_movimiento'] ?>"></button>
+                                        </div>
+                                    </div>
+                                </td>
+                             <tr>
+                                <td colspan="4" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th> ----- </th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>Correo</th>
+                                                <th>Teléfono</th>
+                                                <th>Sexo</th>
+                                                <th>Rol</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if ($result['tipo_movimiento'] == 1){ ?>
+                                            <?php $results_backup = $usuarios->GetRespaldoById($result['id_tabla_r_PK']); ?>
+                                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                <td><strong>Antes:</strong></td>
+                                                <td><?= $results_backup['nombre_usr'][0] ?></td>
+                                                <td><?= $results_backup['apellido_usr'][0] ?></td>
+                                                <td><?= $results_backup['email_usr'][0] ?></td>
+                                                <td><?= $results_backup['tel'][0] ?></td>
+                                                <td><?= $results_backup['sexo'][0] ?></td>
+                                                <td><?php if ($results_backup['id_perfil'][0] == 1) { echo 'Administrador'; } else { echo 'Empleado'; } ?></td>
+                                            </tr>
+                                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                <td><strong>Despues:</strong></td>
+                                                <td><?= $results_backup['nombre_usr'][1] ?></td>
+                                                <td><?= $results_backup['apellido_usr'][1] ?></td>
+                                                <td><?= $results_backup['email_usr'][1] ?></td>
+                                                <td><?= $results_backup['tel'][1] ?></td>
+                                                <td><?= $results_backup['sexo'][1] ?></td>
+                                                <td><?php if ($results_backup['id_perfil'][0] == 1) { echo 'Administrador'; } else { echo 'Empleado'; } ?></td>
+                                            </tr>
+                                        <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
+                                            <?php $results_backup = $usuarios->GetRespaldoById($result['id_tabla_r_PK']); ?>
+                                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                <td><strong>Eliminado x</strong></td>
+                                                <td><?= $results_backup['nombre_usr'][0] ?></td>
+                                                <td><?= $results_backup['apellido_usr'][0] ?></td>
+                                                <td><?= $results_backup['email_usr'][0] ?></td>
+                                                <td><?= $results_backup['tel'][0] ?></td>
+                                                <td><?= $results_backup['sexo'][0] ?></td>
+                                                <td><?php if ($results_backup['id_perfil'][0] == 1) { echo 'Administrador'; } else { echo 'Empleado'; } ?></td>
+                                            </tr>
+                                        <?php } elseif ($result['tipo_movimiento'] == 2) { ?>
+                                            <?php $results_backup = $usuarios->GetUsuarioById($result['id_tabla_PK']); ?>
+                                            <?php if (!empty($results_backup)) { ?>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td><strong>Agregado ✓</strong></td>
+                                                    <td><?= $results_backup['nombre_usr'] ?></td>
+                                                    <td><?= $results_backup['apellido_usr'] ?></td>
+                                                    <td><?= $results_backup['email_usr'] ?></td>
+                                                    <td><?= $results_backup['tel'] ?></td>
+                                                    <td><?= $results_backup['sexo'] ?></td>
+                                                    <td><?php if ($results_backup['id_perfil'] == 1) { echo 'Administrador'; } else { echo 'Empleado'; } ?></td>
+                                                </tr>
+                                            <?php } else { ?>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td colspan="7" class="justify-content-center"><strong>Este elemento ya ha sido eliminado</strong></td>
+                                                </tr>
+                                            <?php } ?>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                             </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </section>
@@ -141,5 +190,4 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="../sources/js/app.js"></script>
-<script src="../sources/js/readProveedores.js"></script>
 </html>

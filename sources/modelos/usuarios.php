@@ -19,17 +19,18 @@ class usuarios extends conexion{
         parent::__construct();
     }
 
-    public function Insertar(string $nombre, string $apellido, string $email,string $sexo ,string $password, int $id_rol){
+    public function Insertar(string $nombre, string $apellido, string $email, int $tel, string $sexo ,string $password, int $id_rol){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->tel = $tel;
         $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
 
-        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
+        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,tel,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->tel,$this->sexo,$this->password,$this->id_rol);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
@@ -96,12 +97,13 @@ class usuarios extends conexion{
         return $request;
     }
 
-
-
     public function GetUsuarioById($id){
-        $sql="SELECT * FROM usuarios WHERE id_usr = $id";
-        $execute = $this->conn->query($sql);
-        $request = $execute->fetch();
+        $sql="SELECT * FROM usuarios WHERE id_usr = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
         return $request;
     }
 
@@ -187,16 +189,81 @@ class usuarios extends conexion{
         return $del;
     }
 
-    public function SetRespaldo(int $id, int $movimiento){
+    public function SetRespaldo(int $id, string $nombre_udt, string $password_udt, string $apellido_udt, string $email_udt, int $tel_udt, string $sexo_udt, int $id_rol_udt, int $movimiento){
         $this->id_usuario = $id;
         $this->movimiento = $movimiento;
 
-        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r) SELECT id_usr,nombre_usr,contraseña,apellido_usr,email_usr,tel,sexo,id_perfil,? FROM usuarios WHERE id_usr = ?";
+        $sql="SELECT * FROM usuarios WHERE id_usr = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $this->id_usuario, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
+        $this->nombre_backup = $request['nombre_usr'];
+        $this->password_backup = $request['contraseña'];
+        $this->apellido_backup = $request['apellido_usr'];
+        $this->email_backup = $request['email_usr'];
+        $this->tel_backup = $request['tel'];
+        $this->sexo_backup = $request['sexo'];
+        $this->id_rol_backup = $request['id_perfil'];
+
+        
+        $this->nombre = json_encode(array($this->nombre_backup,$nombre_udt));
+        $this->password = json_encode(array($this->password_backup,$password_udt));
+        $this->apellido = json_encode(array($this->apellido_backup,$apellido_udt));
+        $this->email = json_encode(array($this->email_backup,$email_udt));
+        $this->tel = json_encode(array($this->tel_backup,$tel_udt));
+        $this->sexo = json_encode(array($this->sexo_backup,$sexo_udt));
+        $this->id_rol = json_encode(array($this->id_rol_backup,$id_rol_udt));
+
+        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r,mov) VALUES(?,?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->movimiento,$this->id_usuario);
+        $arrData= array($this->id_usuario,$this->nombre,$this->password,$this->apellido,$this->email,$this->tel,$this->sexo,$this->id_rol,$this->movimiento);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
+    }
+
+    public function GetRespaldoById($id){
+        $sql="SELECT * FROM respaldo_usuario WHERE id = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
+        $array = array(
+            'id_usr' => $request['id_r'],
+            'nombre_usr' => json_decode($request['nombre_r']),
+            'contraseña' => json_decode($request['pass_r']),
+            'apellido_usr' => json_decode($request['apellido_r']),
+            'email_usr' => json_decode($request['email_r']),
+            'tel' => json_decode($request['tel_r']),
+            'sexo' => json_decode($request['sexo_r']),
+            'id_perfil' => json_decode($request['id_perfil_r']),
+        );
+
+        return $array;
+    }
+
+    public function GetRespaldoByIdUrs($id){
+        $sql="SELECT * FROM respaldo_usuario WHERE id_r = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch( PDO::FETCH_ASSOC );
+
+        $array = array(
+            'id_usr' => $request['id_r'],
+            'nombre_usr' => json_decode($request['nombre_r']),
+            'contraseña' => json_decode($request['pass_r']),
+            'apellido_usr' => json_decode($request['apellido_r']),
+            'email_usr' => json_decode($request['email_r']),
+            'tel' => json_decode($request['tel_r']),
+            'sexo' => json_decode($request['sexo_r']),
+            'id_perfil' => json_decode($request['id_perfil_r']),
+        );
+
+        return $array;
     }
 
     

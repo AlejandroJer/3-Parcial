@@ -44,12 +44,12 @@
                     // echo "diferentes";
                 }
                 
-                $empleado->SetRespaldo($id);
+                $empleado->SetRespaldo($id, $usr_name, $pass_saved_db, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $usr_perfil, 1);
                 $empleado->UpdateUsuario($id, $usr_name, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $pass_saved_db, $usr_perfil);
                 // echo "actualizado";
                 header("location:./../../empleados/read.php");
             } else {            
-                $result = $empleado->GetUsuarioById($id,1);
+                $result = $empleado->GetUsuarioById($id);
                 $_SESSION['empleados'] = $result;
                 header("location:./../../empleados/update.php");
                 // echo "contraseña incorrecta";

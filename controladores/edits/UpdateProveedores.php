@@ -15,12 +15,14 @@
         } else {
             //in this section just add a variable which need a validation of the data type
             $id = filter_var($_POST['id_proveedor'], FILTER_SANITIZE_NUMBER_INT);
+            $nombre = filter_var($_POST['nombre-empresa'], FILTER_SANITIZE_STRING);
+            $direccion = filter_var($_POST['direccion-proveedor'], FILTER_SANITIZE_STRING);
+            $persona = filter_var($_POST['persona-contacto'], FILTER_SANITIZE_STRING);
+            $telefono = filter_var($_POST['telefono'], FILTER_SANITIZE_NUMBER_INT);
+            $correo = filter_var($_POST['correo-proveedor'], FILTER_SANITIZE_EMAIL);
 
-            $provdr_tel_str = $_POST['telefono'];
-            $provdr_tel = intval($provdr_tel_str);
-
-            $proveedor->SetRespaldo($id,1);
-            $proveedor->UpdateProveedor($id, $_POST['nombre-empresa'], $_POST['direccion-proveedor'], $_POST['persona-contacto'], $provdr_tel, $_POST['correo-proveedor']);
+            $proveedor->SetRespaldo($id, $nombre, $persona, $direccion, $telefono, $correo, 1);
+            $proveedor->UpdateProveedor($id, $nombre, $direccion, $persona, $telefono, $correo);
             
             header("location:./../../proveedores/read.php");
         }

@@ -39,17 +39,17 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./add.php" class="option_container nav-link active py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                    <a href="../proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
                         <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                    <a href="./read.php" class="option_container nav-link active py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
                         <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../movimientos/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
+                    <a href="../movimientos/readProveedores.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
                         <iconify-icon class="iconify" icon="bi:arrow-left-right" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -70,10 +70,10 @@
         <section class="main_container col-lg-11">
             <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
-                    <a href="./read.php" class="nav-link" aria-current="page">Ver Proveedores</a>
+                    <a href="./read.php" class="nav-link" aria-current="page">Ver Empleados</a>
                 </li>
                 <li class="nav-item">
-                    <a href="./add.php" class="nav-link active">Agregar Proveedor</a>
+                    <a href="./add.php" class="nav-link active">Agregar Empleado</a>
                 </li>
             </ul>
             <main class="dashboard_container container">
