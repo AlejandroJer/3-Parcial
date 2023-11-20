@@ -13,6 +13,7 @@ class usuarios extends conexion{
     private $id_rol;
     private $fecha_movimiento; // no pertenece a la tabla
     private $id_usuario_movimiento; // no pertenece a la tabla
+    private $movimiento; // no pertenece a la tabla
 
     public function __construct(){
         parent::__construct();
@@ -122,6 +123,17 @@ class usuarios extends conexion{
         return $request;
     }
 
+    public function GetUsuarioIdByLastnameTelEmail($lastname, $tel, $email){
+        $sql="SELECT id_usr FROM usuarios WHERE apellido_usr = :lastname AND tel = :tel AND email_usr = :email";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':lastname', $lastname, PDO::PARAM_STR);
+        $execute->bindValue(':tel', $tel, PDO::PARAM_INT);
+        $execute->bindValue(':email', $email, PDO::PARAM_STR);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
     public function SetMovimineto(string $fecha_movimiento, int $id_usuario_movimiento, int $id_usuario, string $nombre, string $apellido){
         $this->fecha_movimiento = $fecha_movimiento;
         $this->id_usuario_movimiento = $id_usuario_movimiento;
@@ -175,12 +187,13 @@ class usuarios extends conexion{
         return $del;
     }
 
-    public function SetRespaldo(int $id){
+    public function SetRespaldo(int $id, int $movimiento){
         $this->id_usuario = $id;
+        $this->movimiento = $movimiento;
 
-        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r) SELECT * FROM usuarios WHERE id_usr = ?";
+        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r) SELECT id_usr,nombre_usr,contraseña,apellido_usr,email_usr,tel,sexo,id_perfil,? FROM usuarios WHERE id_usr = ?";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->id_usuario);
+        $arrData= array($this->movimiento,$this->id_usuario);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;

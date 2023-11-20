@@ -12,7 +12,7 @@
   if(isset($_POST['submit'])){
     $id = filter_var($_POST['id_usuario'], FILTER_SANITIZE_NUMBER_INT);
     $result = $empleado->GetUsuarioById($id);
-    $empleado->SetRespaldo($result['id_usr']);
+    $empleado->SetRespaldo($result['id_usr'],0);
     $empleado->DeleteUsuario($result['id_usr']);
     
     header("location:./../../empleados/read.php");

@@ -49,7 +49,7 @@
                 // echo "actualizado";
                 header("location:./../../empleados/read.php");
             } else {            
-                $result = $empleado->GetUsuarioById($id);
+                $result = $empleado->GetUsuarioById($id,1);
                 $_SESSION['empleados'] = $result;
                 header("location:./../../empleados/update.php");
                 // echo "contraseña incorrecta";

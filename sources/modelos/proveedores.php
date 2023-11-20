@@ -8,6 +8,8 @@ class proveedores extends conexion {
     private $personaContacto;
     private $telefono;
     private $correoProveedor;
+    private $id_proveedor;
+    private $movimiento;
 
     public function __construct() {
         parent::__construct();
@@ -77,7 +79,7 @@ class proveedores extends conexion {
     }
 
     public function GetProveedorByKeywordLimited($keyword, $offset, $limitQuery) {
-        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword LIMIT :offset, :limitQuery";
+        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword ORDER BY id_proveedor DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
         $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -149,12 +151,13 @@ class proveedores extends conexion {
         return $del;
     } 
 
-    public function SetRespaldo(int $id){
+    public function SetRespaldo(int $id, int $movimiento){
         $this->id_proveedor = $id;
+        $this->movimiento = $movimiento;
 
-        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r) SELECT * FROM proveedores WHERE id_proveedor = ?";
+        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r,mov) SELECT id_proveedor,nombre_empresa,persona_contacto,direccion,num_telefono,email_proveedor,? FROM proveedores WHERE id_proveedor = ?";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->id_proveedor);
+        $arrData= array($this->movimiento,$this->id_proveedor);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;

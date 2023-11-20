@@ -14,12 +14,12 @@
             header("location:./../../proveedores/add.php");
         } else {
             //in this section just add a variable which need a validation of the data type
-            $id_str = $_POST['id_proveedor'];
-            $id = intval($id_str);
+            $id = filter_var($_POST['id_proveedor'], FILTER_SANITIZE_NUMBER_INT);
 
             $provdr_tel_str = $_POST['telefono'];
             $provdr_tel = intval($provdr_tel_str);
 
+            $proveedor->SetRespaldo($id,1);
             $proveedor->UpdateProveedor($id, $_POST['nombre-empresa'], $_POST['direccion-proveedor'], $_POST['persona-contacto'], $provdr_tel, $_POST['correo-proveedor']);
             
             header("location:./../../proveedores/read.php");

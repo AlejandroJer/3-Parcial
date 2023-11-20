@@ -12,7 +12,7 @@
   if(isset($_POST['submit'])){
     $id = filter_var($_POST['id_proveedor'], FILTER_SANITIZE_NUMBER_INT);
     $result = $proveedores->GetProveedorById($id);
-    $proveedores->SetRespaldo($result['id_proveedor']);
+    $proveedores->SetRespaldo($result['id_proveedor'],0);
     $proveedores->DeleteProveedor($result['id_proveedor']);
     
     header("location:./../../proveedores/read.php");
