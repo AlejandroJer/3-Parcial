@@ -108,6 +108,7 @@
     main.classList.remove('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
+        var imagenSrc = result.imagen ? result.imagen : '../sources/imgs/defaultImg.jpg';
         cards += `
                 <div class="readObject_Container target card mb-4">
                     <div class="readObject_header card-header">
@@ -132,7 +133,7 @@
                     <div class="principal_data card-body row">
                         <div class="row">
                             <div class="image_container col-lg-2">
-                                    <img src="${result.imagen}" alt="imagen de producto" class="img-fluid rounded-start">
+                                    <img src="${imagenSrc}" alt="Imagen del producto" class="img-fluid rounded-start">
                             </div>
                             <div class="data_container col-lg-10">
                                 <div class="row">
