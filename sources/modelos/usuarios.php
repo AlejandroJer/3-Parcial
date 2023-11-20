@@ -11,6 +11,7 @@ class usuarios extends conexion{
     private $password;
     private $id_usuario;
     private $id_rol;
+    private $img_usr;
     private $fecha_movimiento; // no pertenece a la tabla
     private $id_usuario_movimiento; // no pertenece a la tabla
     private $movimiento; // no pertenece a la tabla
@@ -164,6 +165,40 @@ class usuarios extends conexion{
         $request = $execute->fetch( PDO::FETCH_ASSOC );
         return $request;
     }
+    // public function InsertarImg_usr($name_images_usr){
+    //     if(isset($_FILES['image_usr'])){
+    //         $file =$_FILES['image_usr'];
+    //         $file_name=$file['name'];
+    //         $mimetype=$file['type'];
+            
+    //         $ext_formatos=array("image_usr/jpeg", "image_usr/jpg","image_usr/png");
+    //         if(!in_array($mimetype,$ext_formatos)){
+    //             header("location:../empleados/add.php");
+    //             die();
+    //         }
+    //         $directorio="imagen_usuarios/";
+    //         if(in_array($directorio.$file_name, $name_images_usr)){
+    //             header("location:../empleados/add.php");
+    //             die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
+    //         }
+    //         if(!is_dir("../empleados/".$directorio)){
+    //             mkdir("../empleados/".$directorio,0777);
+    //         }
+    //         if(in_array($directorio.$file_name, $name_images_usr)){
+    //         }else{
+    //         move_uploaded_file($file['tmp_name'],"../empleados/".$directorio.$file_name);
+    //         }
+    //         return $directorio.$file_name;
+    //     }else{
+    //         header("location:../empleados/add.php");
+    //     }       
+    // }
+    // public function GetDirImg_usr(){
+    //     $sql="SELECT image_usr FROM usuarios WHERE image_usr is not null";
+    //     $execute = $this->conn->query($sql);
+    //     $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+    //     return $request;
+    // }
 
     public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, int $tel, string $sexo, string $password, int $id_rol){
         $this->nombre = $nombre;

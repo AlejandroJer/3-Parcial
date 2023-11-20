@@ -14,7 +14,15 @@
         $hashed_password = password_hash($_POST['usuario-password'], PASSWORD_DEFAULT);
         $rol = filter_var($_POST['usuario-rol'], FILTER_SANITIZE_STRING);
 
-        $usuario->Insertar($user_name, $user_lastname, $user_email, $user_tel, $sex, $hashed_password, $rol);
-        header("location:../empleados/read.php");
+        // if($_FILES['image_usr']['error'] == 0){
+        //     $name_images_usr= $usuario->GetDirImg_usr();
+        //     $img_usr = $usuario->InsertarImg_usr($name_images_usr);
+        //     $usuario->Insertar($user_name, $user_lastname, $user_email,$user_tel, $sex, $hashed_password, $rol,$img_usr);
+        //     header("location:../empleados/read.php");
+        // }else{
+        //     $usuario->Insertar($user_name, $user_lastname, $user_email,$user_tel, $sex, $hashed_password, $rol);
+        //     header("location:../empleados/read.php");
+        // }
+
     }
 ?>

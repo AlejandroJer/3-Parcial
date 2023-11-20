@@ -139,6 +139,10 @@
                     <div class="image_container col-lg-2">
                             <img src="" alt="pfp usuario" class="img-fluid rounded-start">
                             ${sexo}
+
+                            // <img src="${name_images_usr}" alt="pfp usuario" class="img-fluid rounded-start">
+
+
                     </div>
                     <div class="data_container col-lg-10">
                         <div class="row">
