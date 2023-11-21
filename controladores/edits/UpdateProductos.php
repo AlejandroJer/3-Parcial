@@ -29,7 +29,7 @@
             
             if($_FILES['image']['error'] == 0){
                 $name_images= $producto->GetDirImg();
-                $dir_img = $producto->InsertarImg($name_images);
+                $dir_img = $producto->UpdateImg($name_images);
                 $producto->SetRespaldo($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, 1, $usr_making_change, $dir_img);
                 $producto->UpdateProducto($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, $dir_img);
             }else{

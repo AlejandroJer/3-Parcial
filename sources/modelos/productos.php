@@ -640,7 +640,7 @@ class productos extends conexion{
             $file =$_FILES['image'];
             $file_name=$file['name'];
             $mimetype=$file['type'];
-            
+
             $ext_formatos=array("image/jpeg", "image/jpg","image/png");
             if(!in_array($mimetype,$ext_formatos)){
                 header("location:../../inventario/add.php");
