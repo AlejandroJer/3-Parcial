@@ -634,6 +634,39 @@ class productos extends conexion{
         }       
     }
 
+    public function UpdateImg($name_images){
+        if(isset($_FILES['image'])){
+
+            $file =$_FILES['image'];
+            $file_name=$file['name'];
+            $mimetype=$file['type'];
+            
+            $ext_formatos=array("image/jpeg", "image/jpg","image/png");
+            if(!in_array($mimetype,$ext_formatos)){
+                header("location:../../inventario/add.php");
+                die();
+            }
+            $directorio="imagenes_productos/";
+
+            if(in_array($directorio.$file_name, $name_images)){
+                header("location:../../inventario/add.php");
+                die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
+            }
+
+            if(!is_dir("../../inventario/".$directorio)){
+                mkdir("../../inventario/".$directorio,0777);
+            }
+            if(in_array($directorio.$file_name, $name_images)){
+            }else{
+                move_uploaded_file($file['tmp_name'],"../../inventario/".$directorio.$file_name);
+            }
+            return $directorio.$file_name;
+
+        }else{
+            header("location:../../inventario/add.php");
+        }       
+    }
+
     public function BorrarImg($id,$name_images){
         $post = $this->GetProductoById($id);
         if($post['imagen']){
