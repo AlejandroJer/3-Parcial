@@ -137,7 +137,7 @@
             <div class="principal_data card-body row">
                 <div class="row">
                     <div class="image_container col-lg-2">
-                            <img src="" alt="pfp usuario" class="img-fluid rounded-start">
+                            <img src=""  class="img-fluid rounded-start">
                             ${sexo}
 
 
