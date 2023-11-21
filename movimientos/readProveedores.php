@@ -120,7 +120,7 @@
                                     <table class="table mb-0">
                                         <thead>
                                             <tr>
-                                                <th> ----- </th>
+                                                <th>#</th>
                                                 <th>Nombre</th>
                                                 <th>Persona de Contacto</th>
                                                 <th>Direccion</th>
@@ -150,7 +150,7 @@
                                         <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
                                             <?php $results_backup = $proveedores->GetRespaldo($result['id_tabla_r_PK']); ?>
                                             <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
-                                                <td><strong>Eliminado x</strong></td>
+                                                <td><strong><?= $results_backup['id_proveedor'] ?></strong></td>
                                                 <td><?= $results_backup['nombre_empresa'][0] ?></td>
                                                 <td><?= $results_backup['persona_contacto'][0] ?></td>
                                                 <td><?= $results_backup['direccion'][0] ?></td>
@@ -161,7 +161,7 @@
                                             <?php $results_backup = $proveedores->GetProveedorById($result['id_tabla_PK']); ?>
                                             <?php if (!empty($results_backup)) { ?>
                                                 <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
-                                                    <td><strong>Agregado ✓</strong></td>
+                                                    <td><strong><?= $results_backup['id_proveedor'] ?></strong></td>
                                                     <td><?= $results_backup['nombre_empresa'] ?></td>
                                                     <td><?= $results_backup['persona_contacto'] ?></td>
                                                     <td><?= $results_backup['direccion'] ?></td>

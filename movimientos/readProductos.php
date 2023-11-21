@@ -132,7 +132,7 @@
                                     <table class="table mb-0">
                                         <thead>
                                             <tr>
-                                                <th> # </th>
+                                                <th>#</th>
                                                 <th>Nombre</th>
                                                 <th>Descripción</th>
                                                 <th>Imagen</th>

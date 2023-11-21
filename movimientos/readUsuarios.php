@@ -117,7 +117,7 @@
                                     <table class="table table-striped mb-0">
                                         <thead>
                                             <tr>
-                                                <th> ----- </th>
+                                                <th>#</th>
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
                                                 <th>Correo</th>
@@ -150,7 +150,7 @@
                                         <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
                                             <?php $results_backup = $usuarios->GetRespaldoById($result['id_tabla_r_PK']); ?>
                                             <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
-                                                <td><strong>Eliminado x</strong></td>
+                                                <td><strong><?= $results_backup['id_usr'][0] ?></strong></td>
                                                 <td><?= $results_backup['nombre_usr'][0] ?></td>
                                                 <td><?= $results_backup['apellido_usr'][0] ?></td>
                                                 <td><?= $results_backup['email_usr'][0] ?></td>
@@ -162,7 +162,7 @@
                                             <?php $results_backup = $usuarios->GetUsuarioById($result['id_tabla_PK']); ?>
                                             <?php if (!empty($results_backup)) { ?>
                                                 <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
-                                                    <td><strong>Agregado ✓</strong></td>
+                                                    <td><strong><?= $results_backup['id_usr'] ?></strong></td>
                                                     <td><?= $results_backup['nombre_usr'] ?></td>
                                                     <td><?= $results_backup['apellido_usr'] ?></td>
                                                     <td><?= $results_backup['email_usr'] ?></td>
