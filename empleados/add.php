@@ -166,21 +166,15 @@
                         </div>
                     </div>
                     </div>
-                <!-- <div class="col-lg-2"> -->
+                <div class="col-lg-2">
                                                          <!-- IMAGEN -->
-                    <!-- <div class="card col-lg-12">
+                    <div class="card col-lg-12">
                         <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
                         <img src="../sources/imgs/user.png" alt="imagen-actual-del-usuario" class="card-img-top" id="img-imageusr">
                     </button>
                     <label for="update-image" class="col-form-label text-center">Agregar</label>
                 </div>
-            </div> -->
-           
-            <div class="form-group">
-                            <label for="img_usr">Imagen Usuario:</label>
-                            <input type="file" accept=".jpeg, .png, .jpg "  name="image_usr">
-                        </div>
-
+            </div>
                     <div class="row mb-3 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit" >Guardar</button>
                     <div>
