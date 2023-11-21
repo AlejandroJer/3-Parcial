@@ -82,38 +82,52 @@
             </ul>
             <main class="dashboard_container container">
                 <form action="../controladores/deletes/DeleteEmpleado.php" method="POST" class="my-4 needs-validation was-validated" novalidate>
-                    <div class="row my-3">
-                        <div class="col-lg-2">
-                            <label for="nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
+                <input type="file" accept=".jpeg, .png, .jpg" id="image"  name="image" class="form-control border-warning inputfile-warning visually-hidden">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="row my-3">
+                            <div class="col-lg-2">
+                                <label for="nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
+                            </div>
+                            <div class="col-lg-10 ">
+                                <input type="text" class="form-control" name="usuario-nombre" id="nombre" placeholder="Nombre" value="<?= $result['nombre_usr']; ?>" required disabled>
+                            </div>
                         </div>
-                        <div class="col-lg-10 ">
-                            <input type="text" class="form-control" name="usuario-nombre" id="nombre" placeholder="Nombre" value="<?= $result['nombre_usr']; ?>" required disabled>
+                        <div class="row my-3">
+                            <div class="col-lg-2">
+                                <label for="apellido" class="d-flex justify-content-end col-form-label fs-4">Apellidos:</label>
+                            </div>
+                            <div class="col-lg-10 ">
+                                <input type="text" class="form-control" name="usuario-apellido" id="apellido" placeholder="Apellido" value="<?= $result['apellido_usr']; ?>" required disabled>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-lg-2">
+                                <label for="email" class="d-flex justify-content-end col-form-label fs-4">Email:</label>
+                            </div>
+                            <div class="col-lg-10 ">
+                                <input type="email" class="form-control" name="usuario-email" id="email" placeholder="Email" value="<?= $result['email_usr']; ?>" required disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-2">
+                                <label for="telefono" class="d-flex justify-content-end col-form-label fs-4">Teléfono:</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="<?= $result['tel']; ?>" required disabled>
+                            </div>
                         </div>
                     </div>
-                    <div class="row my-3">
-                        <div class="col-lg-2">
-                            <label for="apellido" class="d-flex justify-content-end col-form-label fs-4">Apellidos:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <input type="text" class="form-control" name="usuario-apellido" id="apellido" placeholder="Apellido" value="<?= $result['apellido_usr']; ?>" required disabled>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-2">
-                            <label for="email" class="d-flex justify-content-end col-form-label fs-4">Email:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <input type="email" class="form-control" name="usuario-email" id="email" placeholder="Email" value="<?= $result['email_usr']; ?>" required disabled>
+                    <!-- IMAGEN -->
+                    <div class="col-lg-2">
+                            <div class="card col-lg-12">
+                                <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
+                                <img src="<?= empty($result['imagen']) ? '../sources/imgs/defaultImg.jpg' : './' . $result['imagen'] ?>" alt="imagen actual del usuario" class="card-img-top" id="img-image">
+                            </button>
+                            <label for="update-image" class="col-form-label text-center">Agregar</label>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-2">
-                            <label for="telefono" class="d-flex justify-content-end col-form-label fs-4">Teléfono:</label>
-                        </div>
-                        <div class="col-lg-10">
-                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="<?= $result['tel']; ?>" required disabled>
-                        </div>
-                    </div>
+                </div>
                     <div class="row mb-3">
                         <div class="col-lg-2">
                             <label for="sexo" class="d-flex justify-content-end col-form-label fs-4">Sexo:</label>

@@ -16,7 +16,7 @@
         $peso_int = floatval($_POST['peso']);
         $tipo_material = filter_var($_POST['tipo-material'], FILTER_SANITIZE_NUMBER_INT);
         $cantidad_disponible_int = intval($_POST['cantidad-disponible']);
-        $ubicacion_almacen = filter_var($_POST['ubicacion-almacen'], FILTER_SANITIZE_NUMBER_INT);
+        $ubicacion_almacen = filter_var($_POST['ubicacion-almacen'], FILTER_SANITIZE_STRING);
         $proveedor = filter_var($_POST['producto-proveedor'], FILTER_SANITIZE_NUMBER_INT);
         
         $usr_making_change = $_SESSION['logged_usr'];

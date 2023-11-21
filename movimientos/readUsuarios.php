@@ -97,6 +97,7 @@
                             <th>Fecha</th>
                             <th>Cambios en:</th>
                             <th>Movimiento</th>
+                            <th>Por Usuario:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,22 +106,33 @@
                                 <td><?= $index + 1 ?></td>
                                 <td><?= $result['fecha_movimiento'] ?></td>
                                 <td>Usuario #<?= $result['id_tabla_PK'] ?></td>
+                                <td><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></td>
                                 <td>
                                     <div class="row">
-                                        <p class="col-lg-10"><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></p>
+                                        <div class="col-8">
+                                            <a href="#" class="p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">#<?= $result['id_usr'] ?></a>
+                                            <?php $MovByUser = $usuarios->GetUsuarioById($result['id_usr']); ?>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['nombre_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['apellido_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['email_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['tel'] ?></a></li>
+                                            </ul>
+                                        </div>
                                         <div class="accordion col-2">
                                             <button type="button" class="accordion-button collapsed bg-transparent shadow-none p-1" data-bs-toggle="collapse" data-bs-target="#dropdownTableButton<?= $result['id_movimiento'] ?>"></button>
                                         </div>
                                     </div>
                                 </td>
                              <tr>
-                                <td colspan="4" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
+                                <td colspan="5" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
                                     <table class="table table-striped mb-0">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
+                                                <th>imagen</th>
                                                 <th>Correo</th>
                                                 <th>Teléfono</th>
                                                 <th>Sexo</th>
@@ -134,6 +146,7 @@
                                                 <td><strong>Antes:</strong></td>
                                                 <td><?= $results_backup['nombre_usr'][0] ?></td>
                                                 <td><?= $results_backup['apellido_usr'][0] ?></td>
+                                                <td><?php if (!empty($results_backup['imagen'][0])) { echo '<img src="./../empleados/'.$results_backup['imagen'][0].'" alt="" srcset="" style="width: 45px;">'; } else { echo 'N/A'; } ?></td>
                                                 <td><?= $results_backup['email_usr'][0] ?></td>
                                                 <td><?= $results_backup['tel'][0] ?></td>
                                                 <td><?= $results_backup['sexo'][0] ?></td>
@@ -143,6 +156,7 @@
                                                 <td><strong>Despues:</strong></td>
                                                 <td><?= $results_backup['nombre_usr'][1] ?></td>
                                                 <td><?= $results_backup['apellido_usr'][1] ?></td>
+                                                <td><?php if (!empty($results_backup['imagen'][1])) { echo '<img src="./../empleados/'.$results_backup['imagen'][1].'" alt="" srcset="" style="width: 45px;">'; } else { echo 'N/A'; } ?></td>
                                                 <td><?= $results_backup['email_usr'][1] ?></td>
                                                 <td><?= $results_backup['tel'][1] ?></td>
                                                 <td><?= $results_backup['sexo'][1] ?></td>
@@ -154,6 +168,7 @@
                                                 <td><strong><?= $results_backup['id_usr'][0] ?></strong></td>
                                                 <td><?= $results_backup['nombre_usr'][0] ?></td>
                                                 <td><?= $results_backup['apellido_usr'][0] ?></td>
+                                                <td><?php if (!empty($results_backup['imagen'][0])) { echo '<img src="./../empleados/'.$results_backup['imagen'][0].'" alt="" srcset="" style="width: 45px;">'; } else { echo 'N/A'; } ?></td>
                                                 <td><?= $results_backup['email_usr'][0] ?></td>
                                                 <td><?= $results_backup['tel'][0] ?></td>
                                                 <td><?= $results_backup['sexo'][0] ?></td>
@@ -166,6 +181,7 @@
                                                     <td><strong><?= $results_backup['id_usr'] ?></strong></td>
                                                     <td><?= $results_backup['nombre_usr'] ?></td>
                                                     <td><?= $results_backup['apellido_usr'] ?></td>
+                                                    <td><?php if (!empty($results_backup['imagen'])) { echo '<img src="./../empleados/'.$results_backup['imagen'].'" alt="" srcset="" style="width: 45px;">'; } else { echo 'N/A'; } ?></td>
                                                     <td><?= $results_backup['email_usr'] ?></td>
                                                     <td><?= $results_backup['tel'] ?></td>
                                                     <td><?= $results_backup['sexo'] ?></td>

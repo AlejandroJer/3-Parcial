@@ -27,26 +27,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/root.css">
 </head>
-<style>
- .focused.search{
-    border-color: #86b7fe !important;
-    box-shadow: none !important;
-    outline: 0 none !important;
- }
-
- /* .focused.filter{
-    border-color: rgb(33,37,41) !important;
-    box-shadow: none !important;
-    outline: 0 none !important;
- } */
-</style>
-
 <body class="container-fluid">
     <section class="index_section row">
         <!-- MAIN NAV -->
         <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
             <a href="#" class="d-block py-3 text-decoration-none mx-auto" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
-                <img src="../sources/imgs/logo.png" alt="" srcset="" style="width: 45px;">
+                <img src="../sources/imgs/logo.png" alt="" srcset="" style="width: 65px;">
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
@@ -112,6 +98,7 @@
                             <th>Fecha</th>
                             <th>Cambios En:</th>
                             <th>Movimiento</th>
+                            <th>Por Usuario:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,16 +107,26 @@
                                 <td><?= $index + 1 ?></td>
                                 <td><?= $result['fecha_movimiento'] ?></td>
                                 <td>Producto #<?= $result['id_tabla_PK'] ?></td>
+                                <td><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></td>
                                 <td>
                                     <div class="row">
-                                        <p class="col-lg-10"><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></p>
+                                        <div class="col-8">
+                                            <a href="#" class="p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">#<?= $result['id_usr'] ?></a>
+                                            <?php $MovByUser = $empleados->GetUsuarioById($result['id_usr']); ?>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['nombre_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['apellido_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['email_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['tel'] ?></a></li>
+                                            </ul>
+                                        </div>
                                         <div class="accordion col-2">
                                             <button type="button" class="accordion-button collapsed bg-transparent shadow-none p-1" data-bs-toggle="collapse" data-bs-target="#dropdownTableButton<?= $result['id_movimiento'] ?>"></button>
                                         </div>
                                     </div>
                                 </td>
                              <tr>
-                                <td colspan="4" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
+                                <td colspan="5" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
                                     <table class="table mb-0">
                                         <thead>
                                             <tr>
@@ -149,12 +146,12 @@
                                         </thead>
                                         <tbody>
                                             <?php if ($result['tipo_movimiento'] == 1){ ?>
-                                                <?php $results_backup = $productos->GetRespaldoProducto($result['id_tabla_PK']); ?>
+                                                <?php $results_backup = $productos->GetRespaldoProducto($result['id_tabla_r_PK']); ?>
                                                 <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
                                                     <td><strong>Antes</strong></td>
                                                     <td><?= $results_backup['nombre'][0] ?></td>
                                                     <td><?= $results_backup['Descripcion_producto'][0] ?></td>
-                                                    <td><?php if (isset($results_backup['imagen'][0])) { echo $results_backup['imagen'][0]; } else { echo 'N/A'; } ?></td>
+                                                    <td><?php if (isset($results_backup['imagen'][0])) { echo '<img src="./../inventario/'.$results_backup['imagen'][0].'" alt="" srcset="" style="width: 65px;">'; } else { echo 'N/A'; } ?></td>
                                                     <td><?= $results_backup['precio_compra'][0] ?></td>
                                                     <td><?= $results_backup['precio_venta'][0] ?></td>
                                                     <td><?= $results_backup['id_categoria'][0] ?></td>
@@ -168,7 +165,7 @@
                                                     <td><strong>Después</strong></td>
                                                     <td><?= $results_backup['nombre'][1] ?></td>
                                                     <td><?= $results_backup['Descripcion_producto'][1] ?></td>
-                                                    <td><?php if (isset($results_backup['imagen'][1])) { echo $results_backup['imagen'][1]; } else { echo 'N/A'; } ?></td>
+                                                    <td><?php if (isset($results_backup['imagen'][1])) { echo '<img src="./../inventario/'.$results_backup['imagen'][1].'" alt="" srcset="" style="width: 65px;">'; } else { echo 'N/A'; } ?></td>
                                                     <td><?= $results_backup['precio_compra'][1] ?></td>
                                                     <td><?= $results_backup['precio_venta'][1] ?></td>
                                                     <td><?= $results_backup['id_categoria'][1] ?></td>
@@ -179,20 +176,20 @@
                                                     <td><?= $prvrsdict[$results_backup['id_proveedor'][1]] ?></td>
                                                 </tr>
                                             <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
-                                                <?php $results_backup = $productos->GetRespaldoProducto($result['id_tabla_PK']); ?>
+                                                <?php $results_backup = $productos->GetRespaldoProducto($result['id_tabla_r_PK']); ?>
                                                 <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
                                                     <td><strong><?= $results_backup['id_producto'] ?></strong></td>
-                                                    <td><?= $results_backup['nombre'][0] ?></td>
-                                                    <td><?= $results_backup['Descripcion_producto'][0] ?></td>
-                                                    <td><?php if (isset($results_backup['imagen'][0])) { echo $results_backup['imagen'][0]; } else { echo 'N/A'; } ?></td>
-                                                    <td><?= $results_backup['precio_compra'][0] ?></td>
-                                                    <td><?= $results_backup['precio_venta'][0] ?></td>
-                                                    <td><?= $results_backup['id_categoria'][0] ?></td>
-                                                    <td><?= $results_backup['peso'][0] ?></td>
-                                                    <td><?= $results_backup['id_material'][0] ?></td>
-                                                    <td><?= $results_backup['cantidad_disponible'][0] ?></td>
-                                                    <td><?= $results_backup['ubicacion_almacen'][0] ?></td>
-                                                    <td><?= $prvrsdict[$results_backup['id_proveedor'][0]] ?></td>
+                                                    <td><?= $results_backup['nombre'][1] ?></td>
+                                                    <td><?= $results_backup['Descripcion_producto'][1] ?></td>
+                                                    <td><?php if (isset($results_backup['imagen'][1])) { echo '<img src="./../inventario/'.$results_backup['imagen'][1].'" alt="" srcset="" style="width: 65px;">'; } else { echo 'N/A'; } ?></td>
+                                                    <td><?= $results_backup['precio_compra'][1] ?></td>
+                                                    <td><?= $results_backup['precio_venta'][1] ?></td>
+                                                    <td><?= $results_backup['id_categoria'][1] ?></td>
+                                                    <td><?= $results_backup['peso'][1] ?></td>
+                                                    <td><?= $results_backup['id_material'][1] ?></td>
+                                                    <td><?= $results_backup['cantidad_disponible'][1] ?></td>
+                                                    <td><?= $results_backup['ubicacion_almacen'][1] ?></td>
+                                                    <td><?= $prvrsdict[$results_backup['id_proveedor'][1]] ?></td>
                                                 </tr>
                                             <?php } elseif ($result['tipo_movimiento'] == 2) { ?>
                                                 <?php $results_backup = $productos->GetProductoById($result['id_tabla_PK']); ?>
@@ -201,7 +198,7 @@
                                                         <td><strong><?= $results_backup['id_producto']; ?></strong></td>
                                                         <td><?= $results_backup['nombre_producto']; ?></td>
                                                         <td><?= $results_backup['Descripcion_producto']; ?></td>
-                                                        <td><?php if (isset($results_backup['imagen'])) { echo $results_backup['imagen']; } else { echo 'N/A'; } ?></td>
+                                                        <td><?php if (isset($results_backup['imagen'])) { echo '<img src="./../inventario/'.$results_backup['imagen'].'" alt="" srcset="" style="width: 65px;">'; } else { echo 'N/A'; } ?></td>
                                                         <td><?= $results_backup['precio_compra']; ?></td>
                                                         <td><?= $results_backup['precio_venta']; ?></td>
                                                         <td><?= $results_backup['id_categoria']; ?></td>

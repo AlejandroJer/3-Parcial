@@ -13,9 +13,15 @@
     $id = filter_var($_POST['id_usuario'], FILTER_SANITIZE_NUMBER_INT);
     $result = $empleado->GetUsuarioById($id);
     $usr_making_change = $_SESSION['logged_usr'];
-    $empleado->SetRespaldo($result['id_usr'], $result['nombre_usr'], $result['contraseña'], $result['apellido_usr'], $result['email_usr'], $result['tel'], $result['sexo'], $result['id_perfil'], 0, $usr_making_change);
-    $empleado->DeleteUsuario($result['id_usr']);
-    
+    if(isset($result['imagen'])){
+         $name_images = $empleado->GetDirImg_usr();
+         $dir_img = $empleado->BorrarImg($id, $name_images);
+         $empleado->SetRespaldo($result['id_usr'], $result['nombre_usr'], $result['contraseña'], $result['apellido_usr'], $result['email_usr'], $result['tel'], $result['sexo'], $result['id_perfil'], 0, $usr_making_change, $dir_img);
+         $empleado->DeleteUsuario($result['id_usr']);
+      }else{
+         $empleado->SetRespaldo($result['id_usr'], $result['nombre_usr'], $result['contraseña'], $result['apellido_usr'], $result['email_usr'], $result['tel'], $result['sexo'], $result['id_perfil'], 0, $usr_making_change);
+         $empleado->DeleteUsuario($result['id_usr']);
+      }    
     header("location:./../../empleados/read.php");
  } else {
     header("location:./../../empleados/read.php");

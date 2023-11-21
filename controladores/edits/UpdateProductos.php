@@ -19,7 +19,7 @@
             $precio_compra_float = floatval($_POST['producto-precio-compra']);
             $precio_venta_float = floatval($_POST['producto-precio-venta']);
             $categoria = filter_var($_POST['categoria'], FILTER_SANITIZE_NUMBER_INT);
-            $peso_int = filter_var($_POST['peso'], FILTER_SANITIZE_NUMBER_INT);
+            $peso_int = floatval($_POST['peso']);
             $tipo_material = filter_var($_POST['tipo-material'], FILTER_SANITIZE_NUMBER_INT);
             $cantidad_disponible_int = filter_var($_POST['cantidad-disponible'], FILTER_SANITIZE_NUMBER_INT);
             $ubicacion_almacen = filter_var($_POST['ubicacion-almacen'], FILTER_SANITIZE_STRING);

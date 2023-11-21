@@ -1,8 +1,10 @@
 <?php
     namespace controladores;
     require_once("../autoload.php");
-    use modelos\usuarios;
+    use modelos\{usuarios, movimientos};
     $usuario = new usuarios();
+    $movimiento = new movimientos();
+
     if(!isset($_POST['usuario-nombre']) or !isset($_POST['usuario-apellido']) or !isset($_POST['usuario-email']) or !isset($_POST['telefono']) or !isset($_POST['usuario-password']) or !isset($_POST['usuario-rol'])){
         header("location:../empleados/add.php");
     } else {
@@ -13,16 +15,20 @@
         $sex = filter_var($_POST['sexo'], FILTER_SANITIZE_STRING);
         $hashed_password = password_hash($_POST['usuario-password'], PASSWORD_DEFAULT);
         $rol = filter_var($_POST['usuario-rol'], FILTER_SANITIZE_STRING);
+        
+        $usr_making_change = $_SESSION['logged_usr'];
 
-        // if($_FILES['image_usr']['error'] == 0){
-        //     $name_images_usr= $usuario->GetDirImg_usr();
-        //     $img_usr = $usuario->InsertarImg_usr($name_images_usr);
-        //     $usuario->Insertar($user_name, $user_lastname, $user_email,$user_tel, $sex, $hashed_password, $rol,$img_usr);
-        //     header("location:../empleados/read.php");
-        // }else{
-        //     $usuario->Insertar($user_name, $user_lastname, $user_email,$user_tel, $sex, $hashed_password, $rol);
-        //     header("location:../empleados/read.php");
-        // }
+        if($_FILES['image']['error'] == 0){
+            $name_images_usr= $usuario->GetDirImg_usr();
+            $img_usr = $usuario->InsertarImg_usr($name_images_usr, $user_name);
+            $id = $usuario->Insertar($user_name, $user_lastname, $user_email,$user_tel, $sex, $hashed_password, $rol,$img_usr);
+            $movimiento->SetMov('usuarios', $id, 0, 2, $usr_making_change);
+            header("location:../empleados/read.php");
+        }else{
+            $id = $usuario->Insertar($user_name, $user_lastname, $user_email,$user_tel, $sex, $hashed_password, $rol);
+            $movimiento->SetMov('usuarios', $id, 0, 2, $usr_making_change);
+            header("location:../empleados/read.php");
+        }
 
     }
 ?>

@@ -702,7 +702,7 @@ class productos extends conexion{
         return $request;
     }
 
-    public function SetRespaldo(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor,int $movimiento,int $id_usuario, $img = null){
+    public function SetRespaldo(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, int $categoria, float $peso, int $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor,int $movimiento,int $id_usuario, $img = null){
         $this->id_producto = $id;
         $this->movimiento = $movimiento;
         $this->mov_by_usr = $id_usuario;
@@ -751,7 +751,7 @@ class productos extends conexion{
     }
 
     public function GetRespaldoProducto($id) {
-        $sql = "SELECT * FROM respaldo_producto WHERE id_producto_r = :id";
+        $sql = "SELECT * FROM respaldo_producto WHERE id = :id";
         $execute = $this->conn->prepare($sql);
         $execute->bindValue(':id', $id, PDO::PARAM_INT);
         $execute->execute();

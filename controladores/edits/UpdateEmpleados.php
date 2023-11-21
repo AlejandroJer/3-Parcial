@@ -27,7 +27,7 @@
             // get the admin passwords from the db
             $result_admin_pass = $empleado->GetUsuariosPassAdmin();
             $success = false;
-
+            
             foreach($result_admin_pass as $admin_pass){
                 if(password_verify($_POST['admin-password'], $admin_pass['contraseña'])){
                     $success = true;
@@ -45,9 +45,26 @@
                 }
                 
                 $usr_making_change = $_SESSION['logged_usr'];
-                $empleado->SetRespaldo($id, $usr_name, $pass_saved_db, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $usr_perfil, 1, $usr_making_change);
-                $empleado->UpdateUsuario($id, $usr_name, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $pass_saved_db, $usr_perfil);
-                // echo "actualizado";
+
+                if($_FILES['image']['error'] == 0){
+                    $name_images_usr= $empleado->GetDirImg_usr();
+                    $img_usr = $empleado->UpdateImg($name_images_usr, $usr_name);
+                    $empleado->SetRespaldo($id, $usr_name, $pass_saved_db, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $usr_perfil, 1, $usr_making_change, $img_usr);
+                    $empleado->UpdateUsuario($id, $usr_name, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $pass_saved_db, $usr_perfil, $img_usr);
+                    // echo "imagen actualizada" . '<br>';
+                } else {
+                    $img = $empleado->GetImgById($id);
+                    if ($img){
+                        $empleado->SetRespaldo($id, $usr_name, $pass_saved_db, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $usr_perfil, 1, $usr_making_change, $img_usr);
+                        // echo "respaldo con imagen" . '<br>';
+                    } else {
+                        $empleado->SetRespaldo($id, $usr_name, $pass_saved_db, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $usr_perfil, 1, $usr_making_change);
+                        // echo "respaldo sin imagen" . '<br>';
+                    }
+                    $empleado->UpdateUsuario($id, $usr_name, $usr_lastname, $usr_email, $usr_tel, $usr_sex, $pass_saved_db, $usr_perfil);
+                    // echo "usuario actualizado sin imagen" . '<br>';
+                }
+            
                 header("location:./../../empleados/read.php");
             } else {            
                 $result = $empleado->GetUsuarioById($id);

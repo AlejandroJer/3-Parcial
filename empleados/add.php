@@ -78,107 +78,109 @@
                 </li>
             </ul>
             <main class="dashboard_container container">
-            <form action="../controladores/SetUsuario.php" method="POST" class="my-4 needs-validation" novalidate>
+            <form action="../controladores/SetUsuario.php" method="POST" enctype="multipart/form-data" class="my-4 needs-validation" novalidate>
+                <input type="file" accept=".jpeg, .png, .jpg" id="image"  name="image" class="form-control border-warning inputfile-warning visually-hidden">
                 <div class="row">
-                    <div class="col-lg-10">
-                        <div class="row my-3">
-                             <div class="col-lg-2">
-                            <label for="nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <input type="text" class="form-control" name="usuario-nombre" id="nombre" placeholder="Nombre" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el nombre del usuario
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-2">
-                            <label for="apellido" class="d-flex justify-content-end col-form-label fs-4">Apellidos:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <input type="text" class="form-control" name="usuario-apellido" id="apellido" placeholder="Apellido" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el apellido del usuario
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-2">
-                            <label for="email" class="d-flex justify-content-end col-form-label fs-4">Email:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <input type="email" class="form-control" name="usuario-email" id="email" placeholder="Email" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el email del usuario
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-2">
-                            <label for="telefono" class="d-flex justify-content-end col-form-label fs-4">Teléfono:</label>
-                        </div>
                         <div class="col-lg-10">
-                            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese el Teléfono del usuario
+                            <div class="row my-3">
+                                <div class="col-lg-2">
+                                <label for="nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
+                            </div>
+                            <div class="col-lg-10 ">
+                                <input type="text" class="form-control" name="usuario-nombre" id="nombre" placeholder="Nombre" value="" required>
+                                <div class="invalid-feedback">
+                                    Ingrese el nombre del usuario
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-lg-2">
+                                <label for="apellido" class="d-flex justify-content-end col-form-label fs-4">Apellidos:</label>
+                            </div>
+                            <div class="col-lg-10 ">
+                                <input type="text" class="form-control" name="usuario-apellido" id="apellido" placeholder="Apellido" value="" required>
+                                <div class="invalid-feedback">
+                                    Ingrese el apellido del usuario
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-lg-2">
+                                <label for="email" class="d-flex justify-content-end col-form-label fs-4">Email:</label>
+                            </div>
+                            <div class="col-lg-10 ">
+                                <input type="email" class="form-control" name="usuario-email" id="email" placeholder="Email" value="" required>
+                                <div class="invalid-feedback">
+                                    Ingrese el email del usuario
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-2">
+                                <label for="telefono" class="d-flex justify-content-end col-form-label fs-4">Teléfono:</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="" required>
+                                <div class="invalid-feedback">
+                                    Ingrese el Teléfono del usuario
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-2">
-                            <label for="sexo" class="d-flex justify-content-end col-form-label fs-4">Sexo:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <select name="sexo" id="sexo" class="form-select" required>
-                                <option value="" selected>Sexo del usuario</option>
-                                <option value="f">Femenino</option>
-                                <option value="m">Masculino</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Ingrese el sexo del usuario
-                            </div>
+                    <!-- IMAGEN -->
+                    <div class="col-lg-2">
+                            <div class="card col-lg-12">
+                                <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
+                                <img src="../sources/imgs/defaultImg.jpeg" alt="imagen-actual-del-usuario" class="card-img-top" id="img-image">
+                            </button>
+                            <label for="update-image" class="col-form-label text-center">Agregar</label>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-2">
-                            <label for="rol" class="d-flex justify-content-end col-form-label fs-4">Rol:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <select name="usuario-rol" id="rol" class="form-select" required>
-                                <option value="" selected>Rol del usuario</option>
-                                <option value="0">Empleado</option>
-                                <option value="1">Administrador</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Ingrese el rol del usuario
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-2">
-                            <label for="password" class="d-flex justify-content-end col-form-label fs-4">Contraseña:</label>
-                        </div>
-                        <div class="col-lg-10 ">
-                            <input type="password" class="form-control" name="usuario-password" id="password" placeholder="Contraseña" value="" required>
-                            <div class="invalid-feedback">
-                                Ingrese la contraseña del usuario
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                <div class="col-lg-2">
-                                                         <!-- IMAGEN -->
-                    <div class="card col-lg-12">
-                        <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
-                        <img src="../sources/imgs/user.png" alt="imagen-actual-del-usuario" class="card-img-top" id="img-imageusr">
-                    </button>
-                    <label for="update-image" class="col-form-label text-center">Agregar</label>
                 </div>
-            </div>
-                    <div class="row mb-3 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit" >Guardar</button>
-                    <div>
+                <div class="row mb-3">
+                    <div class="col-lg-2">
+                        <label for="sexo" class="d-flex justify-content-end col-form-label fs-4">Sexo:</label>
+                    </div>
+                    <div class="col-lg-10 ">
+                        <select name="sexo" id="sexo" class="form-select" required>
+                            <option value="" selected>Sexo del usuario</option>
+                            <option value="f">Femenino</option>
+                            <option value="m">Masculino</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Ingrese el sexo del usuario
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-2">
+                        <label for="rol" class="d-flex justify-content-end col-form-label fs-4">Rol:</label>
+                    </div>
+                    <div class="col-lg-10 ">
+                        <select name="usuario-rol" id="rol" class="form-select" required>
+                            <option value="" selected>Rol del usuario</option>
+                            <option value="0">Empleado</option>
+                            <option value="1">Administrador</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Ingrese el rol del usuario
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-lg-2">
+                        <label for="password" class="d-flex justify-content-end col-form-label fs-4">Contraseña:</label>
+                    </div>
+                    <div class="col-lg-10 ">
+                        <input type="password" class="form-control" name="usuario-password" id="password" placeholder="Contraseña" value="" required>
+                        <div class="invalid-feedback">
+                            Ingrese la contraseña del usuario
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit" >Guardar</button>
+                <div>
                 </form>
             </main>
         </section>

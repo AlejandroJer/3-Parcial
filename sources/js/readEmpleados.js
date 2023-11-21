@@ -107,12 +107,7 @@
     main.classList.remove('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
-        if (result.sexo == 'f'){
-            var sexo = '<iconify-icon icon="mdi:face-woman" width="100" height="100"></iconify-icon>';
-        }
-        else if (result.sexo == 'm'){
-            var sexo = '<iconify-icon icon="mdi:face-man" width="100" height="100"></iconify-icon>';
-        }
+        var imagenSrc = result.imagen ? result.imagen : '../sources/imgs/defaultImg.jpg';
         cards += `
         <div class="readObject_Container target card mb-4">
             <div class="readObject_header card-header">
@@ -137,10 +132,7 @@
             <div class="principal_data card-body row">
                 <div class="row">
                     <div class="image_container col-lg-2">
-                            <img src=""  class="img-fluid rounded-start">
-                            ${sexo}
-
-
+                        <img src="${imagenSrc}" alt="imagen del usuario" class="img-fluid rounded-start">
                     </div>
                     <div class="data_container col-lg-10">
                         <div class="row">
@@ -167,12 +159,7 @@
     main.classList.add('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
-        if (result.sexo == 'f'){
-            var sexo = '<iconify-icon icon="mdi:face-woman" width="100" height="100"></iconify-icon>';
-        }
-        else if (result.sexo == 'm'){
-            var sexo = '<iconify-icon icon="mdi:face-man" width="100" height="100"></iconify-icon>';
-        }
+        var imagenSrc = result.imagen ? result.imagen : '../sources/imgs/defaultImg.jpg';
         cards += `
                 <div class="readObject_Container target card mb-4 me-2 col-2 p-0">
                     <div class="readObject_header card-header">
@@ -195,8 +182,7 @@
                         </div>
                     </div>
                     <div class="principal_data card-body justify-content-center" style="flex: none;">
-                        <img src=""  class="img-fluid rounded-start col-10">
-                        ${sexo}
+                        <img src="${imagenSrc}" alt="imagen del usuario" class="img-fluid rounded-start">
                         <div class="row mt-2">
                             <h4 class="pe-0">${result.apellido_usr}</h4>
                             <h6 class="pe-0">${result.nombre_usr}</h6>
