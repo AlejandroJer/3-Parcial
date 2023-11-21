@@ -10,6 +10,7 @@ class proveedores extends conexion {
     private $correoProveedor;
     private $id_proveedor;
     private $movimiento;
+    private $mov_by_usr;
 
     public function __construct() {
         parent::__construct();
@@ -151,9 +152,10 @@ class proveedores extends conexion {
         return $del;
     } 
 
-    public function SetRespaldo(int $id, string $nombreEmpresa, string $personaContacto, string $direccion, int $telefono, string $email, int $movimiento) {
+    public function SetRespaldo(int $id, string $nombreEmpresa, string $personaContacto, string $direccion, int $telefono, string $email, int $movimiento, int $mov_by_usr) {
         $this->id_proveedor = $id;
         $this->movimiento = $movimiento;
+        $this->mov_by_usr = $mov_by_usr;
 
         $sql="SELECT * FROM proveedores WHERE id_proveedor = :id";
         $execute = $this->conn->prepare($sql);
@@ -174,9 +176,9 @@ class proveedores extends conexion {
         $this->correoProveedor = json_encode(array($this->correoProveedor_backup,$email));
 
 
-        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r,mov) VALUES(?,?,?,?,?,?,?)";
+        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r,mov,id_usr) VALUES(?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->id_proveedor,$this->nombreEmpresa,$this->personaContacto,$this->direccionProveedor,$this->telefono,$this->correoProveedor,$this->movimiento);
+        $arrData= array($this->id_proveedor,$this->nombreEmpresa,$this->personaContacto,$this->direccionProveedor,$this->telefono,$this->correoProveedor,$this->movimiento,$this->mov_by_usr);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;

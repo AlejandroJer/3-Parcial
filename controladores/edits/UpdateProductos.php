@@ -25,14 +25,20 @@
             $ubicacion_almacen = filter_var($_POST['ubicacion-almacen'], FILTER_SANITIZE_STRING);
             $proveedor = filter_var($_POST['producto-proveedor'], FILTER_SANITIZE_NUMBER_INT);
             
+            $usr_making_change = $_SESSION['logged_usr'];
+            
             if($_FILES['image']['error'] == 0){
                 $name_images= $producto->GetDirImg();
-                die($name_images);
                 $dir_img = $producto->InsertarImg($name_images);
-                $producto->SetRespaldo($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, 1, $dir_img);
+                $producto->SetRespaldo($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, 1, $usr_making_change, $dir_img);
                 $producto->UpdateProducto($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, $dir_img);
             }else{
-                $producto->SetRespaldo($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, 1);
+                $img = $producto->GetImgById($id);
+                if ($img){
+                    $producto->SetRespaldo($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, 1, $usr_making_change, $img);
+                } else {
+                    $producto->SetRespaldo($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor, 1, $usr_making_change);
+                }
                 $producto->UpdateProducto($id, $nombre , $descripcion, $precio_compra_float, $precio_venta_float, $categoria, $peso_int, $tipo_material, $cantidad_disponible_int, $ubicacion_almacen, $proveedor);
             }
             header("location:./../../inventario/read.php");

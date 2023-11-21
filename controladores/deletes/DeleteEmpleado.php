@@ -12,7 +12,8 @@
   if(isset($_POST['submit'])){
     $id = filter_var($_POST['id_usuario'], FILTER_SANITIZE_NUMBER_INT);
     $result = $empleado->GetUsuarioById($id);
-    $empleado->SetRespaldo($result['id_usr'], $result['nombre_usr'], $result['contraseña'], $result['apellido_usr'], $result['email_usr'], $result['tel'], $result['sexo'], $result['id_perfil'], 0);
+    $usr_making_change = $_SESSION['logged_usr'];
+    $empleado->SetRespaldo($result['id_usr'], $result['nombre_usr'], $result['contraseña'], $result['apellido_usr'], $result['email_usr'], $result['tel'], $result['sexo'], $result['id_perfil'], 0, $usr_making_change);
     $empleado->DeleteUsuario($result['id_usr']);
     
     header("location:./../../empleados/read.php");

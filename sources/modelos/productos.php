@@ -18,6 +18,7 @@ class productos extends conexion{
     private $fecha_movimiento; // no pertenece a la tabla
     private $dir_img;
     private $movimiento;
+    private $mov_by_usr;
 
 
     public function __construct(){
@@ -456,6 +457,15 @@ class productos extends conexion{
 
     }
 
+    public function GetImgById($id){
+        $sql="SELECT imagen FROM productos WHERE id_producto = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetchColumn();
+        return $request;
+    }
+
     public function SetMovimineto(string $fecha_movimiento, int $id_usuario, int $id_producto, string $nombre_producto, int $cantidad_disponible){
         $this->$fecha_movimiento = $fecha_movimiento;
         $this->$id_usuario = $id_usuario;
@@ -653,9 +663,10 @@ class productos extends conexion{
         return $request;
     }
 
-    public function SetRespaldo(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor,int $movimiento, $img = null){
+    public function SetRespaldo(int $id, string $nombre, string $descripcion, float $precio_compra, float $precio_venta, string $categoria, float $peso, string $tipo_material, int $cantidad_disponible, string $ubicacion_almacen, int $id_proveedor,int $movimiento,int $id_usuario, $img = null){
         $this->id_producto = $id;
         $this->movimiento = $movimiento;
+        $this->mov_by_usr = $id_usuario;
     
         $sql = "SELECT * FROM productos WHERE id_producto = :id";
         $execute = $this->conn->prepare($sql);
@@ -687,12 +698,13 @@ class productos extends conexion{
         $this->ubicacion_almacen = json_encode(array($this->ubicacion_almacen_backup, $ubicacion_almacen));
         $this->id_proveedor = json_encode(array($this->id_proveedor_backup, $id_proveedor));
     
-        $sql = "INSERT INTO respaldo_producto(id_producto_r, nom_producto_r, desc_producto_r, img_r, precio_compra_r, precio_venta_r, categoria_r, peso_r, tipo_material_r, cantidad_r, ubicacion_r, id_proveedor_r, mov) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO respaldo_producto(id_producto_r, nom_producto_r, desc_producto_r, img_r, precio_compra_r, precio_venta_r, categoria_r, peso_r, tipo_material_r, cantidad_r, ubicacion_r, id_proveedor_r, mov, id_usr)
+                    VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?)";
         $insert = $this->conn->prepare($sql);
         $arrData = array(
             $this->id_producto, $this->nombre, $this->descripcion, $this->img, $this->precio_compra, 
             $this->precio_venta, $this->categoria, $this->peso, $this->tipo_material, 
-            $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor, $this->movimiento
+            $this->cantidad_disponible, $this->ubicacion_almacen, $this->id_proveedor, $this->movimiento , $this->mov_by_usr
         );
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();

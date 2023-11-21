@@ -15,6 +15,7 @@ class usuarios extends conexion{
     private $fecha_movimiento; // no pertenece a la tabla
     private $id_usuario_movimiento; // no pertenece a la tabla
     private $movimiento; // no pertenece a la tabla
+    private $mov_by_usr; // no pertenece a la tabla
 
     public function __construct(){
         parent::__construct();
@@ -224,9 +225,10 @@ class usuarios extends conexion{
         return $del;
     }
 
-    public function SetRespaldo(int $id, string $nombre_udt, string $password_udt, string $apellido_udt, string $email_udt, int $tel_udt, string $sexo_udt, int $id_rol_udt, int $movimiento){
+    public function SetRespaldo(int $id, string $nombre_udt, string $password_udt, string $apellido_udt, string $email_udt, int $tel_udt, string $sexo_udt, int $id_rol_udt, int $movimiento, int $mov_by_usr){
         $this->id_usuario = $id;
         $this->movimiento = $movimiento;
+        $this->mov_by_usr = $mov_by_usr;
 
         $sql="SELECT * FROM usuarios WHERE id_usr = :id";
         $execute = $this->conn->prepare($sql);
@@ -251,9 +253,9 @@ class usuarios extends conexion{
         $this->sexo = json_encode(array($this->sexo_backup,$sexo_udt));
         $this->id_rol = json_encode(array($this->id_rol_backup,$id_rol_udt));
 
-        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r,mov) VALUES(?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r,mov,id_usr) VALUES(?,?,?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->id_usuario,$this->nombre,$this->password,$this->apellido,$this->email,$this->tel,$this->sexo,$this->id_rol,$this->movimiento);
+        $arrData= array($this->id_usuario,$this->nombre,$this->password,$this->apellido,$this->email,$this->tel,$this->sexo,$this->id_rol,$this->movimiento,$this->mov_by_usr);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;

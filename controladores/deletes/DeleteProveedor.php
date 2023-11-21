@@ -12,7 +12,8 @@
   if(isset($_POST['submit'])){
     $id = filter_var($_POST['id_proveedor'], FILTER_SANITIZE_NUMBER_INT);
     $result = $proveedores->GetProveedorById($id);
-    $proveedores->SetRespaldo($result['id_proveedor'], $result['nombre_empresa'], $result['persona_contacto'], $result['direccion'], $result['num_telefono'], $result['email_proveedor'], 0);
+    $usr_making_change = $_SESSION['logged_usr'];
+    $proveedores->SetRespaldo($result['id_proveedor'], $result['nombre_empresa'], $result['persona_contacto'], $result['direccion'], $result['num_telefono'], $result['email_proveedor'], 0, $usr_making_change);
     $proveedores->DeleteProveedor($result['id_proveedor']);
     
     header("location:./../../proveedores/read.php");

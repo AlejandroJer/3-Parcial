@@ -12,13 +12,14 @@
   if(isset($_POST['submit'])){
     $id = filter_var($_POST['id_producto'], FILTER_SANITIZE_NUMBER_INT);
     $result = $producto->GetProductoById($id);
+    $usr_making_change = $_SESSION['logged_usr'];
     if(isset($result['imagen'])){
       $name_images = $producto->GetDirImgRespaldo();
       $dir_img = $producto->BorrarImg($id, $name_images);
-      $producto->SetRespaldo($result['id_producto'], $result['nombre_producto'], $result['Descripcion_producto'], $result['precio_compra'], $result['precio_venta'], $result['id_categoria'],$result['peso'], $result['id_material'], $result['cantidad_disponible'], $result['ubicacion_almacen'], $result['id_proveedor'], 0, $dir_img);
+      $producto->SetRespaldo($result['id_producto'], $result['nombre_producto'], $result['Descripcion_producto'], $result['precio_compra'], $result['precio_venta'], $result['id_categoria'],$result['peso'], $result['id_material'], $result['cantidad_disponible'], $result['ubicacion_almacen'], $result['id_proveedor'], 0, $usr_making_change, $dir_img);
       $producto->DeleteProducto($id);
     }else{
-      $producto->SetRespaldo($result['id_producto'], $result['nombre_producto'], $result['Descripcion_producto'], $result['precio_compra'], $result['precio_venta'], $result['id_categoria'],$result['peso'], $result['id_material'], $result['cantidad_disponible'], $result['ubicacion_almacen'], $result['id_proveedor'], 0);
+      $producto->SetRespaldo($result['id_producto'], $result['nombre_producto'], $result['Descripcion_producto'], $result['precio_compra'], $result['precio_venta'], $result['id_categoria'],$result['peso'], $result['id_material'], $result['cantidad_disponible'], $result['ubicacion_almacen'], $result['id_proveedor'], 0, $usr_making_change);
       $producto->DeleteProducto($id);
     }
     

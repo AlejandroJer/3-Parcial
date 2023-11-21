@@ -21,7 +21,8 @@
             $telefono = filter_var($_POST['telefono'], FILTER_SANITIZE_NUMBER_INT);
             $correo = filter_var($_POST['correo-proveedor'], FILTER_SANITIZE_EMAIL);
 
-            $proveedor->SetRespaldo($id, $nombre, $persona, $direccion, $telefono, $correo, 1);
+            $usr_making_change = $_SESSION['logged_usr'];
+            $proveedor->SetRespaldo($id, $nombre, $persona, $direccion, $telefono, $correo, 1, $usr_making_change);
             $proveedor->UpdateProveedor($id, $nombre, $direccion, $persona, $telefono, $correo);
             
             header("location:./../../proveedores/read.php");
