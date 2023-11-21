@@ -197,7 +197,7 @@
                         </div>
                     </div>
                     <div class="principal_data card-body justify-content-center" style="flex: none;">
-                        <img src="" alt="imagen de producto" class="img-fluid rounded-start col-10">
+                        <img src=""  class="img-fluid rounded-start col-10">
                         ${sexo}
                         <div class="row mt-2">
                             <h4 class="pe-0">${result.apellido_usr}</h4>
