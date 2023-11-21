@@ -601,14 +601,17 @@ class productos extends conexion{
         return $del;
     }
 
-    public function InsertarImg($name_images){
+    public function InsertarImg($name_images, $name){
         if(isset($_FILES['image'])){
 
             $file =$_FILES['image'];
             $file_name=$file['name'];
             $mimetype=$file['type'];
-            
+            $name = str_replace(" ", "", $name);
+            $today = date("Y-m-d_H-i-s");
+            $extension = ".".explode("/", $mimetype)[1];
             $ext_formatos=array("image/jpeg", "image/jpg","image/png");
+
             if(!in_array($mimetype,$ext_formatos)){
                 header("location:../inventario/add.php");
                 die();
@@ -625,23 +628,26 @@ class productos extends conexion{
             }
             if(in_array($directorio.$file_name, $name_images)){
             }else{
-                move_uploaded_file($file['tmp_name'],"../inventario/".$directorio.$file_name);
+                move_uploaded_file($file['tmp_name'],"../inventario/".$directorio.$name.$today.$extension);
             }
-            return $directorio.$file_name;
+            return $directorio.$name.$today.$extension;
 
         }else{
             header("location:../inventario/add.php");
         }       
     }
 
-    public function UpdateImg($name_images){
+    public function UpdateImg($name_images, $name){
         if(isset($_FILES['image'])){
 
             $file =$_FILES['image'];
             $file_name=$file['name'];
             $mimetype=$file['type'];
-
+            $name = str_replace(" ", "", $name);
+            $today = date("Y-m-d_H-i-s");
+            $extension = ".".explode("/", $mimetype)[1];
             $ext_formatos=array("image/jpeg", "image/jpg","image/png");
+
             if(!in_array($mimetype,$ext_formatos)){
                 header("location:../../inventario/add.php");
                 die();
@@ -658,9 +664,9 @@ class productos extends conexion{
             }
             if(in_array($directorio.$file_name, $name_images)){
             }else{
-                move_uploaded_file($file['tmp_name'],"../../inventario/".$directorio.$file_name);
+                move_uploaded_file($file['tmp_name'],"../../inventario/".$directorio.$name.$today.$extension);
             }
-            return $directorio.$file_name;
+            return $directorio.$name.$today.$extension;
 
         }else{
             header("location:../../inventario/add.php");
