@@ -67,9 +67,10 @@
                     <iconify-icon class="iconify" icon="mingcute:user-4-fill" width="30" height="30"></iconify-icon>
                 </a>
                 <ul class="dropdown-menu" style="z-index: 9999;">
-                    <li><a href="#" class="dropdown-item">Mensages</a></li>
+                    <li><a href="#" class="dropdown-item">Usuario #<?= $user['id_usr'] ?></a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['email_usr']?></a></li>
                 </ul>
             </div>
         </nav>
@@ -97,6 +98,7 @@
                             <th>Fecha</th>
                             <th>Cambios En:</th>
                             <th>Movimiento</th>
+                            <th>Por Usuario:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,18 +107,26 @@
                                 <td><?= $index + 1 ?></td>
                                 <td><?= $result['fecha_movimiento'] ?></td>
                                 <td>Proveedor #<?= $result['id_tabla_PK'] ?></td>
+                                <td><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></td>
                                 <td>
                                     <div class="row">
-                                        <p class="col-lg-10"><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></p>
+                                        <div class="col-8">
+                                            <a href="#" class="p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">#<?= $result['id_usr'] ?></a>
+                                            <?php $MovByUser = $empleados->GetUsuarioById($result['id_usr']); ?>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['nombre_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['apellido_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['email_usr'] ?></a></li>
+                                                <li><a href="#" class="dropdown-item disabled"><?= $MovByUser['tel'] ?></a></li>
+                                            </ul>
+                                        </div>
                                         <div class="accordion col-2">
-                                        <!-- <div class="row accordion-header"> -->
                                             <button type="button" class="accordion-button collapsed bg-transparent shadow-none p-1" data-bs-toggle="collapse" data-bs-target="#dropdownTableButton<?= $result['id_movimiento'] ?>"></button>
-                                        <!-- </div> -->
                                         </div>
                                     </div>
                                 </td>
                              <tr>
-                                <td colspan="4" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
+                                <td colspan="5" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
                                     <table class="table mb-0">
                                         <thead>
                                             <tr>

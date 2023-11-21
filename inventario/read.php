@@ -81,9 +81,10 @@
                     <iconify-icon class="iconify" icon="mingcute:user-4-fill" width="30" height="30"></iconify-icon>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="dropdown-item">Mensages</a></li>
+                    <li><a href="#" class="dropdown-item">Usuario #<?= $user['id_usr'] ?></a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['email_usr']?></a></li>
                 </ul>
             </div>
         </nav>

@@ -126,6 +126,17 @@ class proveedores extends conexion {
         return $request;
     }
 
+    public function GetIdByNombreEmpresaDireccion($nombreEmpresa, $direccion) {
+        $sql = "SELECT id_proveedor FROM proveedores WHERE nombre_empresa = :nombreEmpresa AND direccion = :direccion";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindParam(':nombreEmpresa', $nombreEmpresa, PDO::PARAM_STR);
+        $execute->bindParam(':direccion', $direccion, PDO::PARAM_STR);
+        $execute->execute();
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
     public function UpdateProveedor($id, $nombreEmpresa, $direccionProveedor, $personaContacto, $telefono, $correoProveedor) {
         $this->nombreEmpresa = $nombreEmpresa;
         $this->direccionProveedor = $direccionProveedor;
