@@ -176,7 +176,7 @@ class proveedores extends conexion {
         $this->correoProveedor = json_encode(array($this->correoProveedor_backup,$email));
 
 
-        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r,mov,id_usr) VALUES(?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r,mov,MovByUsr) VALUES(?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
         $arrData= array($this->id_proveedor,$this->nombreEmpresa,$this->personaContacto,$this->direccionProveedor,$this->telefono,$this->correoProveedor,$this->movimiento,$this->mov_by_usr);
         $resInsert = $insert->execute($arrData);

@@ -698,7 +698,7 @@ class productos extends conexion{
         $this->ubicacion_almacen = json_encode(array($this->ubicacion_almacen_backup, $ubicacion_almacen));
         $this->id_proveedor = json_encode(array($this->id_proveedor_backup, $id_proveedor));
     
-        $sql = "INSERT INTO respaldo_producto(id_producto_r, nom_producto_r, desc_producto_r, img_r, precio_compra_r, precio_venta_r, categoria_r, peso_r, tipo_material_r, cantidad_r, ubicacion_r, id_proveedor_r, mov, id_usr)
+        $sql = "INSERT INTO respaldo_producto(id_producto_r, nom_producto_r, desc_producto_r, img_r, precio_compra_r, precio_venta_r, categoria_r, peso_r, tipo_material_r, cantidad_r, ubicacion_r, id_proveedor_r, mov, MovByUsr)
                     VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?)";
         $insert = $this->conn->prepare($sql);
         $arrData = array(
