@@ -47,9 +47,59 @@ CREATE TABLE IF NOT EXISTS `movimientos` (
   `id_tabla_PK` int(11) NOT NULL,
   `id_tabla_r_PK` int(11) DEFAULT NULL,
   `tipo_movimiento` varchar(20) NOT NULL,
-  `id_usr` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id_movimiento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT IGNORE INTO `movimientos` (`id_movimiento`, `fecha_movimiento`, `tabla`, `id_tabla_PK`, `id_tabla_r_PK`, `tipo_movimiento`) VALUES
+(24, '2023-11-20 01:23:10', 'proveedores', 21, 10, '0'),
+(25, '2023-11-20 01:23:28', 'usuarios', 62, NULL, '2'),
+(26, '2023-11-20 01:23:44', 'usuarios', 62, 7, '0'),
+(27, '2023-11-20 02:00:04', 'proveedores', 2, 11, '1'),
+(28, '2023-11-20 02:00:18', 'proveedores', 10, 12, '1'),
+(29, '2023-11-20 03:06:51', 'proveedores', 22, NULL, '2'),
+(30, '2023-11-20 03:06:51', 'proveedores', 23, NULL, '2'),
+(31, '2023-11-20 03:06:51', 'proveedores', 24, NULL, '2'),
+(32, '2023-11-20 03:06:51', 'proveedores', 25, NULL, '2'),
+(33, '2023-11-20 03:06:51', 'proveedores', 26, NULL, '2'),
+(34, '2023-11-20 03:06:51', 'proveedores', 27, NULL, '2'),
+(35, '2023-11-20 03:06:51', 'proveedores', 28, NULL, '2'),
+(36, '2023-11-20 03:06:51', 'proveedores', 29, NULL, '2'),
+(37, '2023-11-20 03:06:51', 'proveedores', 30, NULL, '2'),
+(38, '2023-11-20 03:06:51', 'proveedores', 31, NULL, '2'),
+(39, '2023-11-20 03:06:51', 'proveedores', 32, NULL, '2'),
+(40, '2023-11-20 03:06:51', 'proveedores', 33, NULL, '2'),
+(41, '2023-11-20 03:06:51', 'proveedores', 34, NULL, '2'),
+(42, '2023-11-20 03:06:51', 'proveedores', 35, NULL, '2'),
+(43, '2023-11-20 03:06:51', 'proveedores', 36, NULL, '2'),
+(44, '2023-11-20 03:06:51', 'proveedores', 37, NULL, '2'),
+(45, '2023-11-20 03:06:51', 'proveedores', 38, NULL, '2'),
+(46, '2023-11-20 03:06:51', 'proveedores', 39, NULL, '2'),
+(47, '2023-11-20 03:06:51', 'proveedores', 40, NULL, '2'),
+(48, '2023-11-20 03:06:51', 'proveedores', 41, NULL, '2'),
+(49, '2023-11-20 03:53:38', 'proveedores', 36, 13, '0'),
+(50, '2023-11-20 04:05:24', 'usuarios', 63, NULL, '2'),
+(51, '2023-11-20 04:05:55', 'usuarios', 63, 8, '1'),
+(52, '2023-11-20 04:06:26', 'usuarios', 64, NULL, '2'),
+(53, '2023-11-20 04:08:49', 'usuarios', 64, 9, '1'),
+(54, '2023-11-20 04:10:31', 'usuarios', 65, NULL, '2'),
+(55, '2023-11-20 04:11:06', 'usuarios', 66, NULL, '2'),
+(56, '2023-11-20 04:11:29', 'usuarios', 67, NULL, '2'),
+(57, '2023-11-20 04:11:52', 'usuarios', 68, NULL, '2'),
+(58, '2023-11-20 04:12:19', 'usuarios', 69, NULL, '2'),
+(59, '2023-11-20 04:12:53', 'usuarios', 70, NULL, '2'),
+(60, '2023-11-20 04:13:14', 'usuarios', 71, NULL, '2'),
+(61, '2023-11-20 04:13:38', 'usuarios', 72, NULL, '2'),
+(62, '2023-11-20 04:14:44', 'usuarios', 73, NULL, '2'),
+(63, '2023-11-20 04:15:05', 'usuarios', 74, NULL, '2'),
+(64, '2023-11-20 04:15:51', 'usuarios', 75, NULL, '2'),
+(65, '2023-11-20 04:16:17', 'usuarios', 76, NULL, '2'),
+(66, '2023-11-20 04:16:41', 'usuarios', 77, NULL, '2'),
+(67, '2023-11-20 04:17:06', 'usuarios', 78, NULL, '2'),
+(68, '2023-11-20 04:17:32', 'usuarios', 79, NULL, '2'),
+(69, '2023-11-20 04:17:54', 'usuarios', 80, NULL, '2'),
+(70, '2023-11-20 04:18:14', 'usuarios', 81, NULL, '2'),
+(71, '2023-11-20 04:18:48', 'usuarios', 82, NULL, '2'),
+(72, '2023-11-20 04:19:07', 'usuarios', 83, NULL, '2');
 
 CREATE TABLE IF NOT EXISTS `perfiles` (
   `id_perfil` int(11) NOT NULL AUTO_INCREMENT,
@@ -85,11 +135,29 @@ INSERT IGNORE INTO `productos` (`id_producto`, `nombre_producto`, `Descripcion_p
 (10, 'Collar de Perlas Blancas', 'Collar de perlas blancas con cierre de oro.', 'imagenes_productos/Imagen6.jpg', 200.00, 200.00, 2, 4, 1, 10, 'Estante 11, Fila K', 11),
 (11, 'Colgante de Corazón de Plata', 'Colgante en forma de corazón de plata', 'imagenes_productos/Imagen7.jpg', 50.00, 50.00, 2, 2, 2, 25, 'Estante 12, Fila L', 12),
 (13, 'Collar con Diamante y Zafiro', 'Collar de oro con un diamante y un zafiro.\r\n \r\n', 'imagenes_productos/Imagen8.jpg', 350.00, 350.00, 2, 5, 1, 8, 'Estante 13, Fila M', 13),
-(16, 'Pulsera de Oro con Diamantes', 'Pulsera de oro con incrustaciones de diamantes.', 'imagenes_productos/Imagen11.jpg', 350.00, 350.00, 3, 7, 1, 14, 'Estante 16, Fila P', 16);
+(16, 'Pulsera de Oro con Diamantes', 'Pulsera de oro con incrustaciones de diamantes.', 'imagenes_productos/Imagen11.jpg', 350.00, 350.00, 3, 7, 1, 14, 'Estante 16, Fila P', 16),
+(17, 'Test de un Update Nuevamente', 'Esto es un test para el update', NULL, 300.00, 300.00, 2, 5, 3, 20, 'Test esto es un test de update', 11),
+(18, 'Test numero dos', 'Esto tambien es un test', NULL, 60.00, 25.00, 2, 11, 2, 14, 'Ubicacion test', 3),
+(19, 'Test numero tres', 'Para ver si jala', NULL, 4534.00, 242.00, 3, 55, 3, 65, 'No se la verdad', 4),
+(20, 'Test tipo de mov', 'Pendientes bonitos', NULL, 245.00, 245.00, 4, 54, 2, 24, 'La vuelta de la esquina', 5);
 DELIMITER $$
-CREATE TRIGGER `created_insert_prdct` AFTER INSERT ON `productos` FOR EACH ROW BEGIN
-    INSERT INTO movimientos (fecha_movimiento, tabla, id_tabla_PK, id_tabla_r_PK, tipo_movimiento)
-    VALUES (NOW(), 'productos', NEW.id_producto, NULL, 2);
+CREATE TRIGGER `after_delete_productos` AFTER DELETE ON `productos` FOR EACH ROW BEGIN
+    INSERT INTO movimientos (fecha_movimiento, id_producto, nombre_producto, cantidad_disponible, id_categoria, id_material, tipo_movimiento)
+    VALUES (NOW(), OLD.id_producto, OLD.nombre_producto, OLD.cantidad_disponible, OLD.id_categoria, OLD.id_material, 'Eliminar');
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_insert_productos` AFTER INSERT ON `productos` FOR EACH ROW BEGIN
+    INSERT INTO movimientos (fecha_movimiento, id_producto, nombre_producto, cantidad_disponible, id_categoria, id_material, tipo_movimiento)
+    VALUES (NOW(), NEW.id_producto, NEW.nombre_producto, NEW.cantidad_disponible, NEW.id_categoria, NEW.id_material, 'Agregar');
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_update_productos` AFTER UPDATE ON `productos` FOR EACH ROW BEGIN
+    INSERT INTO movimientos (fecha_movimiento, id_producto, nombre_producto, cantidad_disponible, id_categoria, id_material, tipo_movimiento)
+    VALUES (NOW(), NEW.id_producto, NEW.nombre_producto, NEW.cantidad_disponible, NEW.id_categoria, NEW.id_material, 'Editar');
 END
 $$
 DELIMITER ;
@@ -140,8 +208,7 @@ INSERT IGNORE INTO `proveedores` (`id_proveedor`, `nombre_empresa`, `persona_con
 (38, 'Joyería Elegante', 'Pedro Pérez', 'Calle de las gemas 125', 3145551235, 'pedro@joyeriaelegante.com'),
 (39, 'Joyería Brillante', 'Laura López', 'Avenida de los diamantes 458', 3145552346, 'laura@joyeriabrillante.com'),
 (40, 'Joyería Fina', 'Luis García', 'Plaza de las perlas 791', 3145553457, 'luis@joyeriafina.com'),
-(41, 'Joyería Moderna', 'Sofía Sánchez', 'Boulevard de los zafiros 103', 3145554569, 'sofia@joyeriamoderna.com'),
-(42, 'La prueba actualizada', 'Señor prueba nuevo', 'Una prueba de update', 3215589745, 'pruebasrupdate@gmail.com');
+(41, 'Joyería Moderna', 'Sofía Sánchez', 'Boulevard de los zafiros 103', 3145554569, 'sofia@joyeriamoderna.com');
 DELIMITER $$
 CREATE TRIGGER `created_insert_prvr` AFTER INSERT ON `proveedores` FOR EACH ROW BEGIN
     		INSERT INTO movimientos (fecha_movimiento, tabla, id_tabla_PK, id_tabla_r_PK, tipo_movimiento)
@@ -151,29 +218,28 @@ $$
 DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS `respaldo_producto` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_producto_r` int(11) UNSIGNED NOT NULL,
-  `nom_producto_r` varchar(300) NOT NULL,
+  `id_producto_r` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_producto_r` varchar(50) NOT NULL,
   `desc_producto_r` text NOT NULL,
-  `img_r` varchar(300) DEFAULT NULL,
-  `precio_compra_r` varchar(100) NOT NULL,
-  `precio_venta_r` varchar(100) NOT NULL,
-  `categoria_r` varchar(30) NOT NULL,
-  `peso_r` varchar(30) NOT NULL,
+  `img_r` varchar(50) DEFAULT NULL,
+  `precio_compra_r` decimal(10,0) UNSIGNED NOT NULL,
+  `precio_venta_r` decimal(10,0) UNSIGNED NOT NULL,
+  `categoria_r` varchar(40) NOT NULL,
+  `peso_r` int(4) UNSIGNED NOT NULL,
   `tipo_material_r` varchar(30) NOT NULL,
-  `cantidad_r` varchar(30) NOT NULL,
+  `cantidad_r` int(5) UNSIGNED NOT NULL,
   `ubicacion_r` varchar(50) NOT NULL,
-  `id_proveedor_r` varchar(33) DEFAULT NULL,
-  `mov` int(1) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
+  `id_proveedor_r` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_producto_r`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-DELIMITER $$
-CREATE TRIGGER `backup_insert_prdct` AFTER INSERT ON `respaldo_producto` FOR EACH ROW BEGIN
-    INSERT INTO movimientos (fecha_movimiento, tabla, id_tabla_PK, id_tabla_r_PK, tipo_movimiento)
-    VALUES (NOW(), 'productos', NEW.id_producto_r, NEW.id, NEW.mov);
-END
-$$
-DELIMITER ;
+
+INSERT IGNORE INTO `respaldo_producto` (`id_producto_r`, `nom_producto_r`, `desc_producto_r`, `img_r`, `precio_compra_r`, `precio_venta_r`, `categoria_r`, `peso_r`, `tipo_material_r`, `cantidad_r`, `ubicacion_r`, `id_proveedor_r`) VALUES
+(1, 'Pulsera de Plata con Zafiros', 'Pulsera de plata con zafiros azules', 'imagenes_respaldo/Imagen14.jpg', 90, 180, 'Pulsera', 7, 'Plata', 16, '0', 19),
+(2, 'Pulsera de Oro Amarillo con Perlas', 'Pulsera de oro amarillo con perlas blancas.', 'imagenes_respaldo/Imagen13.jpg', 125, 250, 'Pulsera', 8, 'Oro', 8, '0', 18),
+(3, 'Pulsera de Plata Elegante', 'Pulsera de plata con un diseño elegante.', 'imagenes_respaldo/Imagen12.jpg', 60, 120, 'Pulsera', 6, 'Plata', 20, '0', 17),
+(4, 'Colgante de Cruz de Oro', 'Colgante en forma de cruz de oro.', 'imagenes_respaldo/Imagen9.jpg', 35, 70, 'Collar', 2, 'Oro', 18, 'Estante 14, Fila N', 14),
+(5, 'Collar de Platino con Diamante', 'Collar de platino con un diamante en el colgante', 'imagenes_respaldo/Imagen10.jpg', 300, 600, 'Collar', 4, 'Platino', 12, 'Estante 15, Fila O', 15),
+(6, 'Anillo de Diamante Clásico', 'Anillo de oro con un hermoso diamante en el centro.', 'imagenes_respaldo/Imagen1.jpg', 250, 500, 'Anillo', 3, 'Oro', 20, 'Estante 1, Fila A', 1);
 
 CREATE TABLE IF NOT EXISTS `respaldo_proveedor` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -186,6 +252,12 @@ CREATE TABLE IF NOT EXISTS `respaldo_proveedor` (
   `mov` int(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT IGNORE INTO `respaldo_proveedor` (`id`, `id_proveedor_r`, `nom_empresa_r`, `p_contacto_r`, `dir_r`, `tel_r`, `email_r`, `mov`) VALUES
+(10, 21, '[\"prueba de pruebas pruebinas\",\"prueba de pruebas pruebinas\"]', '[\"prueba prueba\",\"prueba prueba\"]', '[\"blvd prueba av prueba\",\"blvd prueba av prueba\"]', '[1112223344,1112223344]', '[\"prueba.prueba@prueba.com\",\"prueba.prueba@prueba.com\"]', 0),
+(11, 2, '[\"Joyer\\u00eda Elegante\",\"Joyer\\u00eda Elegante\"]', '[\"Ana P\\u00e9rez\",\"Ana P\\u00e9rez\"]', '[\"Calle de las gemas 123\",\"Calle de las gemas 123\"]', '[3145554567,3147541278]', '[\"ana@joyeriaelegante.com\",\"ana@joyeriaelegante.com\"]', 1),
+(12, 10, '[\"Diamantes y Rub\\u00edes\",\"Diamantes y Rub\\u00edes\"]', '[\"Pablo G\\u00f3mez\",\"Pablo G\\u00f3mez\"]', '[\"Avenida de las Gemas 666\",\"Avenida de las Gemas 666\"]', '[3145552345,2793632345]', '[\"pablo@diamantesYrubies.com\",\"pablo@diamantesYrubies.com\"]', 1),
+(13, 36, '[\"Joyer\\u00eda Natural\",\"Joyer\\u00eda Natural\"]', '[\"Carlos Gonz\\u00e1lez\",\"Carlos Gonz\\u00e1lez\"]', '[\"Camino de las esmeraldas 405\",\"Camino de las esmeraldas 405\"]', '[3145559013,3145559013]', '[\"carlos@joyerianatural.com\",\"carlos@joyerianatural.com\"]', 0);
 DELIMITER $$
 CREATE TRIGGER `backup_insert_prvr` AFTER INSERT ON `respaldo_proveedor` FOR EACH ROW BEGIN
     		INSERT INTO movimientos (fecha_movimiento, tabla, id_tabla_PK, id_tabla_r_PK, tipo_movimiento)
@@ -207,6 +279,11 @@ CREATE TABLE IF NOT EXISTS `respaldo_usuario` (
   `mov` int(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT IGNORE INTO `respaldo_usuario` (`id`, `id_r`, `nombre_r`, `pass_r`, `apellido_r`, `email_r`, `tel_r`, `sexo_r`, `id_perfil_r`, `mov`) VALUES
+(7, 62, '[\"prueba\",\"prueba\"]', '[\"$2y$10$3NVKrNYzFY8CPFFCAs3KTu55yr8FlSgtlVWYvawLwGrtyuHfuJHCO\",\"$2y$10$3NVKrNYzFY8CPFFCAs3KTu55yr8FlSgtlVWYvawLwGrtyuHfuJHCO\"]', '[\"prueba\",\"prueba\"]', '[\"prueba.prueba@prueba.com\",\"prueba.prueba@prueba.com\"]', '[0,0]', '[\"m\",\"m\"]', '[0,0]', 0),
+(8, 63, '[\"Ana\",\"Ana\"]', '[\"$2y$10$Zf6vmptP9nlvvmBha6tJ2.4.v.J\\/Elmxqjp2VBRHEhZgcGOWfOZ9u\",\"$2y$10$Zf6vmptP9nlvvmBha6tJ2.4.v.J\\/Elmxqjp2VBRHEhZgcGOWfOZ9u\"]', '[\"P\\u00e9rez\",\"P\\u00e9rez\"]', '[\"ana.perez@email.com\",\"ana.perez@email.com\"]', '[0,7652378727]', '[\"f\",\"f\"]', '[1,1]', 1),
+(9, 64, '[\"Pedro\",\"Pedro\"]', '[\"$2y$10$9yqI0DYGEfR3iZb.8m6.k.hsT14Y0ntWpCjdCezCuAs7ylGQZNgq.\",\"$2y$10$9yqI0DYGEfR3iZb.8m6.k.hsT14Y0ntWpCjdCezCuAs7ylGQZNgq.\"]', '[\"S\\u00e1nchez\",\"S\\u00e1nchez\"]', '[\"pedro.sanchez@email.com\",\"pedro.sanchez@email.com\"]', '[0,7652378728]', '[\"m\",\"m\"]', '[0,0]', 1);
 DELIMITER $$
 CREATE TRIGGER `backup_insert_usr` AFTER INSERT ON `respaldo_usuario` FOR EACH ROW BEGIN
     		INSERT INTO movimientos (fecha_movimiento, tabla, id_tabla_PK, id_tabla_r_PK, tipo_movimiento)

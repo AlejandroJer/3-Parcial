@@ -200,4 +200,15 @@ class proveedores extends conexion {
 
         return $Array;
     }
+
+    public function PrvrsDictionary(){
+        $sql = "SELECT * FROM proveedores";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+        $Array = array();
+        foreach ($request as $key => $value) {
+            $Array[$value['id_proveedor']] = $value['nombre_empresa'];
+        }
+        return $Array;
+    }
 }

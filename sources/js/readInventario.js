@@ -108,6 +108,7 @@
     main.classList.remove('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
+        var imagenSrc = result.imagen ? result.imagen : '../sources/imgs/defaultImg.jpg';
         cards += `
                 <div class="readObject_Container target card mb-4">
                     <div class="readObject_header card-header">
@@ -132,7 +133,7 @@
                     <div class="principal_data card-body row">
                         <div class="row">
                             <div class="image_container col-lg-2">
-                                    <img src="${result.imagen}" alt="imagen de producto" class="img-fluid rounded-start">
+                                    <img src="${imagenSrc}" alt="Imagen del producto" class="img-fluid rounded-start">
                             </div>
                             <div class="data_container col-lg-10">
                                 <div class="row">
@@ -175,6 +176,7 @@
     main.classList.add('d-flex', 'flex-wrap', 'justify-content-center');
     var cards = "";
     results.forEach(result => {
+        var imagenSrc = result.imagen ? result.imagen : '../sources/imgs/defaultImg.jpg';
         cards += `
                 <div class="readObject_Container target card mb-4 me-2 col-2 p-0">
                     <div class="readObject_header card-header">
@@ -197,7 +199,7 @@
                         </div>
                     </div>
                     <div class="principal_data card-body row justify-content-center" style="flex: none;">
-                        <img src="${result.imagen}" alt="imagen de producto" class="img-fluid rounded-start col-10">
+                        <img src="${imagenSrc}" alt="imagen de producto" class="img-fluid rounded-start col-10">
                         <div class="row mt-2">
                             <h6 class="ingreso col-6 pe-0"><small>Venta</small></h6>
                             <h6 class="gasto col-6 pe-0"><small>Compra</small></h6>

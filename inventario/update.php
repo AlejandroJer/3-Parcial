@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="../movimientos/readProveedores.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
+                    <a href="../movimientos/readProductos.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
                         <iconify-icon class="iconify" icon="bi:arrow-left-right" width="30" height="30"></iconify-icon>
                     </a>
                 </li>
@@ -169,7 +169,7 @@
                         <div class="col-lg-2">
                             <div class="card col-lg-12 ">
                                 <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
-                                    <img src="<?='./' . $result['imagen']?>" alt="imagen-actual-del-producto" class="card-img-top" id="img-image">
+                                    <img src="<?= empty($result['imagen']) ? '../sources/imgs/defaultImg.jpg' : './' . $result['imagen'] ?>" alt="imagen-actual-del-producto" class="card-img-top" id="img-image">
                                 </button>
                                 <label for="update-image" class="col-form-label text-center">Editar</label>
                             </div>

@@ -1,21 +1,23 @@
 <?php
  namespace controladores;
  require_once("../autoload.php");
- use modelos\{movimientos, usuarios, productos};
+ use modelos\{movimientos, usuarios, productos, proveedores};
     $empleados = new usuarios();
     $movimientos = new movimientos();
     $productos = new productos();
+    $proveedores = new proveedores();
 
-if (!isset($_SESSION['logged_usr'])) {
+ if (!isset($_SESSION['logged_usr'])) {
     header('Location: ./../auth/login.php');
     exit;
-} else {
+ } else {
     $user_id = $_SESSION['logged_usr'];
     $user = $empleados->GetUsuarioById($user_id);
-}
-$historialMovimientos = $movimientos->obtenerHistorialMovimientos(); 
+ }
+ $results = $movimientos->GetMovByTable('productos');
+ $dictionary = $movimientos->DiccMov();
+ $prvrsdict = $proveedores->PrvrsDictionary();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,36 +104,122 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
             <section class="dashboard_container container" id="mainContainer">
                 <h2>Historial de movimientos</h2>
                 <!-- Puedes mostrar la información del historial de movimientos aquí -->
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Fecha</th>
-                            <th>ID de Usuario</th>
-                            <th>ID de Producto</th>
-                            <th>Nombre del Producto</th>
-                            <th>Cantidad Disponible</th>
-                            <th>Categoria</th>
-                            <th>Material</th>
-                            <th>Tipo de Movimiento</th>
-                            <!-- Agrega más encabezados según tus necesidades -->
+                            <th>Cambios En:</th>
+                            <th>Movimiento</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($historialMovimientos as $movimiento) { ?>
-                            <tr>
-                                <td><?= $movimiento['id_movimiento'] ?></td>
-                                <td><?= $movimiento['fecha_movimiento'] ?></td>
-                                <td><?= $movimiento['id_usuario'] ?></td>
-                                <td><?= $movimiento['id_producto'] ?></td>
-                                <td><?= $movimiento['nombre_producto'] ?></td>
-                                <td><?= $movimiento['cantidad_disponible'] ?></td>
-                                <td><?= $movimiento['id_categoria'] ?></td>
-                                <td><?= $movimiento['id_material'] ?></td>
-                                <td><?= $movimiento['tipo_movimiento'] ?></td>
-                                <!-- Agrega más celdas según tus necesidades -->
-                            </tr>
-                        <?php } ?>
+                        <?php foreach($results as $index => $result): ?>
+                            <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                <td><?= $index + 1 ?></td>
+                                <td><?= $result['fecha_movimiento'] ?></td>
+                                <td>Producto #<?= $result['id_tabla_PK'] ?></td>
+                                <td>
+                                    <div class="row">
+                                        <p class="col-lg-10"><?= $dictionary[$result['tipo_movimiento']]['kind'] ?></p>
+                                        <div class="accordion col-2">
+                                            <button type="button" class="accordion-button collapsed bg-transparent shadow-none p-1" data-bs-toggle="collapse" data-bs-target="#dropdownTableButton<?= $result['id_movimiento'] ?>"></button>
+                                        </div>
+                                    </div>
+                                </td>
+                             <tr>
+                                <td colspan="4" class="collapse pt-0" id="dropdownTableButton<?= $result['id_movimiento'] ?>">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th> # </th>
+                                                <th>Nombre</th>
+                                                <th>Descripción</th>
+                                                <th>Imagen</th>
+                                                <th>Compra</th>
+                                                <th>Venta</th>
+                                                <th>Categoría</th>
+                                                <th>Peso</th>
+                                                <th>Material</th>
+                                                <th>Cantidad</th>
+                                                <th>Ubicación</th>
+                                                <th>Proveedor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if ($result['tipo_movimiento'] == 1){ ?>
+                                                <?php $results_backup = $productos->GetRespaldoProducto($result['id_tabla_PK']); ?>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td><strong>Antes</strong></td>
+                                                    <td><?= $results_backup['nombre'][0] ?></td>
+                                                    <td><?= $results_backup['Descripcion_producto'][0] ?></td>
+                                                    <td><?php if (isset($results_backup['imagen'][0])) { echo $results_backup['imagen'][0]; } else { echo 'N/A'; } ?></td>
+                                                    <td><?= $results_backup['precio_compra'][0] ?></td>
+                                                    <td><?= $results_backup['precio_venta'][0] ?></td>
+                                                    <td><?= $results_backup['id_categoria'][0] ?></td>
+                                                    <td><?= $results_backup['peso'][0] ?></td>
+                                                    <td><?= $results_backup['id_material'][0] ?></td>
+                                                    <td><?= $results_backup['cantidad_disponible'][0] ?></td>
+                                                    <td><?= $results_backup['ubicacion_almacen'][0] ?></td>
+                                                    <td><?= $prvrsdict[$results_backup['id_proveedor'][0]] ?></td>
+                                                </tr>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td><strong>Después</strong></td>
+                                                    <td><?= $results_backup['nombre'][1] ?></td>
+                                                    <td><?= $results_backup['Descripcion_producto'][1] ?></td>
+                                                    <td><?php if (isset($results_backup['imagen'][1])) { echo $results_backup['imagen'][1]; } else { echo 'N/A'; } ?></td>
+                                                    <td><?= $results_backup['precio_compra'][1] ?></td>
+                                                    <td><?= $results_backup['precio_venta'][1] ?></td>
+                                                    <td><?= $results_backup['id_categoria'][1] ?></td>
+                                                    <td><?= $results_backup['peso'][1] ?></td>
+                                                    <td><?= $results_backup['id_material'][1] ?></td>
+                                                    <td><?= $results_backup['cantidad_disponible'][1] ?></td>
+                                                    <td><?= $results_backup['ubicacion_almacen'][1] ?></td>
+                                                    <td><?= $prvrsdict[$results_backup['id_proveedor'][1]] ?></td>
+                                                </tr>
+                                            <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
+                                                <?php $results_backup = $productos->GetRespaldoProducto($result['id_tabla_PK']); ?>
+                                                <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                    <td><strong><?= $results_backup['id_producto'] ?></strong></td>
+                                                    <td><?= $results_backup['nombre'][0] ?></td>
+                                                    <td><?= $results_backup['Descripcion_producto'][0] ?></td>
+                                                    <td><?php if (isset($results_backup['imagen'][0])) { echo $results_backup['imagen'][0]; } else { echo 'N/A'; } ?></td>
+                                                    <td><?= $results_backup['precio_compra'][0] ?></td>
+                                                    <td><?= $results_backup['precio_venta'][0] ?></td>
+                                                    <td><?= $results_backup['id_categoria'][0] ?></td>
+                                                    <td><?= $results_backup['peso'][0] ?></td>
+                                                    <td><?= $results_backup['id_material'][0] ?></td>
+                                                    <td><?= $results_backup['cantidad_disponible'][0] ?></td>
+                                                    <td><?= $results_backup['ubicacion_almacen'][0] ?></td>
+                                                    <td><?= $prvrsdict[$results_backup['id_proveedor'][0]] ?></td>
+                                                </tr>
+                                            <?php } elseif ($result['tipo_movimiento'] == 2) { ?>
+                                                <?php $results_backup = $productos->GetProductoById($result['id_tabla_PK']); ?>
+                                                <?php if (!empty($results_backup)) { ?>
+                                                    <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                        <td><strong><?= $results_backup['id_producto']; ?></strong></td>
+                                                        <td><?= $results_backup['nombre_producto']; ?></td>
+                                                        <td><?= $results_backup['Descripcion_producto']; ?></td>
+                                                        <td><?php if (isset($results_backup['imagen'])) { echo $results_backup['imagen']; } else { echo 'N/A'; } ?></td>
+                                                        <td><?= $results_backup['precio_compra']; ?></td>
+                                                        <td><?= $results_backup['precio_venta']; ?></td>
+                                                        <td><?= $results_backup['id_categoria']; ?></td>
+                                                        <td><?= $results_backup['peso']; ?></td>
+                                                        <td><?= $results_backup['id_material']; ?></td>
+                                                        <td><?= $results_backup['cantidad_disponible']; ?></td>
+                                                        <td><?= $results_backup['ubicacion_almacen']; ?></td>
+                                                        <td><?= $prvrsdict[$results_backup['id_proveedor']]; ?></td>
+                                                    </tr>
+                                                <?php } else { ?>
+                                                    <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
+                                                        <td colspan="12" class="justify-content-center"><strong>Este elemento ya ha sido eliminado</strong></td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </section>
@@ -141,5 +229,4 @@ $historialMovimientos = $movimientos->obtenerHistorialMovimientos();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="../sources/js/app.js"></script>
-<script src="../sources/js/readProveedores.js"></script>
 </html>
