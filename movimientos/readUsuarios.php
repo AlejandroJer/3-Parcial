@@ -70,6 +70,8 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
                     <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['email_usr']?></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="../logout.php" class="dropdown-item text-danger">Cerrar Sesion</a></li>
                 </ul>
             </div>
         </nav>
@@ -165,7 +167,7 @@
                                         <?php } elseif ($result['tipo_movimiento'] == 0) { ?>
                                             <?php $results_backup = $usuarios->GetRespaldoById($result['id_tabla_r_PK']); ?>
                                             <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
-                                                <td><strong><?= $results_backup['id_usr'][0] ?></strong></td>
+                                                <td><strong><?= $results_backup['id_usr'] ?></strong></td>
                                                 <td><?= $results_backup['nombre_usr'][0] ?></td>
                                                 <td><?= $results_backup['apellido_usr'][0] ?></td>
                                                 <td><?php if (!empty($results_backup['imagen'][0])) { echo '<img src="./../empleados/'.$results_backup['imagen'][0].'" alt="" srcset="" style="width: 45px;">'; } else { echo 'N/A'; } ?></td>
@@ -189,7 +191,7 @@
                                                 </tr>
                                             <?php } else { ?>
                                                 <tr class="<?= $dictionary[$result['tipo_movimiento']]['class'] ?>">
-                                                    <td colspan="7" class="justify-content-center"><strong>Este elemento ya ha sido eliminado</strong></td>
+                                                    <td colspan="8" class="justify-content-center"><strong>Este elemento ya ha sido eliminado</strong></td>
                                                 </tr>
                                             <?php } ?>
                                         <?php } ?>

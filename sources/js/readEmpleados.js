@@ -164,11 +164,11 @@
                 <div class="readObject_Container target card mb-4 me-2 col-2 p-0">
                     <div class="readObject_header card-header">
                         <div class="row justify-content-between">
-                            <form action="../controladores/edits/UpdateProductos.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
+                            <form action="../controladores/edits/UpdateEmpleados.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
                                 <input class="" type="hidden" name="id" value="${result.id_usr}">
                                 <button class="button btn btn-primary btn-sm px-1"> Editar</button>
                             </form>
-                            <form action="../controladores/deletes/DeleteProducto.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
+                            <form action="../controladores/deletes/DeleteEmpleado.php" method="post" class="form_edit col-auto d-flex align-items-center pe-0">
                                 <input class="" type="hidden" name="id" value="${result.id_usr}">
                                 <button class="button btn btn-danger btn-sm px-1"> Borrar</button>
                             </form>

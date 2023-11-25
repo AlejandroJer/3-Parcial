@@ -80,6 +80,8 @@ if (!isset($_SESSION['logged_usr'])) {
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
                     <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['email_usr']?></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="../logout.php" class="dropdown-item text-danger">Cerrar Sesion</a></li>
                 </ul>
             </div>
         </nav>
