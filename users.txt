@@ -1,0 +1,203 @@
+EMPLEADOS:
+1. Nombre: Juan
+   Apellidos: López
+   Email: juan.lopez@email.com
+   Contraseña: 12345
+
+2. Nombre: María
+   Apellidos: Rodríguez
+   Email: maria.rodriguez@email.com
+   Contraseña: abcde
+
+3. Nombre: Carlos
+   Apellidos: Sánchez
+   Email: carlos.sanchez@email.com
+   Contraseña: 67890
+
+4. Nombre: Laura
+   Apellidos: Martínez
+   Email: laura.martinez@email.com
+   Contraseña: qwerty
+
+5. Nombre: Pedro
+   Apellidos: Gómez
+   Email: pedro.gomez@email.com
+   Contraseña: p@ssw0rd
+
+6. Nombre: Ana
+   Apellidos: Pérez
+   Email: ana.perez@email.com
+   Contraseña: 98765
+
+7. Nombre: David
+   Apellidos: García
+   Email: david.garcia@email.com
+   Contraseña: secret
+
+8. Nombre: Carmen
+   Apellidos: López
+   Email: carmen.lopez@email.com
+   Contraseña: sunshine
+
+9. Nombre: José
+   Apellidos: Torres
+   Email: jose.torres@email.com
+   Contraseña: 13579
+
+10. Nombre: Marta
+    Apellidos: Rodríguez
+    Email: marta.rodriguez@email.com
+    Contraseña: 24680
+
+11. Nombre: Miguel
+    Apellidos: Fernández
+    Email: miguel.fernandez@email.com
+    Contraseña: mypass
+
+12. Nombre: Elena
+    Apellidos: Ramírez
+    Email: elena.ramirez@email.com
+    Contraseña: letmein
+
+13. Nombre: Javier
+    Apellidos: Soto
+    Email: javier.soto@email.com
+    Contraseña: p@ss123
+
+14. Nombre: Silvia
+    Apellidos: Castro
+    Email: silvia.castro@email.com
+    Contraseña: sunshine
+
+15. Nombre: Raúl
+    Apellidos: Herrera
+    Email: raul.herrera@email.com
+    Contraseña: 65432
+
+16. Nombre: Pedro
+    Apellidos: Velazquez
+    Email: pedro.velazquez@email.com
+    Contraseña: lkjhg
+
+    //=========================================
+
+17. Nombre: Ana
+  Apellidos: Pérez
+  Email: ana.perez@email.com
+  Tel: 7652378727
+  Contraseña: mnbvcxz
+
+18. Nombre: Pedro
+  Apellidos: Sánchez
+  Email: pedro.sanchez@email.com
+  Tel: 7652378728
+  Contraseña: poiuytrew
+
+19. Nombre: Laura
+  Apellidos: Rodríguez
+  Email: laura.rodriguez@email.com
+  Tel: 7652378729
+  Contraseña: lkjhgfdsa
+
+20. Nombre: Carlos
+  Apellidos: García
+  Email: carlos.garcia@email.com
+  Tel: 7652378730
+  Contraseña: asdfghjkl
+
+21. Nombre: Sofía
+  Apellidos: González
+  Email: sofia.gonzalez@email.com
+  Tel: 7652378731
+  Contraseña: qazwsxedc
+
+22. Nombre: Luis
+  Apellidos: Hernández
+  Email: luis.hernandez@email.com
+  Tel: 7652378732
+  Contraseña: rfvtgbyhn
+
+23. Nombre: Elena
+  Apellidos: Martínez
+  Email: elena.martinez@email.com
+  Tel: 7652378733
+  Contraseña: ujmikolp
+
+24. Nombre: David
+  Apellidos: Fernández
+  Email: david.fernandez@email.com
+  Tel: 7652378734
+  Contraseña: yhnjumki
+
+25. Nombre: Sara
+  Apellidos: López
+  Email: sara.lopez@email.com
+  Tel: 7652378735
+  Contraseña: olpkmjnu
+
+26. Nombre: Miguel
+  Apellidos: Gómez
+  Email: miguel.gomez@email.com
+  Tel: 7652378736
+  Contraseña: bgtvfrde
+
+27. Nombre: Jorge
+  Apellidos: Sánchez
+  Email: jorge.sanchez@email.com
+  Tel: 7652378737
+  Contraseña: wsxcderf
+
+28. Nombre: Ana
+  Apellidos: García
+  Email: ana.garcia@email.com
+  Tel: 7652378738
+  Contraseña: edcrfvtg
+
+29. Nombre: María
+  Apellidos: López
+  Email: maria.lopez@email.com
+  Tel: 7652378739
+  Contraseña: tgbyhnuj
+
+30. Nombre: José
+  Apellidos: Rodríguez
+  Email: jose.rodriguez@email.com
+  Tel: 7652378740
+  Contraseña: yhnujmik
+
+31. Nombre: Laura
+  Apellidos: Pérez
+  Email: laura.perez@email.com
+  Tel: 7652378741
+  Contraseña: ikolpmju
+
+32. Nombre: Carlos
+  Apellidos: González
+  Email: carlos.gonzalez@email.com
+  Tel: 7652378742
+  Contraseña: njumkilo
+
+33. Nombre: Sofía
+  Apellidos: Hernández
+  Email: sofia.hernandez@email.com
+  Tel: 7652378743
+  Contraseña: mkilopnj
+
+34. Nombre: Luis
+  Apellidos: Martínez
+  Email: luis.martinez@email.com
+  Tel: 7652378744
+  Contraseña: lopnjumk
+
+35. Nombre: Elena
+  Apellidos: Fernández
+  Email: elena.fernandez@email.com
+  Tel: 7652378745
+  Contraseña: plokmjun
+
+36. Nombre: David
+  Apellidos: Gómez
+  Email: david.gomez@email.com
+  Tel: 7652378746
+  Contraseña: okmijnuh
+

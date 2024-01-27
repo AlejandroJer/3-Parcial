@@ -6,94 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión </title>
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/login.css">
-    <link rel="stylesheet" href="../sources/css/nav.css">
 </head>
-<body>
-    <header class="main_header">
-       
-        <span id="NavArrow"></span>
-        <div class="header_login" data-messages="Dashboard">
-            <a href="../dashboard.php">Dashboard</a>
-        </div>
-    </header>
-    
-    <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Crear tu cuenta</h1>
-
-                <span>o usa tu email para registrarte</span>
-                <div class="infield">
-                    <input type="text" placeholder="Nombre" />
-                    <label></label>
-                </div>
-                <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
-                    <label></label>
-                </div>
-                <div class="infield">
-                    <input type="password" placeholder="Contraseña" />
-                    <label></label>
-                </div>
-                <button>Registrarse</button>
-            </form>
-        </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Iniciar Sesión</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <span> Usa tu cuenta</span>
-                <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
-                    <label></label>
-                </div>
-                <div class="infield">
-                    <input type="password" placeholder="Contraseña" />
-                    <label></label>
-                </div>
-                <a href="#" class="forgot">¿Olvistaste tu contraseña?</a>
-                <button>Iniciar Sesión</button>
-            </form>
-        </div>
-        <div class="overlay-container" id="overlayCon">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>¡Bienvenid@!</h1>
-                    <p>Inicia sesión con tus datos personales</p>
-                    <button>Iniciar Sesión</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>¡Hola!</h1>
-                    <p>Ingresa tus datos para una mejor experiencia en JEMAS</p>
-                    <button>Registrarse</button>
+<body class="bg-secondary">
+    <div class="container bg-light" id="container">
+        <form action="./login_handler.php" method="POST">
+            <div class="form-container sign-in-container">
+                <div id="form">
+                    <h1>Iniciar Sesión</h1>
+                    <span> Usa la contraseña proporcionada por el administrador</span>
+                    <div class="infield">
+                        <input type="email" placeholder="Email" name="email" required>
+                        <label class="label"></label>
+                    </div>
+                    <div class="infield">
+                        <input type="password" placeholder="Contraseña" name="password" required>
+                        <label class="label"></label>
+                    </div>
+                    <button type="submit" name="submit" id="submit">Iniciar Sesión</button>
                 </div>
             </div>
-            <button id="overlayBtn"></button>
-        </div>
+            <div class="overlay-container" id="overlayCon">
+                <div class="overlay bg-primary">
+                    <div class="overlay-panel overlay-left">
+                        <h1>¡Bienvenid@!</h1>
+                        <p>Inicia sesión con tus datos personales</p>
+                        <button>Iniciar Sesión</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>¡Hola!</h1>
+                        <p>
+                            Te sugerimos leer los
+                            <a href="..\TerminosDeServicioJEMAS.pdf" target="_blank">Términos de Servicio</a>, así como la
+                            <a href="..\PrivacidadYCondicionesJEMAS.pdf" target="_blank">Política de Privacidad y Condiciones de uso</a>
+                            con atencion para que estes enterado de como se manejan tus datos personales.
+                        </p>
+                        <div class="d-flex">
+                            <input class="form-check-input p-0" type="checkbox" name="" id="" required>
+                            <label class="form-check-label my-0 ms-1">Acepto los términos y condiciones</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
-  
-    
-    <!-- JS -->
-    <script>
-       const container = document.getElementById('container');
-       const overlayCon = document.getElementById('overlayCon');
-       const overlayBtn = document.getElementById('overlayBtn');
-
-        overlayBtn.addEventListener('click', ()=> {
-            container.classList.toggle('right-panel-active');
-
-            overlayBtn.classList.remove('btnScaled');
-            window.requestAnimationFrame(()=> {
-                overlayBtn.classList.add('btnScaled');
-            })
-        });
-    </script>
-
 </body>
 </html>

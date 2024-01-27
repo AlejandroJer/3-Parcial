@@ -9,12 +9,6 @@
     <img width="700" src="./sources/imgs/preview.gif" />
 </p>
 
-## CRUD FUNCTIONS
-<p align="center">
-    <img width="700" src="./sources/imgs/CRUD_CreateUpdate.gif" />
-    <img width="700" src="./sources/imgs/CRUD_Read.gif" />
-</p>
-
 ## Descripcion del proyecto
 Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra en el diseño, desarrollo, e implementación de un sistema para gestionar el almacén e inventario de tiendas departamentales. Utilizando una arquitectura de aplicación web CRUD (Crear, Leer, Actualizar, Eliminar).
 
@@ -30,7 +24,8 @@ Es un proyecto del Tercer Semestre de la Ingenieria en Software. Este se centra 
 https://icon-sets.iconify.design/ic/baseline-inventory/
 https://icon-sets.iconify.design/fa-solid/users/
 https://icon-sets.iconify.design/clarity/employee-solid/
-https://icon-sets.iconify.design/clarity/sign-in-solid/
-https://icon-sets.iconify.design/ic/sharp-content-paste-search/
-https://icon-sets.iconify.design/mdi/face-woman/
-https://icon-sets.iconify.design/mdi/face-man/
+https://icon-sets.iconify.design/map/jewelry-store/
+https://icon-sets.iconify.design/mdi/filter-cog-outline/
+https://icon-sets.iconify.design/circum/search/
+https://icon-sets.iconify.design/ic/round-home/
+https://icon-sets.iconify.design/mingcute/user-4-fill/

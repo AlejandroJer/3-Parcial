@@ -8,6 +8,9 @@ class proveedores extends conexion {
     private $personaContacto;
     private $telefono;
     private $correoProveedor;
+    private $id_proveedor;
+    private $movimiento;
+    private $mov_by_usr;
 
     public function __construct() {
         parent::__construct();
@@ -77,7 +80,7 @@ class proveedores extends conexion {
     }
 
     public function GetProveedorByKeywordLimited($keyword, $offset, $limitQuery) {
-        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword LIMIT :offset, :limitQuery";
+        $sql = "SELECT * FROM proveedores WHERE nombre_empresa LIKE :keyword OR direccion LIKE :keyword OR persona_contacto LIKE :keyword OR num_telefono LIKE :keyword OR email_proveedor LIKE :keyword ORDER BY id_proveedor DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
         $execute->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -101,6 +104,35 @@ class proveedores extends conexion {
         $sql = "SELECT id_proveedor, nombre_empresa FROM proveedores";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+
+        return $request;
+    }
+
+    public function GetIdByNombreEmpresa($nombreEmpresa) {
+        $sql = "SELECT id_proveedor FROM proveedores WHERE nombre_empresa = ?";
+        $execute = $this->conn->prepare($sql);
+        $execute->execute([$nombreEmpresa]);
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function GetNombreEmpresaById($id) {
+        $sql = "SELECT nombre_empresa FROM proveedores WHERE id_proveedor = ?";
+        $execute = $this->conn->prepare($sql);
+        $execute->execute([$id]);
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+
+    public function GetIdByNombreEmpresaDireccion($nombreEmpresa, $direccion) {
+        $sql = "SELECT id_proveedor FROM proveedores WHERE nombre_empresa = :nombreEmpresa AND direccion = :direccion";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindParam(':nombreEmpresa', $nombreEmpresa, PDO::PARAM_STR);
+        $execute->bindParam(':direccion', $direccion, PDO::PARAM_STR);
+        $execute->execute();
+        $request = $execute->fetchColumn();
 
         return $request;
     }
@@ -129,5 +161,67 @@ class proveedores extends conexion {
         $del = $delete->execute($arrwhere);
 
         return $del;
+    } 
+
+    public function SetRespaldo(int $id, string $nombreEmpresa, string $personaContacto, string $direccion, int $telefono, string $email, int $movimiento, int $mov_by_usr) {
+        $this->id_proveedor = $id;
+        $this->movimiento = $movimiento;
+        $this->mov_by_usr = $mov_by_usr;
+
+        $sql="SELECT * FROM proveedores WHERE id_proveedor = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $this->id_proveedor, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
+        $this->nombreEmpresa_backup = $request['nombre_empresa'];
+        $this->personaContacto_backup = $request['persona_contacto'];
+        $this->direccionProveedor_backup = $request['direccion'];
+        $this->telefono_backup = $request['num_telefono'];
+        $this->correoProveedor_backup = $request['email_proveedor'];
+
+        $this->nombreEmpresa = json_encode(array($this->nombreEmpresa_backup,$nombreEmpresa));
+        $this->personaContacto = json_encode(array($this->personaContacto_backup,$personaContacto));
+        $this->direccionProveedor = json_encode(array($this->direccionProveedor_backup,$direccion));
+        $this->telefono = json_encode(array($this->telefono_backup,$telefono));
+        $this->correoProveedor = json_encode(array($this->correoProveedor_backup,$email));
+
+
+        $sql="INSERT INTO respaldo_proveedor(id_proveedor_r,nom_empresa_r,p_contacto_r,dir_r,tel_r,email_r,mov,MovByUsr) VALUES(?,?,?,?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->id_proveedor,$this->nombreEmpresa,$this->personaContacto,$this->direccionProveedor,$this->telefono,$this->correoProveedor,$this->movimiento,$this->mov_by_usr);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
+    }
+
+    public function GetRespaldo($id) {
+        $sql = "SELECT * FROM respaldo_proveedor WHERE id = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
+        $Array = array(
+            'id_proveedor' => $request['id_proveedor_r'],
+            'nombre_empresa' => json_decode($request['nom_empresa_r']),
+            'persona_contacto' => json_decode($request['p_contacto_r']),
+            'direccion' => json_decode($request['dir_r']),
+            'num_telefono' => json_decode($request['tel_r']),
+            'email_proveedor' => json_decode($request['email_r']),
+        );
+
+        return $Array;
+    }
+
+    public function PrvrsDictionary(){
+        $sql = "SELECT * FROM proveedores";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchAll(PDO::FETCH_ASSOC);
+        $Array = array();
+        foreach ($request as $key => $value) {
+            $Array[$value['id_proveedor']] = $value['nombre_empresa'];
+        }
+        return $Array;
     }
 }

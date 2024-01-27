@@ -6,28 +6,34 @@ class usuarios extends conexion{
     private $nombre;
     private $apellido;
     private $email;
+    private $tel;
     private $sexo;
     private $password;
     private $id_usuario;
     private $id_rol;
+    private $img_usr;
     private $fecha_movimiento; // no pertenece a la tabla
     private $id_usuario_movimiento; // no pertenece a la tabla
+    private $movimiento; // no pertenece a la tabla
+    private $mov_by_usr; // no pertenece a la tabla
 
     public function __construct(){
         parent::__construct();
     }
 
-    public function Insertar(string $nombre, string $apellido, string $email,string $sexo ,string $password, int $id_rol){
+    public function Insertar(string $nombre, string $apellido, string $email, int $tel, string $sexo ,string $password, int $id_rol, $img_usr = null){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->tel = $tel;
         $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
+        $this->img_usr = $img_usr;
 
-        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
+        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,tel,sexo,contraseña,id_perfil,imagen) VALUES(?,?,?,?,?,?,?,?)";
         $insert= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->tel,$this->sexo,$this->password,$this->id_rol,$this->img_usr);
         $resInsert = $insert->execute($arrData);
         $idInsert = $this->conn->lastInsertId();
         return $idInsert;
@@ -61,7 +67,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeyword($keyword){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%'";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE '%$keyword%' OR apellido_usr LIKE '%$keyword%' OR email_usr LIKE '%$keyword%' OR tel LIKE '%$keyword%'";
         $execute = $this->conn->query($sql);
         $request = $execute->fetchAll(PDO::FETCH_ASSOC);
 
@@ -69,7 +75,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordIndex($keyword){
-        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword";
+        $sql="SELECT COUNT(*) FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR tel LIKE :keyword";
         $execute = $this->conn->prepare($sql);
         
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
@@ -81,7 +87,7 @@ class usuarios extends conexion{
     }
 
     public function GetUsuarioByKeywordLimited($keyword, $offset, $limitQuery){
-        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword LIMIT :offset, :limitQuery";
+        $sql="SELECT * FROM usuarios WHERE nombre_usr LIKE :keyword OR apellido_usr LIKE :keyword OR email_usr LIKE :keyword OR tel LIKE :keyword ORDER BY id_usr DESC LIMIT :offset, :limitQuery";
         $execute = $this->conn->prepare($sql);
 
         $execute->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
@@ -94,23 +100,13 @@ class usuarios extends conexion{
         return $request;
     }
 
-
-
-
-
-
-    
-
-
-
-
-
-
-
     public function GetUsuarioById($id){
-        $sql="SELECT * FROM usuarios WHERE id_usr = $id";
-        $execute = $this->conn->query($sql);
-        $request = $execute->fetch();
+        $sql="SELECT * FROM usuarios WHERE id_usr = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
         return $request;
     }
 
@@ -122,6 +118,24 @@ class usuarios extends conexion{
         $execute->execute();
         $request = $execute->fetch();
 
+        return $request;
+    }
+
+    public function GetUsuariosPassAdmin(){
+        $sql="SELECT contraseña FROM usuarios WHERE id_perfil = 1";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_ASSOC);
+        return $request;
+    }
+
+    public function GetUsuarioIdByLastnameTelEmail($lastname, $tel, $email){
+        $sql="SELECT id_usr FROM usuarios WHERE apellido_usr = :lastname AND tel = :tel AND email_usr = :email";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':lastname', $lastname, PDO::PARAM_STR);
+        $execute->bindValue(':tel', $tel, PDO::PARAM_INT);
+        $execute->bindValue(':email', $email, PDO::PARAM_STR);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
         return $request;
     }
 
@@ -154,18 +168,138 @@ class usuarios extends conexion{
         return $request;
     }
 
-    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, string $sexo, string $password, int $id_rol){
+    public function GetImgById($id){
+        $sql="SELECT imagen FROM usuarios WHERE id_usr = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetchColumn();
+
+        return $request;
+    }
+    
+    public function InsertarImg_usr($name_images_usr, $name){
+        if(isset($_FILES['image'])){
+
+            $file =$_FILES['image'];
+            $file_name=$file['name'];
+            $mimetype=$file['type'];
+            $name = str_replace(" ", "", $name);
+            $today = date("Y-m-d_H-i-s");
+            $extension = ".".explode("/",$mimetype)[1];
+            $ext_formatos=array("image/jpeg", "image/jpg","image/png");
+
+            if(!in_array($mimetype,$ext_formatos)){
+                header("location:../empleados/add.php");
+                die();
+                // echo "no es una imagen";
+            }
+            $directorio="imagen_usr/";
+
+            if(in_array($directorio.$file_name, $name_images_usr)){
+                header("location:../empleados/add.php");
+                die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
+                // echo "Esta imagen a sido usada anteriormente, por lo que debe escoger otra";
+            }
+
+            if(!is_dir("../empleados/".$directorio)){
+                mkdir("../empleados/".$directorio,0777);
+            }
+            if(in_array($directorio.$file_name, $name_images_usr)){
+            }else{
+                move_uploaded_file($file['tmp_name'],"../empleados/".$directorio.$name.$today.$extension);
+            }
+            return $directorio.$name.$today.$extension;
+
+        }else{
+            header("location:../empleados/add.php");
+            // echo "no hay imagen";
+        }       
+    }
+
+    public function UpdateImg($name_images_usr, $name){
+        if(isset($_FILES['image'])){
+
+            $file =$_FILES['image'];
+            $file_name=$file['name'];
+            $mimetype=$file['type'];
+            $name = str_replace(" ", "", $name);
+            $today = date("Y-m-d_H-i-s");
+            $extension = ".".explode("/", $mimetype)[1];
+            $ext_formatos=array("image/jpeg", "image/jpg","image/png");
+
+            if(!in_array($mimetype,$ext_formatos)){
+                header("location:../../empleados/add.php");
+                die();
+                // echo "no es una imagen" . '<br>';
+            }
+            $directorio="imagen_usr/";
+
+            if(in_array($directorio.$file_name, $name_images_usr)){
+                header("location:../../empleados/add.php");
+                die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
+                // echo "Esta imagen a sido usada anteriormente, por lo que debe escoger otra" . '<br>';
+            }
+
+            if(!is_dir("../../empleados/".$directorio)){
+                mkdir("../../empleados/".$directorio,0777);
+            }
+            if(in_array($directorio.$file_name, $name_images_usr)){
+            }else{
+                move_uploaded_file($file['tmp_name'],"../../empleados/".$directorio.$name.$today.$extension);
+            }
+            return $directorio.$name.$today.$extension;
+
+        }else{
+            header("location:../../empleados/add.php");
+            // echo "no hay imagen" . '<br>';
+        }       
+    }
+
+    public function BorrarImg($id,$name_images_usr){
+        $post = $this->GetUsuarioById($id);
+        if($post['imagen']){
+            $image = explode("/",$post['imagen'])[1];
+            $directorio = "imagenes_respaldo/";
+            if(in_array($directorio.$image, $name_images_usr)){
+                header("location:../../empleados/add.php");
+                die("Esta imagen a sido usada anteriormente, por lo que debe escoger otra");
+                // echo "Esta imagen a sido usada anteriormente, por lo que debe escoger otra";
+            }else{
+                rename("../../empleados/".$post['imagen'],"../../empleados/".$directorio.$image);
+                return $directorio.$image;
+                // echo $directorio.$image;
+            }
+        }
+    }
+
+    public function GetDirImg_usr(){
+        $sql="SELECT imagen FROM usuarios WHERE imagen is not null";
+        $execute = $this->conn->query($sql);
+        $request = $execute->fetchall(PDO::FETCH_COLUMN, 0);
+        return $request;
+    }
+
+    public function UpdateUsuario(int $id, string $nombre, string $apellido, string $email, int $tel, string $sexo, string $password, int $id_rol, $img_usr = null){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
+        $this->tel = $tel;
         $this->sexo = $sexo;
         $this->password = $password;
         $this->id_rol = $id_rol;
+        $this->img_usr = $img_usr;
 
-        $sql="UPDATE usuarios SET nombre_usr=?, apellido_usr=?, email_usr=?, sexo=?, contraseña=?, id_perfil=? WHERE id_usr = $id";
+        if($this->img_usr){
+            $sql="UPDATE usuarios SET nombre_usr = ?, apellido_usr = ?, email_usr = ?, tel = ?, sexo = ?, contraseña = ?, id_perfil = ?, imagen = ? WHERE id_usr = $id";
+            $arrData= array($this->nombre,$this->apellido,$this->email,$this->tel,$this->sexo,$this->password,$this->id_rol,$this->img_usr);
+        }else{
+            $sql="UPDATE usuarios SET nombre_usr = ?, apellido_usr = ?, email_usr = ?, tel = ?, sexo = ?, contraseña = ?, id_perfil = ? WHERE id_usr = $id";
+            $arrData= array($this->nombre,$this->apellido,$this->email,$this->tel,$this->sexo,$this->password,$this->id_rol);
+        }
         $update= $this->conn->prepare($sql);
-        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$this->id_rol);
         $resExecute = $update->execute($arrData);
+
         return $resExecute;
     }
 
@@ -176,6 +310,120 @@ class usuarios extends conexion{
         $del = $delete->execute($arrWhere);
         return $del;
     }
+
+    public function SetRespaldo(int $id, string $nombre_udt, string $password_udt, string $apellido_udt, string $email_udt, int $tel_udt, string $sexo_udt, int $id_rol_udt, int $movimiento, int $mov_by_usr, $img_usr = null){
+        $this->id_usuario = $id;
+        $this->movimiento = $movimiento;
+        $this->mov_by_usr = $mov_by_usr;
+
+        $sql="SELECT * FROM usuarios WHERE id_usr = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $this->id_usuario, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
+        $this->nombre_backup = $request['nombre_usr'];
+        $this->img_backup = $request['imagen'];
+        $this->password_backup = $request['contraseña'];
+        $this->apellido_backup = $request['apellido_usr'];
+        $this->email_backup = $request['email_usr'];
+        $this->tel_backup = $request['tel'];
+        $this->sexo_backup = $request['sexo'];
+        $this->id_rol_backup = $request['id_perfil'];
+
+        
+        $this->nombre = json_encode(array($this->nombre_backup,$nombre_udt));
+        $this->img_usr = json_encode(array($this->img_backup,$img_usr));
+        $this->password = json_encode(array($this->password_backup,$password_udt));
+        $this->apellido = json_encode(array($this->apellido_backup,$apellido_udt));
+        $this->email = json_encode(array($this->email_backup,$email_udt));
+        $this->tel = json_encode(array($this->tel_backup,$tel_udt));
+        $this->sexo = json_encode(array($this->sexo_backup,$sexo_udt));
+        $this->id_rol = json_encode(array($this->id_rol_backup,$id_rol_udt));
+
+        $sql="INSERT INTO respaldo_usuario(id_r,nombre_r,pass_r,apellido_r,email_r,tel_r,sexo_r,id_perfil_r,mov,MovByUsr,imagen_r) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->id_usuario,$this->nombre,$this->password,$this->apellido,$this->email,$this->tel,$this->sexo,$this->id_rol,$this->movimiento,$this->mov_by_usr,$this->img_usr);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
+    }
+
+    public function GetRespaldoById($id){
+        $sql="SELECT * FROM respaldo_usuario WHERE id = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch(PDO::FETCH_ASSOC);
+
+        $array = array(
+            'id_usr' => $request['id_r'],
+            'nombre_usr' => json_decode($request['nombre_r']),
+            'imagen' => json_decode($request['imagen_r']),
+            'contraseña' => json_decode($request['pass_r']),
+            'apellido_usr' => json_decode($request['apellido_r']),
+            'email_usr' => json_decode($request['email_r']),
+            'tel' => json_decode($request['tel_r']),
+            'sexo' => json_decode($request['sexo_r']),
+            'id_perfil' => json_decode($request['id_perfil_r']),
+        );
+
+        return $array;
+    }
+
+    public function GetRespaldoByIdUrs($id){
+        $sql="SELECT * FROM respaldo_usuario WHERE id_r = :id";
+        $execute = $this->conn->prepare($sql);
+        $execute->bindValue(':id', $id, PDO::PARAM_INT);
+        $execute->execute();
+        $request = $execute->fetch( PDO::FETCH_ASSOC );
+
+        $array = array(
+            'id_usr' => $request['id_r'],
+            'nombre_usr' => json_decode($request['nombre_r']),
+            'imagen' => json_decode($request['imagen_r']),
+            'contraseña' => json_decode($request['pass_r']),
+            'apellido_usr' => json_decode($request['apellido_r']),
+            'email_usr' => json_decode($request['email_r']),
+            'tel' => json_decode($request['tel_r']),
+            'sexo' => json_decode($request['sexo_r']),
+            'id_perfil' => json_decode($request['id_perfil_r']),
+        );
+
+        return $array;
+    }
+
+    
+ //register y login
+    public function RegistrarUsuario(string $nombre, string $apellido, string $email, string $sexo, string $password, int $id_rol){
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->email = $email;
+        $this->sexo = $sexo;
+        $this->password = password_hash($password, PASSWORD_DEFAULT); // Hashing
+
+        $sql="INSERT INTO usuarios(nombre_usr,apellido_usr,email_usr,sexo,contraseña,id_perfil) VALUES(?,?,?,?,?,?)";
+        $insert= $this->conn->prepare($sql);
+        $arrData= array($this->nombre,$this->apellido,$this->email,$this->sexo,$this->password,$id_rol);
+        $resInsert = $insert->execute($arrData);
+        $idInsert = $this->conn->lastInsertId();
+        return $idInsert;
+    }
+
+    public function IniciarSesion(string $email, string $password){
+        $sql = "SELECT id_usr, contraseña FROM usuarios WHERE email_usr = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['contraseña'])) {
+            return $user['id_usr'];
+        } else {
+            return false;
+        }
+    }
+
+
 
 }
 ?>

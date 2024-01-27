@@ -1,12 +1,20 @@
 <?php
-namespace controladores;
-require_once("../autoload.php");
- use modelos\proveedores;
+ namespace controladores;
+ require_once("../autoload.php");
+ use modelos\{proveedores, productos, usuarios};
     $proveedores = new proveedores();
+    $empleados = new usuarios();
+    $productos = new productos();
     $proveedoresResults = $proveedores->GetNombresProveedores();
-if(isset($_SESSION['producto'])){
-    $result = $_SESSION['producto'];
-  }
+    $productosResultsCategoria = $productos->GetCategorias();
+    $productosResultsMaterial = $productos->GetMateriales();
+    if (!isset($_SESSION['logged_usr'])) {
+        header('Location: ./../auth/login.php');
+        exit;
+    } else {
+        $user_id = $_SESSION['logged_usr'];
+        $user = $empleados->GetUsuarioById($user_id);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,187 +22,241 @@ if(isset($_SESSION['producto'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEMAS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/root.css">
-    <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/addforms.css">
 </head>
-<body>
-    <section class="index_section">
-        <nav class="navHome">
-            <header class="navHome_header">
-                <h1>JEMAS</h1>
-            </header>
-            <div class="navHome_ol">
-                <a href="../dashboard.php">
-                    <div  class="option_container">
-                        <h3>Dashboard</h3>
-                    </div>
+<body class="container-fluid">
+    <section class="index_section row">
+        <!-- MAIN NAV -->
+        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
+            <a href="#" class="d-block py-3 text-decoration-none mx-auto" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
+                <img src="../sources/imgs/logo.png" alt="" srcset="" style="width: 45px;">
+            </a>
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                <li class="nav-item">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                        <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="./add.php" class="option_container active nav-link py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                        <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../proveedores/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark  link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                        <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark  link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                        <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../movimientos/readProductos.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
+                        <iconify-icon class="iconify" icon="bi:arrow-left-right" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+            </ul>
+            <div class="border-top dropup">
+                <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown"  data-bs-offset="10,0">
+                    <iconify-icon class="iconify" icon="mingcute:user-4-fill" width="30" height="30"></iconify-icon>
                 </a>
-                <div class="option target">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="ic:baseline-inventory" width="20" height="20"></iconify-icon>
-                            <h3>Inventario</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul">
-                        <a href="./add.php"><li class="target"><?php echo (isset($result['id_producto'])) ? 'Actualizar Inventario' : 'Agregar Inventario'; ?></li></a>
-                        <a href="./read.php"><li>Ver Inventario</li></a>
-                        <a href="./search.php"><li>Buscar en Inventario</li></a>
-                    </ul>
-                </div>
-                <div class="option">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="fa-solid:users" width="20" height="20"></iconify-icon>
-                            <h3>Proveedores</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../proveedores/add.php"><li>Agregar Proveedor</li></a>
-                        <a href="../proveedores/read.php"><li>Ver Proveedores</li></a>
-                        <a href="../proveedores/search.php"><li>Buscar en Proveedores</li></a>
-                    </ul>
-                </div>
-                <div class="option">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="clarity:employee-solid" width="20" height="20"></iconify-icon>
-                            <h3>Empleados</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
-                        <a href="../empleados/read.php"><li>Ver Empleados</li></a>
-                        <a href="../empleados/search.php"><li>Buscar en Empleados</li></a>
-                    </ul>
-                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item">Usuario #<?= $user['id_usr'] ?></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['email_usr']?></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="../logout.php" class="dropdown-item text-danger">Cerrar Sesion</a></li>
+                </ul>
             </div>
         </nav>
-        <section class="main_container">
-            <header class="main_header">
-                <span id="NavArrow"></span>
-                <div class="header_login" data-messages="Iniciar Secion">
-                    <a href="../auth/login.php">
-                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
-                    </a>
-                </div>
-            </header>
-            <main class="dashboard_container">
-                <form action="<?php echo (!empty($result)) ? '../controladores/edits/UpdateProductos.php' : '../controladores/SetProducto.php'; ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-row">
-                        <input type="hidden" name="id_inv" value="null">
-                        <div class="form-group">
-                            <label for="producto-nombre">Nombre del producto:</label>
-                            <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="<?php echo (isset($result['nombre_producto'])) ? $result['nombre_producto'] : ''; ?>" required>
+        <section class="main_container col-lg-11 ms-3">
+            <!-- PRODUCTS NAV -->
+            <ul class="nav nav-tabs mt-4">
+                <li class="nav-item">
+                    <a href="./read.php" class="nav-link">Ver Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./add.php" class="nav-link active" aria-current="page">Agregar Inventario</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./extras/add.php" class="nav-link" aria-current="page">Agregar Tags</a>
+                </li>
+            </ul>
+            <!-- MAIN CONTENT -->
+            <main class="dashboard_container container">
+                <!-- FORM - to edit products -->
+                <form action="../controladores/SetProducto.php" method="post" enctype="multipart/form-data" class="my-4 needs-validation" novalidate>
+                    <input type="hidden" name="id_inv" value="null">
+                    <input type="file" accept=".jpeg, .png, .jpg" id="image"  name="image" class="form-control border-warning inputfile-warning visually-hidden">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <!-- NOMBRE -->
+                            <div class="row my-3">
+                                <div class="col-lg-2">
+                                    <label for="producto-nombre" class="d-flex justify-content-end col-form-label fs-4">Nombre:</label>
+                                </div>
+                                <div class="col-lg-10 ">
+                                    <input type="text" class="form-control" name="producto-nombre" id="producto-nombre" placeholder="Nombre del producto" value="" required>
+                                    <div class="invalid-feedback">
+                                        Ingresa un nombre para el producto
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- PROVEEDOR -->
+                            <div class="row mb-3">
+                                <div class="col-lg-2">
+                                    <label for="producto-proveedor" class="d-flex justify-content-end col-form-label fs-4">Proveedor:</label>
+                                </div>
+                                <div class="col-lg-10 ">
+                                    <select name="producto-proveedor" id="producto-proveedor" class="form-select" required>
+                                        <option value="" selected>Proveedor del producto</option>
+                                        <?php if(!empty($proveedoresResults)): ?>
+                                            <?php foreach ($proveedoresResults as $proveedoresResult) { ?>
+                                                <option value="<?= $proveedoresResult['id_proveedor']; ?>"><?= $proveedoresResult['nombre_empresa'];?></option>
+                                            <?php } ?>
+                                        <?php endif; ?>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Selecciona el proveedor del producto
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CATEGORIA -->
+                            <div class="row mb-3">
+                                <div class="col-lg-2">
+                                    <label for="producto-categoria" class="d-flex justify-content-end col-form-label fs-4">Categoría:</label>
+                                </div>
+                                <div class="col-lg-10">
+                                    <select name="categoria" id="producto-categoria" class="form-select" required>
+                                        <option value="" selected>Categoria del producto</option>
+                                        <?php if(!empty($productosResultsCategoria)): ?>
+                                            <?php foreach ($productosResultsCategoria as $categoria) { ?>
+                                                <option value="<?= $categoria['id'] ?>"><?= $categoria['categoria'] ?></option>
+                                            <?php } ?>
+                                        <?php endif; ?>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Selecciona la categoria del producto
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MATERIAL -->
+                            <div class="row mb-3">
+                                <div class="col-lg-2">
+                                    <label for="tipo-material" class="d-flex justify-content-end col-form-label fs-4">Material:</label>
+                                </div>
+                                <div class="col-lg-10 ">
+                                    <select name="tipo-material" id="tipo-material" class="form-select" required>
+                                        <option value="" selected>Material del producto</option>
+                                        <?php if(!empty($productosResultsMaterial)): ?>
+                                            <?php foreach ($productosResultsMaterial as $material) { ?>
+                                                <option value="<?= $material['id'] ?>"><?= $material['material'] ?></option>
+                                            <?php } ?>
+                                        <?php endif; ?> 
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Selecciona el material del producto
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="producto-proveedor">Proveedor:</label>
-                            <select name="producto-proveedor" required>
-                                <?php if(!empty($proveedoresResults)) ?>
-                                    <?php foreach ($proveedoresResults as $proveedoresResult) { ?>
-                                        <option value="<?= $proveedoresResult['id_proveedor']; ?>" <?php if(isset($result['id_proveedor']) && $result['id_proveedor'] == $proveedoresResult['id_proveedor']) { echo 'selected'; } ?>><?= $proveedoresResult['nombre_empresa'];?></option>
-                                    <?php } ?>
-                            </select>
+                        <div class="col-lg-2">
+                            <!-- IMAGEN -->
+                            <div class="card col-lg-12 ">
+                                <button type="button" class="card-body btn border-0 p-0" id="update-image" onclick="updateImage(event);">
+                                    <img src="../sources/imgs/defaultImg.jpeg" alt="imagen-actual-del-producto" class="card-img-top" id="img-image">
+                                </button>
+                                <label for="update-image" class="col-form-label text-center">Agregar</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="form_row">
-                        <div class="form-group">
-                            <label for="precio-venta">Precio de venta:</label>
-                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio $" value="<?php echo (isset($result['precio_venta'])) ? $result['precio_venta'] : ''; ?>" required>
+                    <!-- PESO -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="peso" class="d-flex justify-content-end col-form-label fs-4">Peso:</label>
                         </div>
-                        <div class="form-group">
-                            <label for="precio-compra">Precio de compra:</label>
-                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio $" value="<?php echo (isset($result['precio_compra'])) ? $result['precio_venta'] : ''; ?>" required>
+                        <div class="col-lg-10 ">
+                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Gramos" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa el peso en gramos del producto
+                            </div>
                         </div>
                     </div>
-                    <div class="form_row">
-                        <div class="form-group">
-                            <label for="producto-categoria">Categoría:</label>
-                            <select name="categoria" required>
-                                <option value="Anillo" <?php if(isset($result['categoria']) && $result['categoria'] == 'Anillo') { echo 'selected'; } ?>>Anillos</option>
-                                <option value="Collar" <?php if(isset($result['categoria']) && $result['categoria'] == 'Collar') { echo 'selected'; } ?>>Collares y Colgantes</option>
-                                <option value="Pulsera" <?php if(isset($result['categoria']) && $result['categoria'] == 'Pulsera') { echo 'selected'; } ?>>Pulseras</option>
-                                <option value="Pendiente" <?php if(isset($result['categoria']) && $result['categoria'] == 'Pendiente') { echo 'selected'; } ?>>Pendientes</option>
-                                <option value="Reloj" <?php if(isset($result['categoria']) && $result['categoria'] == 'Reloj') { echo 'selected'; } ?>>Relojes</option>
-                            </select>
+                    <!-- PRECIO DE VENTA -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="precio-venta" class="d-flex justify-content-end col-form-label fs-4">Venta:</label>
                         </div>
-                        <div class="form-group">
-                            <label for="tipo-material">Material:</label>
-                            <select name="tipo-material" required>
-                                <option value="Oro" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Oro') { echo 'selected'; } ?>>Oro</option>
-                                <option value="Plata" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Plata') { echo 'selected'; } ?>>Plata</option>
-                                <option value="Platino" <?php if(isset($result['tipo_material']) && $result['tipo_material'] == 'Platino') { echo 'selected'; } ?>>Platino</option>    
-                            </select>
+                        <div class="col-lg-10 ">
+                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-venta" id="precio-venta" placeholder="Precio MXN venta" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa el precio de venta del producto
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRECIO DE COMPRA -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="precio-compra" class="d-flex justify-content-end col-form-label fs-4">Compra:</label>
+                        </div>
+                        <div class="col-lg-10 ">
+                            <input type="number" min="0" step="0.01" class="form-control" name="producto-precio-compra" id="precio-compra" placeholder="Precio MXN compra" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa el precio de compra del producto
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CANTIDAD -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="cantidad-disponible" class="d-flex justify-content-end col-form-label fs-4">Cantidad:</label>
+                        </div>
+                        <div class="col-lg-10 ">
+                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad-disponible" placeholder="Cantidad Disponible" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa la cantidad disponible del producto
+                            </div>
+                        </div>
+                    </div>
+                    <!-- UBICACION -->
+                    <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <label for="ubicacion-almacen" class="d-flex justify-content-end col-form-label fs-4 p-0">Ubicación:</label>
+                        </div>
+                        <div class="col-lg-10 ">
+                            <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" value="" required>
+                            <div class="invalid-feedback">
+                                Ingresa la ubicación del producto en el almacén
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DESCRIPCION -->
+                    <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <div class="form-floating">
+                                <textarea id="producto-descripcion" class="form-control pt-5" name="producto-descripcion" placeholder="Descripción" style="height: 150px" required></textarea>
+                                <label for="producto-descripcion" class="fs-4">Descripción:</label>
+                                <div class="invalid-feedback">
+                                    Ingresa una descripción para el producto
+                                </div>
+                            </div>
                         </div>
                     </div> 
-                    <div class="form_row">
-                        <div class="form-group">
-                            <label for="peso">Peso:</label>
-                            <input type="number" min="0" step="0.01"  class="form-control" name="peso" id="peso" placeholder="Onzas" value="<?php echo (isset($result['peso'])) ? $result['peso'] : ''; ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="producto-cantidad-disponible">Cantidad disponible:</label>
-                            <input type="number" min="0" class="form-control" name="cantidad-disponible" id="cantidad_disponible" placeholder="Disponible" value="<?php echo (isset($result['cantidad_disponible'])) ? $result['cantidad_disponible'] : ''; ?>" required>
-                        </div>
+                    <!-- FORMS BTNS -->
+                    <div class="row mb-3 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary col-auto me-3" name="submit" id="submit">Guardar</button>
                     </div>
-                    <div class="form-group">
-                        <label for="producto-ubicacion-almacen">Ubicación en el almacén:</label>
-                        <input type="text" class="form-control" name="ubicacion-almacen" id="ubicacion-almacen" placeholder="Ubicacion en el almacén" value="<?php echo (isset($result['ubicacion_almacen'])) ? $result['ubicacion_almacen'] : ''; ?>" required>
-                    </div>
-                    <div class="form_row">
-                        <div class="form-group">
-                            <label for="producto-descripcion">Descripción:</label>
-                            <textarea id="producto-descripcion" name="producto-descripcion" rows="4" required><?php echo (isset($result['Descripcion_producto'])) ? $result['Descripcion_producto'] : ''; ?></textarea>
-                        </div>  
-                        <div class="form-group">
-                            <h3>Imagen del Producto: </h3>
-                            <input type="file" accept=".jpeg, .png, .jpg "id="imagen"  name="image" hidden>
-                            <?php if (empty($result['imagen'])) { ?>
-                                    <button class="btn btn-primary" id="btn_imagen"> Agregar Imagen</button>
-                            <?php } else { ?>
-                                    <button type="none"  class="btn btn-primary" id="btn_imagen"> Cambiar Imagen</button>
-                                    <a href='<?php echo $result['imagen']; ?>' target=“_blank” class="hidden" id="img_link"><?php echo explode("/", $result['imagen'])[1]; ?></a>
-                                    <button  class="btn btn-primary" id="btn_imagen_ver">Ver</button>
-                            <?php } ?>
-                            <span class="file-status"><td><?php ?></td></span>
-                        </div>
-                    </div>
-                    <?php
-                    if(isset($result['id_producto'])){
-                        echo '<input type="hidden" name="id_producto" value="' . $result['id_producto'] . '">';
-                    }
-                    ?>
-                    <button type="submit" class="btn btn-primary" name="submit"><?php echo (isset($result['id_producto'])) ? 'Actualizar' : 'Guardar'; ?></button>
                 </form>
             </main>
         </section>
     </section>
-    <?php
-    if(isset($_SESSION['producto'])){
-       unset($_SESSION['producto']);
-    } ?>
 </body>
-<script src="../sources/js/nav.js"></script>
-<script src="../sources/js/app.js"></script>
-<script>
-    let file_input = document.getElementById('imagen');
-    let btn_imgInput = document.getElementById('btn_imagen');
-    let img_link = document.getElementById('img_link');
-    let btn_ver = document.getElementById('btn_imagen_ver');
-
-    btn_imgInput.addEventListener('click', (e) => {
-        e.preventDefault();
-        file_input.click();
-    });
-
-    btn_ver.addEventListener('click', (e) => {
-        e.preventDefault();
-        img_link.click();
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="../sources/js/app.js"></script>
 </html>

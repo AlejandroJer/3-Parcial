@@ -1,10 +1,15 @@
 <?php
-require_once("../autoload.php");
+ namespace controladores;
+ require_once("../autoload.php");
+ use modelos\usuarios;
+    $empleados = new usuarios();
 
-if(isset($_SESSION['results'])){
-    $results = $_SESSION['results'];
-    $index = $_SESSION['index'];
-    $page = $_SESSION['pageClicked'];
+if (!isset($_SESSION['logged_usr'])) {
+    header('Location: ./../auth/login.php');
+    exit;
+} else {
+    $user_id = $_SESSION['logged_usr'];
+    $user = $empleados->GetUsuarioById($user_id);
 }
 ?>
 
@@ -14,127 +19,121 @@ if(isset($_SESSION['results'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEMAS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../sources/css/root.css">
-    <link rel="stylesheet" href="../sources/css/nav.css">
-    <link rel="stylesheet" href="../sources/css/read.css">
 </head>
-<body>
-    <section class="index_section">
-    <nav class="navHome">
-            <header class="navHome_header">
-                <h1>JEMAS</h1>
-            </header>
+<style>
+ .focused.search{
+    border-color: #86b7fe !important;
+    box-shadow: none !important;
+    outline: 0 none !important;
+ }
 
-            <div class="navHome_ol">
-                <a href="../dashboard.php">
-                    <div  class="option_container">
-                        <h3>Dashboard</h3>
-                    </div>
+ /* .focused.filter{
+    border-color: rgb(33,37,41) !important;
+    box-shadow: none !important;
+    outline: 0 none !important;
+ } */
+</style>
+
+<body class="container-fluid">
+    <section class="index_section row">
+        <!-- MAIN NAV -->
+        <nav class="navHome d-flex flex-column flex-shrink-0 bg-light p-0 border-end" style="width: 4.5rem; position: sticky; height: 100vh; top: 0;">
+            <a href="#" class="d-block py-3 text-decoration-none mx-auto" data-bs-toggle="tooltip" data-bs-placement="right" title="JEMAS">
+                <img src="../sources/imgs/logo.png" alt="" srcset="" style="width: 45px;">
+            </a>
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                <li class="nav-item">
+                    <a href="../dashboard.php" class="nav-link py-3 border-bottom rounded-0 link-dark border-top" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                        <iconify-icon icon="ic:round-home" width="40" height="40"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../inventario/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventario">
+                        <iconify-icon class="iconify" icon="ic:baseline-inventory" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="./read.php" class="option_container nav-link active py-3 border-bottom rounded-0 bg-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Proveedores">
+                        <iconify-icon class="iconify" icon="fa-solid:users" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../empleados/read.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Empleados">
+                        <iconify-icon class="iconify" icon="clarity:employee-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+                <li class="option">
+                    <a href="../movimientos/readProductos.php" class="option_container nav-link py-3 border-bottom rounded-0 link-dark link-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="Movimientos">
+                        <iconify-icon class="iconify" icon="bi:arrow-left-right" width="30" height="30"></iconify-icon>
+                    </a>
+                </li>
+            </ul>
+            <div class="border-top dropup">
+                <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown"  data-bs-offset="10,0">
+                    <iconify-icon class="iconify" icon="mingcute:user-4-fill" width="30" height="30"></iconify-icon>
                 </a>
-                <div class="option">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="ic:baseline-inventory" width="20" height="20"></iconify-icon>
-                            <h3>Inventario</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../inventario/add.php"><li>Agregar Inventario</li></a>
-                        <a href="../inventario/read.php"><li>Ver Inventario</li></a>
-                        <a href="../inventario/search.php"><li>Buscar en Inventario</li></a>
-                    </ul>
-                </div>
-                <div class="option target">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="fa-solid:users" width="20" height="20"></iconify-icon>
-                            <h3>Proveedores</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul">
-                        <a href="./add.php"><li>Agregar Proveedor</li></a>
-                        <a href="./read.php"><li class="target">Ver Proveedores</li></a>
-                        <a href="./search.php"><li>Buscar en Proveedores</li></a>
-                    </ul>
-                </div>
-                <div class="option">
-                    <div class="option_container">
-                        <div>
-                            <iconify-icon class="iconify" icon="clarity:employee-solid" width="20" height="20"></iconify-icon>
-                            <h3>Empleados</h3>
-                        </div>
-                        <span class="arrow"></span>
-                    </div>
-                    <ul class="navHome_ul hidden">
-                        <a href="../empleados/add.php"><li>Agregar Empleado</li></a>
-                        <a href="../empleados/read.php"><li>Ver Empleados</li></a>
-                        <a href="../empleados/search.php"><li>Buscar en Empleados</li></a>
-                    </ul>
-                </div>
+                <ul class="dropdown-menu" style="z-index: 9999;">
+                    <li><a href="#" class="dropdown-item">Usuario #<?= $user['id_usr'] ?></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['nombre_usr']. ' ' .$user['apellido_usr']?></a></li>
+                    <li><a href="#" class="dropdown-item disabled" tabindex="-1"><?= $user['email_usr']?></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="../logout.php" class="dropdown-item text-danger">Cerrar Sesion</a></li>
+                </ul>
             </div>
         </nav>
 
-        <section class="main_container">
-            <header class="main_header">
-                <span id="NavArrow"></span>
-                <div class="header_login" data-messages="Iniciar Sesión">
-                    <a href="../auth/login.php">
-                        <iconify-icon class="iconify" icon="clarity:sign-in-solid" width="30" height="30"></iconify-icon>
-                    </a>
+        <section class="main_container col-lg-11 ms-3">
+            <!-- PRODUCTS NAV -->
+            <ul class="nav nav-tabs my-4">
+                <li class="nav-item">
+                    <a href="./read.php" class="nav-link active" aria-current="page">Ver Proveedores</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./add.php" class="nav-link">Agregar Proveedor</a>
+                </li>
+            </ul>
+            <!-- SEARCH BAR AND FILTER BUTTON -->
+            <div class="read_header row my-4 align-items-center">
+                <!-- SEARCH BAR -->
+                <div class="col-lg-12">
+                    <div class="search_bar input-group">
+                        <button type="button" name="submit" id="search-button" class="btn border border-end-0 search" style="background-color: #FFF">
+                            <iconify-icon icon="circum:search" width="30" height="30"></iconify-icon>
+                        </button>
+                        <div class="form-floating flex-grow-1">
+                            <input type="text" name="search" id="search" placeholder="Buscar" class="form-control border-start-0 search">
+                            <label for="search" id="keyword">Buscar</label>
+                        </div>
+                    </div>
                 </div>
-            </header>
-            <main class="read_container">
-                <div class="read_header">
-                    <form action="../controladores/gets/ReadProveedores.php" method="POST">
-                        <button type="submit" name="submit" class="btn_read">Ver Proveedores</button>
-                    </form>
+            </div>
+            <section class="dashboard_container container" id="mainContainer">
+                <!-- COLLAPSE BUTTON -->
+                <div class="row mx-1 my-3">
+                    <div class="d-flex">
+                        <button type="button" id="Alternar" class="btn btn-outline-secondary btn-sm ms-auto">Expandir</button>
+                        <button type="button" id="flex" class="btn btn-outline-secondary btn-sm ms-2" onclick="checkFlex(event)">Todo</button>
+                    </div>
                 </div>
-                <div class="read_main">
-                    <?php if(!empty($results)): ?>
-                        <?php foreach ($results as $result) { ?>
-                            <div class="readObject_Container target">
-                                <div class="readObject_header">
-                                        <form action="../controladores/edits/UpdateProveedores.php" method="post" class="form_edit">
-                                            <input type="hidden" name="id" value=<?= $result['id_proveedor']; ?>>
-                                            <button class="button"> Editar</button>
-                                        </form>
-                                    <span class="arrow"></span>
-                                </div>
-                                <div class="principal_data">
-                                    <div class="data_container">
-                                        <h2><?= $result['nombre_empresa'];?></h2>
-                                        <h4>Dirección: <?=$result['direccion'];?></h4>
-                                    </div>
-                                </div>
-                                <div class="data_container hidden">
-                                    <div class="product_info">
-                                        <h4>Telefono: <?=$result['num_telefono'];?></h4>
-                                        <h4>Contacto: <?=$result['persona_contacto'];?></h4>
-                                        <h4>Correo: <?=$result['email_proveedor'];?></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                        <form action="../controladores/gets/ReadProveedores.php" method="POST" class="form_pages">
-                            <?php for($i = 0; $i < $index; $i++): ?>
-                                <?php if($i == $page){ ?>
-                                    <button type="submit" class="btn_page target" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                <?php } else { ?>
-                                    <button type="submit" class="btn_page" name="submitPaginated" value="<?= $i ?>"><?= $i+1 ?></button>
-                                <?php } ?>
-                            <?php endfor; ?>
-                        </form>
-                    <?php endif; ?>
-                </div>
-            </main>
+
+                <main class="dashboard_container container" id="main">
+
+                </main>
+                <nav>
+                    <ul class="pagination justify-content-center" id="index">
+
+                    </ul>
+                </nav>
+            </section>
         </section>
-    </section>
-    <?php unset($_SESSION['results']);
-          unset($_SESSION['index']); ?>
 </body>
-<script src="../sources/js/nav.js"></script>
-<script src="../sources/js/read.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="../sources/js/app.js"></script>
+<script src="../sources/js/readProveedores.js"></script>
 </html>

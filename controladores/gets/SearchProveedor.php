@@ -1,46 +1,35 @@
 <?php
-    namespace controladores;
-    require_once("./../../autoload.php");
-    use modelos\proveedores; 
-    $proveedor = new proveedores();
+ namespace controladores;
+ require_once("./../../autoload.php");
+ use modelos\proveedores; 
+  $proveedor = new proveedores();
 
-    $limit = 2;
-
-    if (!isset($_POST['search']) && !isset($_POST['submit'])) {
-        header("location:./../../proveedores/search.php");
+ if (!isset($_POST['search']) && !isset($_POST['submit'])) {
+  header("location:./../../proveedores/search.php");
+ } else {
+   $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
+   if (isset($_POST['limit'])){
+     $limit = filter_var($_POST['limit'], FILTER_SANITIZE_NUMBER_INT);
     } else {
-        $keyword = filter_var($_POST['search'], FILTER_SANITIZE_STRING);
-
-        if (!$_POST['search'] || $_POST['search'] == " ") {
-            header("location:./../../proveedores/search.php");
-            die();
-        }
-
-        $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
-        $index = ceil($index / $limit);
-        $results = $proveedor->GetProveedorByKeywordLimited($keyword, 0, $limit); 
-
-        $_SESSION['results'] = $results;
-        $_SESSION['keyword'] = $keyword;
-        $_SESSION['index'] = $index;
-        $_SESSION['pageClicked'] = 0;
-        header("location:./../../proveedores/search.php");
-    }
-
-    if (!isset($_POST['submitPaginated'])) {
-        header("location:./../../proveedores/search.php");
+     $limit = 7;
+   }
+   
+  if (isset($_POST['submitPaginated'])){
+     $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
     } else {
-        $keyword = filter_var($_POST['searchPaginated'], FILTER_SANITIZE_STRING);
-        $page = filter_var($_POST['submitPaginated'], FILTER_SANITIZE_NUMBER_INT);
+     $page = 0;
+  }
 
-        $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
-        $index = ceil($index / $limit);
-        $results = $proveedor->GetProveedorByKeywordLimited($keyword, $page * $limit, $limit);
+  $index = $proveedor->GetProveedorByKeywordIndex($keyword); 
+  $index = ceil($index / $limit);
+  $results = $proveedor->GetProveedorByKeywordLimited($keyword, $page*$limit, $limit);
 
-        $_SESSION['results'] = $results;
-        $_SESSION['keyword'] = $keyword;
-        $_SESSION['index'] = $index;
-        $_SESSION['pageClicked'] = $page;
-        header("location:./../../proveedores/search.php");
-    }
+  $array = array(
+        "results" => $results,
+        "index" => $index,
+        "pageClicked" => $page
+    );
+
+  echo json_encode($array);
+ }
 ?>
